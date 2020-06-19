@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" />
+  <link rel="stylesheet" type="text/css" href="./authorization.scss">
+  <title>RSLang</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <div class="start_bg"></div>
+    <div class="login_from__container"></div>
+    <div class="start_page__container"></div>     
+    <section class="login_from__container">
+        <div class="wrapper">
+           <div class="login_form__header">
+                Please register or log in first
+           </div>
+           <div class="login_form__form_container">
+               <nav class="tab_navigation__container">
+                   <ul class="tab_navigation">
+                       <li class="nav_item login active" data-type='login'>LogIn</li>
+                       <li class="nav_item register" data-type='register'>Register</li>
+                   </ul>
+                </nav>
+                <form class="login_form from_login" onsubmit="submit"></form>
+           </div>
+        </div>
+    </section>      
+</body>
+<script src="./js/authorization.js"></script>
+</html>
