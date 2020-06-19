@@ -1,0 +1,41 @@
+body {
+    background-color:#f7f1ec;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.logo, a {
+    color: #1c3d70;
+}
+
+
+#sidebar {
+    width: 150px;
+    min-height: 100vh;
+    background-color: #fffcf9;
+}
+
+#sidebar.active {
+    margin-left: -150px;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -150px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+.navbar {
+    background-color: #f8f2ee;
+}
