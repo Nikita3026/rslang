@@ -1,0 +1,86 @@
+.savannah {
+    height: 100vh;
+    box-sizing: border-box;
+    background: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(17, 17, 46, 0.46) 100%) center center / cover fixed, url('../../assets/images/savannah-back.jpg') center center no-repeat fixed;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .modal-dialog {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, 50%) !important;
+        .warning-header {
+            color: black;
+            font-weight: bold;
+            margin-top: 1rem !important;
+            font-size: 22px;
+        }
+        .modal-info {
+            margin-top: 1.2rem !important;
+            font-size: 18px;
+            max-width: 20rem;
+        }
+        .text-center {
+            margin-bottom: 2rem;
+            .modal-btn {
+                color: white;
+                padding: 0.6rem 2.2rem;
+                background-color: #A0C96F !important;
+                &:first-child {
+                    margin-right: 1rem;
+                }
+                &:hover {
+                    color: #9B7C87 !important;
+                }
+            }
+        }
+    }
+    .close {
+        position: fixed;
+        right: 30px;
+        font-size: 50px;
+        top: 10px;
+        color: white;
+        &:focus {
+            border: none !important;
+            outline: none !important;
+        }
+    }
+    .savannah-start-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: 300;
+        transform: translateY(-20%);
+        .name-of-the-game {
+            font-size: 50px;
+            letter-spacing: 0.8rem;
+            text-transform: uppercase;
+            color: #A0C96F;
+        }
+        .info-about-game {
+            font-size: 20px;
+            max-width: 40rem;
+            text-align: center;
+            margin-top: 3.2rem;
+        }
+        .btn-start {
+            padding: 0.9rem 3.8rem;
+            margin-top: 3.2rem;
+            font-size: 20px;
+            background-color: #A0C96F !important;
+            &:hover {
+                color: #9B7C87 !important;
+            }
+        }
+    }
+}
