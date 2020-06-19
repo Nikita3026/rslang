@@ -1,6 +1,5 @@
 @import './values.scss';
 @import './iconLoading.scss';
-
 main {
     &.main__container {
         grid-area: main;
@@ -21,10 +20,8 @@ body {
     grid-template-columns: 65px 1fr;
     grid-template-rows: 60px 1fr;
     min-height: 100vh;
-    grid-template-areas:
-        'header header'
-        'sidebar main';
-        @media screen and (max-width: 600px) {
-            grid-template-columns: 50px 1fr;
-        }
+    grid-template-areas: 'header header' 'sidebar main';
+    @media screen and (max-width: 600px) {
+        grid-template-columns: 50px 1fr;
+    }
 }

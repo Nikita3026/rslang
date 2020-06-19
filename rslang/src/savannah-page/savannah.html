@@ -6,10 +6,56 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>RSLang</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="savannah">
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true" data-toggle="modal" data-target="#modalLoginAvatar">×</span>
+    </button>
 
+    <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal modal-avatar " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="../assets/images/sad_face.png" alt="avatar" class="rounded-circle img-responsive">
+                </div>
+                <div class="modal-body text-center mb-1">
+                    <h5 class="mt-1 mb-2 warning-header">Тренировка не закончена!</h5>
+                    <div class="md-form ml-0 mr-0 modal-info">
+                        <p>Если вы вернетесь к списку, ваши результаты не будут сохранены</p>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button class="btn modal-btn">Закрыть</button>
+                        <button class="btn modal-btn">Отмена</button>
+                        <!--  <button class="btn btn-cyan mt-1">Login <i class="fas fa-sign-in ml-1"></i></button> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="savannah-start-page">
+        <p class="name-of-the-game">Саванна</p>
+        <p class="info-about-game">Тренировка Саванна развивает словарный запас. Чем больше слов ты узнаешь, тем больше очков опыта получишь.
+        </p>
+        <button class="btn btn-start ">Начать</button>
+    </div>
+    <div class="savannah-game-page" hidden>
+
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"></script>
 </body>
 
 </html>
