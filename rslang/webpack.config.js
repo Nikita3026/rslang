@@ -10,6 +10,7 @@ module.exports = {
     watch: true,
     entry: {
         index: './src/js/index.js',
+        speakit: './src/speakit/js/speakit.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -67,7 +68,12 @@ module.exports = {
         new HtmlWebPackPlugin({
             filename: 'index.html',
             template: './src/index.html',
-            chunks: ['index']
+            chunks: ['index'],
+        }),
+        new HtmlWebPackPlugin({
+            filename: 'speakit.html',
+            template: './src/speakit/speakit.html',
+            chunks: ['speakit'],
         }),
         new CleanWebpackPlugin(),
     ],
