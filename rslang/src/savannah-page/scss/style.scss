@@ -379,15 +379,65 @@
             user-select: none;
             position: absolute;
             left: 50%;
+            top: -50px;
             text-transform: lowercase;
             transform: translateX(-50%);
-            animation: word-movement 5s linear infinite;
+        }
+        .steam-animation {
+            max-width: 11vh;
+            position: absolute;
+            left: 50%;
+            top: 325px;
+            transform: translateX(-50%);
+        }
+        .steam-up-animation {
+            animation: steam-up 2.3s linear;
+        }
+        .hide-steam {
+            display: none;
+        }
+        @keyframes steam-up {
+            from {
+                top: 370px;
+            }
+            to {
+                top: -50px;
+            }
+        }
+        .steam {
+            stroke-width: 15px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+        }
+        .steam-rise-animation {
+            animation: rise 2.3s linear;
+        }
+        @keyframes rise {
+            to {
+                transform: translateY(-375px);
+            }
+        }
+        .main-word-animation {
+            animation: word-movement 5s linear;
+        }
+        .stop-animation {
+            animation-play-state: paused;
         }
         @keyframes word-movement {
             from {
                 top: -50px;
             }
+            25% {
+                color: #ffcdd2;
+            }
+            50% {
+                color: #f44336;
+            }
+            75% {
+                color: #d32f2f;
+            }
             to {
+                color: #d32f2f;
                 top: 425px;
             }
         }
