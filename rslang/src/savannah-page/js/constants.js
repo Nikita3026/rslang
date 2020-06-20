@@ -5,6 +5,7 @@ const constants = {
     LOADING_PAGE: document.querySelector('.page-loading'),
     COUNTDOWN: document.querySelector('.countdown'),
     MUTE_BTN: document.querySelector('.mute-sounds'),
+    CROSS_OUT: document.querySelector('.cross-out'),
 }
 
 export default constants;

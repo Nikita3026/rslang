@@ -313,10 +313,83 @@
                 cursor: pointer;
             }
         }
-        .muted {
-            opacity: 1 !important;
-            text-decoration-line: underline;
-            text-decoration-line: line-through;
+        .cross-out {
+            position: fixed;
+            top: 10px;
+            left: 30px;
+            width: 45px;
+            height: 6px;
+            border-bottom: 3px solid white;
+            transform: translate(-5px, 20px);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .life-counter {
+            position: fixed;
+            right: 70px;
+            font-size: 26px;
+            top: 16px;
+            color: #ef5350;
+        }
+        .broken {
+            color: black;
+            opacity: 0.75;
+        }
+        .fire-image {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 64px;
+            animation: fire-animation .9s linear infinite alternate;
+        }
+        @keyframes fire-animation {
+            from {
+                bottom: 30px;
+            }
+            to {
+                bottom: 55px;
+            }
+        }
+        .answer-options {
+            transform: translateY(-7.5rem);
+            display: flex;
+            justify-content: space-between;
+            .possible-answer {
+                font-size: 26px;
+                margin-right: 40px;
+                padding: 0.8rem 1.3rem;
+                user-select: none;
+                text-transform: lowercase;
+                &:last-child {
+                    margin-right: 0;
+                }
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.2);
+                    cursor: pointer;
+                }
+                .number-of-answer {
+                    margin-right: 15px;
+                }
+            }
+        }
+        .main-word {
+            font-size: 46px;
+            user-select: none;
+            position: absolute;
+            left: 50%;
+            text-transform: lowercase;
+            transform: translateX(-50%);
+            animation: word-movement 5s linear infinite;
+        }
+        @keyframes word-movement {
+            from {
+                top: -50px;
+            }
+            to {
+                top: 425px;
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import constants from './constants';
-
 import '../../assets/scss/style.scss';
+
+
+import constants from './constants';
+import './gameplay';
+
 
 constants.BTN_START.addEventListener('click', () => {
     constants.START_PAGE.hidden = true;
@@ -19,6 +22,13 @@ constants.BTN_START.addEventListener('click', () => {
     }, 1000)
 })
 
-constants.MUTE_BTN.addEventListener('click', () => {
-    constants.MUTE_BTN.classList.toggle('muted');
-})
+const changeSoundMode = () => {
+    if (constants.CROSS_OUT.hidden) {
+        constants.CROSS_OUT.hidden = false;
+    } else {
+        constants.CROSS_OUT.hidden = true;
+    }
+}
+
+constants.MUTE_BTN.addEventListener('click', changeSoundMode);
+constants.CROSS_OUT.addEventListener('click', changeSoundMode);
