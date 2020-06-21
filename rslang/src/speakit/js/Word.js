@@ -1,3 +1,4 @@
+
 import { getWordTranslate } from './getData';
 import { getTranslationElement } from './utils';
 

@@ -1,21 +1,17 @@
 import {
   getDataArrActive,
-} from '../index';
-import { getWords } from './getData';
-// import { toggleBtnSpeachClass } from './buttons';
+  renderWords,
+  setLevel,
+} from './speakit';
 
 const DATAPATH = 'https://raw.githubusercontent.com/okrypets/rslang-data/master/data/';
 let isPlay = false;
 
 export const setIsPlay = (bool) => {
   isPlay = bool;
-  console.log(isPlay);
 };
 
-export const getIsPlay = () => {
-  console.log(isPlay);
-  return isPlay;
-};
+export const getIsPlay = () => isPlay;
 
 const getWordId = (item) => {
   const { image } = item;
@@ -35,7 +31,6 @@ export const getImageById = (id) => {
   });
   const imageName = url.image.replace(/[files/]/g, '');
   const src = DATAPATH + imageName;
-  console.log(src);
   return src;
 };
 
@@ -51,7 +46,7 @@ export const showTranslateById = (id) => {
   translationElement.innerText = wordElement.innerText;
   const imageContainerElement = document.querySelector('section.image__container > .wrapper');
   const translationContainer = document.querySelector('.translation__container') || document.createElement('div');
-  if (translationContainer.classList.contains('translation__container')) {
+  if (!translationContainer.classList.contains('translation__container')) {
     translationContainer.classList.add('translation__container');
   }
   translationContainer.style.display = 'block';
@@ -65,25 +60,18 @@ export const toggleMenu = () => {
 };
 
 export const getActiveLevel = () => {
-  // if (!document.querySelector('nav.header_navigation > ul')) return;
-  // let activeLevel = 1;
+  let activeLevel = 0;
   const menuList = document.querySelector('nav.header_navigation > ul').children;
   const activeMenuElement = Array.from(menuList)
-    .find((it) => it.classList.contains('active')); // .dataset;
+    .find((it) => it.classList.contains('active'));
   const { dataset: { level } } = activeMenuElement;
-  return Number(level);
-  // return activeLevel;
+  activeLevel = Number(level);
+  return activeLevel;
 };
 
 export const getActiveLevelPage = () => {
   const rand = Math.random() * 30;
   return Math.floor(rand);
-};
-
-export const resetLevel = () => {
-  const level = getActiveLevel();
-  const page = getActiveLevelPage();
-  getWords(page, level);
 };
 
 export const setMenuActive = (level) => {
@@ -98,12 +86,12 @@ export const setMenuActive = (level) => {
         classList.add('active');
       }
     });
-  resetLevel();
+  setLevel(level);
+  renderWords();
 };
 
 export const handleMenuClick = (event) => {
-  console.log(event);
-  const { dataset: { level = 1 } } = event.target.parentNode;
+  const { dataset: { level = 0 } } = event.target.parentNode;
   setMenuActive(level);
 };
 
@@ -142,7 +130,6 @@ const setWordChecked = (id) => {
 };
 
 export const checkResult = (value) => {
-  console.log(value);
   const microphoneLineContainer = document.querySelector('.image__container > .wrapper > .microphone_line');
   microphoneLineContainer.innerText = '';
   const microphoneLineValue = document.createElement('span');
@@ -168,21 +155,18 @@ export const restart = () => {
   setIsPlay(false);
   hideTranslation();
   hideMicropgoneLine();
+  renderWords();
 };
 
 export const handleClickByWord = (event) => {
   event.preventDefault();
   if (isPlay) return;
-  const { target } = event;
-  const { parentNode, dataset: targetDataSet } = target;
+  const { parentNode, dataset: targetDataSet } = event.target;
   const { dataset: { id: parentId = '' } } = parentNode;
   const { id = '' } = targetDataSet;
-  console.log(id, parentId);
-
   const currentId = id || parentId;
   if (currentId) {
     reRenderImage(currentId);
-    console.log(event);
     showTranslateById(currentId);
     wordAudioPlay(currentId);
   }

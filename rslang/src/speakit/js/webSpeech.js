@@ -1,4 +1,4 @@
-import { getDataArrActive } from '../index';
+import { getDataArrActive } from './speakit';
 import { checkResult, getIsPlay } from './utils';
 
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -8,9 +8,7 @@ const words = () => {
   const dataArrActive = getDataArrActive();
   dataArrActive.reduce((worsObj, it) => {
     const { word: itWord } = it;
-    // worsObj[word] = itWord;
     worsObj.push(itWord);
-    console.log(worsObj);
     return worsObj;
   }, {});
 };
@@ -30,19 +28,15 @@ recognition.lang = 'en-EN';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
-recognition.addEventListener('start', () => {
-  console.log('start');
-});
+recognition.addEventListener('start', () => {});
 
 recognition.addEventListener('result', (event) => {
-  console.log(event.results);
   const last = event.results.length - 1;
   checkResult(event.results[last][0].transcript);
   recognition.stop();
 });
 
 recognition.addEventListener('end', () => {
-  console.log('end');
   const isPlay = getIsPlay();
   if (isPlay) {
     recognition.start();

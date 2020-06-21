@@ -87,7 +87,6 @@ const createButton = (text, classList) => {
 
 const handleClickStatButtons = (event) => {
   if (!event.target.classList.contains('btn')) return;
-  console.log(event);
   const { target } = event;
 
   if (target.classList.contains('btn_return')) {

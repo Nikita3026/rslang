@@ -20,7 +20,6 @@ export const handleButtonClick = (event) => {
   event.preventDefault();
   if (!event.target.classList.contains('btn')) return;
   const { target } = event;
-  console.log(target);
 
   if (target.classList.contains('btn_speach')) {
     setIsPlay(true);
