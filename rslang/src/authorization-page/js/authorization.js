@@ -1,5 +1,5 @@
 import { cleareContainer } from './helpers';
-import { getAuthorizationData } from '../../js/getData';
+import { getAuthorizationData } from './getData';
 
 let isValidPassword = false;
 let isEqualPass = false;
