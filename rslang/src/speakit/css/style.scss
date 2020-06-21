@@ -1,0 +1,245 @@
+$Green_main: #00c49d;
+$White_Light: #f3f3f3;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #27292f;
+}
+
+header {
+    nav.header_navigation {
+        ul {
+            display: flex;
+            margin: 2em 0;
+            padding: 0;
+            li {
+                display: flex;
+                margin: 5px;
+                position: relative;
+                a {    
+                    border-radius: 50%;
+                    border: 1px solid transparent;                
+                    &:before {
+                        content : '';
+                        width: 15px;
+                        height: 15px;
+                        background: $Green_main;
+                        display: block;
+                        border-radius: 50%;
+                        margin: 2px;
+                    }
+                    
+                }
+                &.active {
+                    a {
+                        border: 1px solid darken($Green_main, 5%);
+                    }
+                    
+                }
+                &:after {
+                    content: '';
+                    width: 20px;
+                    height: 1px;
+                    display: block;
+                    background: #00c49d;
+                    transform: translate(95%, -50%);
+                    position: absolute;
+                    top: 50%;
+                }
+                &:last-child {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wrapper {
+    display: flex;
+    justify-content: left;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+
+main {
+    section {
+        .wrapper {
+            justify-content: center; 
+        }
+    }
+    
+}
+
+.image__container {
+    margin: 2em;
+    .wrapper {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 325px;
+        img {
+            width: auto;
+            max-width: 100%;
+        }
+        .translation__container {
+            color: $White_Light;
+            width: 390px;
+            max-width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            border: 2px solid $White_Light;
+            border-radius: 10px;            
+            p {
+                margin: 0;
+                font-size: 24px;
+                line-height: 50px;
+            }
+        }
+        .microphone_line {
+            max-width: 100%;
+            height: 50px;
+            width: 390px;
+            margin-top: 10px;
+            background: #fff url(https://speakit.netlify.app/img/microphone.svg) 1% 50% no-repeat;
+            background-size: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            span {
+                padding: 0 0 0 2em;
+            }
+        }
+    }
+}
+
+.words__container {
+    .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .word_item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: $White_Light;
+            width: calc(20% - 2em);
+            margin: 0.5em;
+            padding: 0.5em;
+            border-radius: 5px;
+            align-items: center;
+            min-width: 150px;
+            p {
+                margin: 0;
+                padding-left: 2.5em;
+                line-height: 1.5em;
+                font-size: 18px;
+                &.translation {
+                    display: none;
+                }
+            }
+            svg {
+                position: absolute;
+                width: 50px;
+                left: 0;
+                top: 50%;
+                transform: translate(0px, -50%);
+                fill: #3a4a47;
+            }
+            &.checked {
+                background: lighten($Green_main, 10%);
+                box-shadow: inset 0px 0px 0px 1px $Green_main;
+            }
+            audio {
+                display: none;
+            }
+        }
+    }    
+}
+
+.buttons__container {
+    .wrapper {
+        flex-wrap: wrap;
+        .btn {
+            background: $Green_main;
+            display: flex;
+            padding: 0.5em 1em;
+            flex: 1 0 auto;
+            margin: 10px;
+            justify-content: center;
+            font-size: 1.5em;
+            line-height: 1;
+            cursor: pointer;
+            border-radius: 5px;
+            &:hover {
+                background: darken($Green_main, 10%);
+            }
+            &.btn_speach {
+                flex-grow: 2;
+                &.active {
+                    background: darken($Green_main, 10%);
+                }
+            }
+        }
+    }
+    
+}
+
+.stat__container {
+    display: none;
+    position: fixed;
+    top: 0;
+    background: #333;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    .wrapper {
+        width: 80%;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 2em;
+        .word_item {
+            display: flex;
+            audio {
+                display: none;
+            }
+            svg {
+                width: 40px;
+            }
+        }
+        .result_count_header {
+            font-weight: bold;
+            span {
+                display: inline-block;
+                background: red;
+                padding: 0.5em;
+                width: 1em;
+                height: 1em;
+                text-align: center;
+                border-radius: 50%;
+                color: #fff;
+                margin: 0 0 0 0.5em;
+                &.success {
+                    background: $Green_main;
+                }
+            }
+        }
+        .btn {
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 0.5em 1em;
+            display: inline-block;
+            margin-right: 0.5em;
+            &:hover {
+                background: $Green_main; 
+            }            
+        }
+    }
+}
