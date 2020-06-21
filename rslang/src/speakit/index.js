@@ -62,7 +62,8 @@ export const setActiveLevelPage = () => {
 window.onload = () => {
   setActiveLevelPage();
   setActiveLevel();
-  getWords(page, level);
+  const wordsData = getWords(page, level);
+  setDataFromReq(wordsData);
   renderButtonsToDom();
   document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick);
 };

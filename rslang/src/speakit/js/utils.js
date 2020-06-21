@@ -187,3 +187,18 @@ export const handleClickByWord = (event) => {
     wordAudioPlay(currentId);
   }
 };
+
+export const getTranslationElement = (text) => {
+  const translationTextElement = document.createElement('p');
+  translationTextElement.classList.add('translation');
+  translationTextElement.innerText = text;
+  return translationTextElement;
+};
+
+export const getImageFromData = () => {
+  const imageElement = document.createElement('img');
+  const firstId = Number(document.querySelectorAll('.word_item')[0].dataset.id);
+  const imageUrl = getImageById(firstId);
+  imageElement.src = imageUrl;
+  return imageElement;
+};

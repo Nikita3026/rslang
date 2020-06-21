@@ -1,68 +1,61 @@
 import Word from './Word';
-import { handleClickByWord, getImageById } from './utils'
+import { handleClickByWord, getImageFromData } from './utils';
 
 class WordsList {
-    constructor(data) {
-        this.data = data;
-        //this.getActiveDataList = this.getActiveDataList.bind(this);
-    }
+  constructor(data) {
+    this.data = data;
+    this.wordsContainer = document.querySelector('.words__container > .wrapper');
+    this.imageContainer = document.querySelector('.image__container > .wrapper');
+    this.word = null;
+    // this.getActiveDataList = this.getActiveDataList.bind(this);
+  }
 
-    init() {        
-        //this.renderTranslateToDom();
-        //this.renderSpeakListenToDom();
-        this.renderWordsListToDom();
-        this.renderImageToDom();
-        this.eventListner();
-    }
-    
-    eventListner() {
-        document.querySelector('.words__container > .wrapper').addEventListener('click', handleClickByWord);
-    }    
+  init() {
+    // this.renderTranslateToDom();
+    // this.renderSpeakListenToDom();
+    this.renderWordsListToDom();
+    this.renderImageToDom();
+    this.eventListner();
+  }
 
-    renderImageToDom() {
-        let image = this.getImageFromData();
-        let imageContainer = document.querySelector('.image__container > .wrapper');
-        imageContainer.innerHTML = '';
-        imageContainer.insertAdjacentElement('afterbegin', image);       
-    }
+  eventListner() {
+    this.wordsContainer.addEventListener('click', handleClickByWord);
+  }
 
-    getImageFromData() {
-        let imageElement = document.createElement('img');
-        let firstId = Number(document.querySelectorAll('.word_item')[0].dataset.id);
-        let imageUrl = getImageById(firstId);
-        imageElement.src = imageUrl;
-        return imageElement;
-    }
+  renderImageToDom() {
+    const image = getImageFromData();
+    this.imageContainer.innerHTML = '';
+    this.imageContainer.insertAdjacentElement('afterbegin', image);
+  }
 
-    renderWordsListToDom() {
-        let wordsListContainer = document.querySelector('section.words__container > .wrapper');
-        wordsListContainer.innerHTML = '';
-        let wordsFromDataList = this.getWordsFromData();
-        if (wordsListContainer) {
-            wordsFromDataList.map(element => {
-                let wordEl = element.getWordTemplate();
-                wordsListContainer.insertAdjacentElement('beforeend', wordEl);
-            })
-        }
-        
+  renderWordsListToDom() {
+    const wordsListContainer = document.querySelector('section.words__container > .wrapper');
+    wordsListContainer.innerHTML = '';
+    const wordsFromDataList = this.getWordsFromData();
+    if (wordsListContainer) {
+      wordsFromDataList.map((element) => {
+        const wordEl = element.getWordTemplate();
+        wordsListContainer.insertAdjacentElement('beforeend', wordEl);
+        return wordsListContainer;
+      });
     }
+  }
 
-    getWordsFromData() {
-        let wordsArr = [];
-        //let dataList = this.getActiveDataList();
-        this.data.forEach(item => {
-            let wordItem = this.renderWord(item)
-            wordsArr.push(wordItem);
-        })
+  getWordsFromData() {
+    const wordsArr = [];
+    // let dataList = this.getActiveDataList();
+    this.data.forEach((item) => {
+      const wordItem = this.renderWord(item);
+      wordsArr.push(wordItem);
+    });
 
-        return wordsArr;
-    }
+    return wordsArr;
+  }
 
-    renderWord(item) {
-        let word = null;
-        word = new Word(item);        
-        return word;
-    }
+  renderWord(item) {
+    this.word = new Word(item);
+    return this.word;
+  }
 }
 
 export default WordsList;
