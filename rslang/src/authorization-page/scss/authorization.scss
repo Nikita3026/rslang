@@ -12,7 +12,7 @@ body {
 }
 
 section {
-    .login_from__container {
+    &.login_from__container {
         display: grid;
         align-items: center;
         justify-content: center;
@@ -26,18 +26,43 @@ section {
         }
         .login_form__form_container {
             display: grid;
-            grid-template-rows: 50px 1fr;
+            grid-template-rows: 40px 1fr;
         }
     }
 }
 
 form {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: 1fr;
+    grid-gap: 0.5em;
     &.login_form {
         .inValid {
             @include inValid
         }
         .valid {
             @include valid
+        }
+    }
+}
+
+nav {
+    &.tab_navigation__container {
+        display: grid;
+        .tab_navigation {
+            display: grid;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+            align-items: center;
+            li {
+                a {
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

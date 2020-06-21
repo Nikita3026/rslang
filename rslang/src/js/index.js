@@ -1,5 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import '../assets/scss/style.scss';
 // eslint-disable-next-line import/named
 import { authorization, logIn } from '../authorization-page/js/authorization';
 

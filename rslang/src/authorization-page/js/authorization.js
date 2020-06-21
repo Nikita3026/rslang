@@ -246,6 +246,7 @@ const getNavigateTabs = () => {
     liElement.classList.add('nav_item', it);
     liElement.setAttribute('data-type', it);
     const link = document.createElement('a');
+    link.setAttribute('href', '#');
     link.innerText = it;
     liElement.insertAdjacentElement('beforeend', link);
     return ulTabNavigation.insertAdjacentElement('beforeend', liElement);

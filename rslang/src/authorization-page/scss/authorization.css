@@ -3,7 +3,7 @@ body {
   padding: 0;
 }
 
-section .login_from__container {
+section.login_from__container {
   display: grid;
   align-items: center;
   justify-content: center;
@@ -14,13 +14,21 @@ section .login_from__container {
   bottom: 0;
 }
 
-section .login_from__container .login_form__header {
+section.login_from__container .login_form__header {
   text-align: center;
 }
 
-section .login_from__container .login_form__form_container {
+section.login_from__container .login_form__form_container {
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 40px 1fr;
+}
+
+form {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5em;
 }
 
 form.login_form .inValid {
@@ -29,4 +37,22 @@ form.login_form .inValid {
 
 form.login_form .valid {
   box-shadow: 0px 0px 4px green;
+}
+
+nav.tab_navigation__container {
+  display: grid;
+}
+
+nav.tab_navigation__container .tab_navigation {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+nav.tab_navigation__container .tab_navigation li a {
+  cursor: pointer;
 }
