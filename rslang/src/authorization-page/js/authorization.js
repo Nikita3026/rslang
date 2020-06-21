@@ -135,7 +135,7 @@ const getInputPasswordElement = (type) => {
   passwordInputElement.classList.add('login_from_item', 'password', type);
   passwordInputElement.type = 'password';
   passwordInputElement.required = true;
-  passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'RSWeat your password*';
+  passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'Repeat your password*';
   passwordInputElement.addEventListener('change', (event) => {
     if (!event.target.value) return;
     passwordInputElement.classList.remove('valid');

@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
+    publicPath: '/',
   },
   module: {
     rules: [{
@@ -24,16 +25,15 @@ module.exports = {
         },
       },
     },
-    {
-      test: /\.html$/,
-      use: [{
-        loader: 'html-loader',
-        options: { minimize: true },
-      }],
-    },
+    // {
+    //   test: /\.html$/,
+    //   use: [{
+    //     loader: 'html-loader',
+    //     options: { minimize: true },
+    //   }],
+    // },
     {
       test: /\.(png|svg|jpe?g|gif)$/,
-
       use: [{
         loader: 'file-loader',
         options: {
@@ -43,11 +43,16 @@ module.exports = {
       }],
     },
     {
-      test: /\.scss$/,
+      test: /\.s[ac]ss$/i,
       use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader',
+        { loader: 'style-loader' },
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+          },
+        },
+        { loader: 'sass-loader' },
       ],
     },
     ],
