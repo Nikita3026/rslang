@@ -352,6 +352,23 @@
                 bottom: 55px;
             }
         }
+        .water-image {
+            position: fixed;
+            left: 50%;
+            top: 450px;
+            transform: translateX(-50%);
+        }
+        .water-animation {
+            animation: water-animation .7s linear;
+        }
+        @keyframes water-animation {
+            from {
+                top: 450px;
+            }
+            to {
+                top: 88%;
+            }
+        }
         .answer-options {
             transform: translateY(-7.5rem);
             display: flex;
@@ -418,7 +435,7 @@
             }
         }
         .main-word-animation {
-            animation: word-movement 5s linear;
+            animation: word-movement 4.5s linear;
         }
         .stop-animation {
             animation-play-state: paused;

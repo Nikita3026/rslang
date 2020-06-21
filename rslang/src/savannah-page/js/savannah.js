@@ -32,3 +32,15 @@ const changeSoundMode = () => {
 
 constants.MUTE_BTN.addEventListener('click', changeSoundMode);
 constants.CROSS_OUT.addEventListener('click', changeSoundMode);
+
+constants.CLOSE_BTN.addEventListener('click', () => {
+    constants.MAIN_WORD.classList.remove('main-word-animation');
+})
+
+constants.CANCEL_BTN.addEventListener('click', () => {
+    constants.MAIN_WORD.classList.add('main-word-animation');
+})
+
+constants.QUIT_BTN.addEventListener('click', () => {
+    document.location.href = './index.html';
+})
