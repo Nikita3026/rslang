@@ -64,7 +64,7 @@ module.exports = {
     }),
     new HtmlWebPackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: './src/card-page/index.html',
       chunks: ['index'],
     }),
     new CleanWebpackPlugin(),

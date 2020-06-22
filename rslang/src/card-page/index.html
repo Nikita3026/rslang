@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Main</title>
+</head>
+<body>
+    <button type="button" class="btn btn-primary open-modal hide" data-toggle="modal" data-target="#exampleModal"></button>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">RS Lang</h4>
+              <h6 class="modal-title" id="exampleModalLabel">Ура! На сегодня все.</h6>
+            </div>
+            <div class="modal-body">
+              <p>Есть еще новые карточки, но дневной лимит исчерпан. Вы можете увеличить лимит в настройках, но пожалуйста, имейте в виду, что чем больше новых карточек вы просмотрите, тем больше вам надо будет повторять в ближайшее время.</p>
+            <p>Для обучения сверх обычного расписания, нажмите кнопку 'Дополнительное обучение' ниже.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Настройки</button>
+              <button type="button" class="btn btn-secondary continue-card" data-dismiss="modal">Учить еще</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="app-wrapper"> 
+        <div class="card">
+            <img class="img-card">
+            <div class="context">
+                <span class="english-sentence"></span>
+                <span class="translate"></span>
+                <span class="english-sentence"></span>
+                <span class="translate"></span>
+            </div>
+            <div class="answer-background">
+                <div class="input-background">
+                    <span class="answer-text"></span>
+                    <input autofocus="true" type="text" class="answer-input">
+                </div>  
+                <p class="additional-content"></p>
+                <p class="translate additional-content"></p>
+            </div>  
+        <div class="buttons">
+          <button type="button" class="btn btn-primary next round">Далее</button>   
+          <button class="btn btn-primary show-answer-btn card-button hide">Показать ответ</button>
+          <button class="btn btn-primary delete-btn card-button hide">Удалить</button>
+          <button class="btn btn-primary difficult-words card-button hide">Сложные</button>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div class="change-btn">
+        <button class="btn btn-primary change-translate">Показать перевод</button>
+        <button class="btn btn-primary change-sound">Включить звук</button>
+      </div>
+    </div>
+    
+    </body>
+</html>
