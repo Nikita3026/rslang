@@ -31,10 +31,11 @@
 .answer-input {
     position: absolute;
     width: 100%;
-    left: 0;
+    left: -1px;
     border: none;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 18px;
+    outline: none;
 }
 
 .change-btn{
@@ -53,7 +54,13 @@
     position: relative;
 }
 
+.input-background {
+    position: relative;
+    width: fit-content; 
+}
+
 .answer-text {
+    font-size: 20px;
     background-color: #cfdcee
 }
 

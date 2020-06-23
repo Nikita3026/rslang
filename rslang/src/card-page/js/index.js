@@ -63,7 +63,9 @@ async function initApp() {
 
 function nextCard() {
   app.style.pointerEvents = 'none';
-  allWords.splice(NUMBER_SENTENCE, NEXT_NUMBER);
+  if (cards) {
+    allWords.splice(NUMBER_SENTENCE, NEXT_NUMBER);
+  }
   removeWord(newWords, 'words', unknownWord);
   localStorage.setItem('words', JSON.stringify(newWords));
   if (cards < settings.maxCards && allWords.length) {
@@ -108,7 +110,10 @@ continueButton.addEventListener('click', async () => {
 function eventForButton(button, words, key) {
   button.addEventListener('click', async () => {
     changeDataWords(words, key, allWords, repeatWords, unknownWord);
-    cards += NEXT_NUMBER;
+    cards -= NEXT_NUMBER;
+    if (!cards) {
+      allWords.splice(NUMBER_SENTENCE, NEXT_NUMBER);
+    }
     if (allWords.length === NEXT_NUMBER) {
       await createCollectionWords();
     }

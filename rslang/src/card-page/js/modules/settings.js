@@ -11,6 +11,6 @@ export const settings = {
   delete: true,
   difficultWords: true,
   maxCards: 20,
-  maxNewWords: 10,
+  maxNewWords: 20,
   repeatWords: true,
 };
