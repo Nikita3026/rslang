@@ -13,7 +13,7 @@ export function shuffleArray(currentArray) {
   let first = MIN_NUMBER;
   let second = MIN_NUMBER;
   let temp;
-  for (let i = MIN_NUMBER; i < maxNumber; i++) {
+  for (let i = MIN_NUMBER; i < maxNumber; i += NEXT_NUMBER) {
     do {
       first = Math.floor(Math.random() * maxNumber);
       second = Math.floor(Math.random() * maxNumber);

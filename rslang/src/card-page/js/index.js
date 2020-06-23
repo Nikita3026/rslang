@@ -6,7 +6,7 @@ import 'bootstrap';
 
 import { checkAnswer } from './modules/checkAnswer';
 import {
-  MIN_NUMBER, textElementAnswer, context, input, app, NEXT_NUMBER,
+  MIN_NUMBER, textElementAnswer, context, input, app, NEXT_NUMBER, NUMBER_MILLISECONDS,
 } from './modules/constants';
 import { createCard } from './modules/createCard';
 import { settings } from './modules/settings';
@@ -25,7 +25,6 @@ const continueButton = document.querySelector('.continue-card');
 const difficultWordsButton = document.querySelector('.difficult-words');
 const showAnswerButton = document.querySelector('.show-answer-btn');
 
-const NUMBER_MILLISECONDS = 1000;
 const NUMBER_SENTENCE = 0;
 
 let dictionary = [];
@@ -77,7 +76,7 @@ function nextCard() {
   } else {
     openModalButton.click();
   }
-  cards++;
+  cards += NEXT_NUMBER;
   changeProgressBar(cards);
 }
 
@@ -90,7 +89,7 @@ document.addEventListener('keydown', (event) => {
 nextBtn.addEventListener('click', () => {
   const isRightWord = checkAnswer(unknownWord);
   if (isRightWord) {
-    changeCardForAnswer(wordsForSentences, repeat, repeatWords, unknownWord, allWords[NUMBER_SENTENCE]);
+    changeCardForAnswer(wordsForSentences, repeat, repeatWords, unknownWord, allWords[MIN_NUMBER]);
     playAudio(allWords, nextCard);
     repeat = false;
   } else {
@@ -109,7 +108,7 @@ continueButton.addEventListener('click', async () => {
 function eventForButton(button, words, key) {
   button.addEventListener('click', async () => {
     changeDataWords(words, key, allWords, repeatWords, unknownWord);
-    cards--;
+    cards += NEXT_NUMBER;
     if (allWords.length === NEXT_NUMBER) {
       await createCollectionWords();
     }
@@ -128,5 +127,3 @@ showAnswerButton.addEventListener('click', () => {
 
 buttonChangeSound();
 initApp();
-
-

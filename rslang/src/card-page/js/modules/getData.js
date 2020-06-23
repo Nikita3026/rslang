@@ -1,4 +1,5 @@
 import { settings } from './settings';
+import { NEXT_NUMBER } from './constants';
 
 const MAX_NUMBER_PAGES = 19;
 const MIN_NUMBER = 0;
@@ -22,10 +23,10 @@ function getData(url) {
 
 function createUrl() {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
-  page++;
+  page += NEXT_NUMBER;
   if (page > MAX_NUMBER_PAGES) {
     page = MIN_NUMBER;
-    group++;
+    group += NEXT_NUMBER;
   }
   localStorage.setItem('page', JSON.stringify(page));
   localStorage.setItem('group', JSON.stringify(group));

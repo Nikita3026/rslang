@@ -1,5 +1,5 @@
 import {
-  MIN_NUMBER, textElementAnswer, context, translatedWords, URL_MATERIALS,
+  MIN_NUMBER, textElementAnswer, context, translatedWords, URL_MATERIALS, NEXT_NUMBER,
 } from './constants';
 import { settings } from './settings';
 import { addClassOfElements } from './checkAnswer';
@@ -38,7 +38,7 @@ changeTranslate.addEventListener('click', () => {
 });
 
 function createTextElementForAnswer(dataCard, numberSentence, unknownWord) {
-  for (let i = MIN_NUMBER; i < unknownWord.length; i++) {
+  for (let i = MIN_NUMBER; i < unknownWord.length; i += NEXT_NUMBER) {
     const letter = document.createElement('span');
     letter.innerText = unknownWord[i].toLowerCase();
     letter.classList.add('letter');

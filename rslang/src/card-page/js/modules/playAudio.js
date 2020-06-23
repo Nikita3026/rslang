@@ -1,5 +1,7 @@
 import { settings } from './settings';
-import { MIN_NUMBER, URL_MATERIALS, app } from './constants';
+import {
+  MIN_NUMBER, URL_MATERIALS, app, NEXT_NUMBER,
+} from './constants';
 import { changeTextButton } from './createCard';
 
 const audios = ['audio', 'audioMeaning', 'audioExample'];
@@ -11,7 +13,7 @@ let numberAudio = 0;
 
 function searchAudio() {
   if (settings[audios[numberAudio]] === false && numberAudio < audios.length) {
-    numberAudio++;
+    numberAudio += NEXT_NUMBER;
     searchAudio();
   }
 }
@@ -23,7 +25,7 @@ export function playAudio(allWords, nextCard) {
     audio.src = `${URL_MATERIALS}${allWords[MIN_NUMBER][audios[numberAudio]]}`;
     audio.autoplay = true;
     audio.onended = () => playAudio(allWords, nextCard);
-    numberAudio++;
+    numberAudio += NEXT_NUMBER;
     searchAudio();
   } else {
     numberAudio = MIN_NUMBER;

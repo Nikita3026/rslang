@@ -6,3 +6,4 @@ export const translatedWords = document.querySelectorAll('.translate');
 export const input = document.querySelector('.answer-input');
 export const URL_MATERIALS = 'https://raw.githubusercontent.com/Nikita3026/rslang-data/master/';
 export const app = document.querySelector('.app-wrapper');
+export const NUMBER_MILLISECONDS = 1000;

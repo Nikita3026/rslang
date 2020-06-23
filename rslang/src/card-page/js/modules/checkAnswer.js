@@ -1,4 +1,4 @@
-import { input } from './constants';
+import { input, NUMBER_MILLISECONDS } from './constants';
 
 export function addClassOfElements(array, className) {
   array.forEach((elem) => {
@@ -29,7 +29,7 @@ function changeOpacityLetters(arrayElementsText) {
     removeClassOfElements(arrayElementsText, 'red');
     removeClassOfElements(arrayElementsText, 'orange');
     removeClassOfElements(arrayElementsText, 'right-answer');
-  }, 1000);
+  }, NUMBER_MILLISECONDS);
 }
 
 function showWrongLetters() {

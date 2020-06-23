@@ -5,12 +5,12 @@ import { removeWord } from './changeDataWords';
 
 const englishSentences = document.querySelectorAll('.english-sentence');
 const progressBar = document.querySelector('.progress-bar');
+const MAX_PERCENTS = 100;
 
 let saveLearningWords = JSON.parse(localStorage.getItem('learningWords'));
 if (!saveLearningWords) {
   saveLearningWords = [];
 }
-console.log(saveLearningWords);
 
 function showMissingWords(wordsForSentences) {
   wordsForSentences.forEach((word, index) => {
@@ -34,6 +34,6 @@ export function changeCardForAnswer(wordsForSentences, repeat, repeatWords, unkn
 
 export function changeProgressBar(cards) {
   const progress = (cards - NEXT_NUMBER) / settings.maxCards;
-  progressBar.style.width = `${progress * 100}%`;
+  progressBar.style.width = `${progress * MAX_PERCENTS}%`;
   progressBar.innerText = `${cards - NEXT_NUMBER}/${settings.maxCards}`;
 }
