@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   getDataArrActive,
   renderWords,
@@ -172,12 +173,12 @@ export const handleClickByWord = (event) => {
   }
 };
 
-export const getTranslationElement = (text) => {
-  const translationTextElement = document.createElement('p');
-  translationTextElement.classList.add('translation');
-  translationTextElement.innerText = text;
-  return translationTextElement;
-};
+// export const getTranslationElement = (text) => {
+//   const translationTextElement = document.createElement('p');
+//   translationTextElement.classList.add('translation');
+//   translationTextElement.innerText = text;
+//   return translationTextElement;
+// };
 
 export const getImageFromData = () => {
   const imageElement = document.createElement('img');

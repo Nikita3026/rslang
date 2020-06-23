@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '../css/style.scss';
@@ -50,7 +51,6 @@ export const renderWordsList = () => {
 };
 
 export const setDataFromReq = (data) => {
-  // dataArr = [...dataArr, ...data];
   dataArr = [];
   setDataArr(data);
   renderWordsList();
@@ -67,7 +67,10 @@ export const setActiveLevelPage = () => {
 export const renderWords = () => {
   setActiveLevelPage();
   return getWords(page, level)
-    .then((wordsData) => setDataFromReq(wordsData))
+    .then((response) => setDataFromReq(response.data))
+    .catch((error) => {
+      console.log(error);
+    })
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
 

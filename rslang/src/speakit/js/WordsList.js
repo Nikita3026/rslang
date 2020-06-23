@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import Word from './Word';
 import { handleClickByWord, getImageFromData } from './utils';
 
