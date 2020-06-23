@@ -27,21 +27,19 @@ export const logIn = () => {
   const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
   const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
   return getAuthorizationData({ email: `${userEmail}`, password: `${userPassword}` }, 'login')
-    .then((res, rej) => {
-      if (res) {
-        const loginAuthData = {
-          email: userEmail,
-          password: userPassword,
-          userId: res.userId,
-          message: res.message,
-          token: res.token,
-        };
-        localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-        cleareContainer(AUTHCONTANER);
-      }
-      if (rej) {
-        throw new Error();
-      }
+    .then((response) => {
+      const loginAuthData = {
+        email: userEmail,
+        password: userPassword,
+        userId: response.data.userId,
+        message: response.data.message,
+        token: response.data.token,
+      };
+      localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
+      cleareContainer(AUTHCONTANER);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 
@@ -56,19 +54,17 @@ export const handleAuthorize = (event) => {
   if (isRegistration && !isFormValid) return;
   if (isRegistration) {
     getAuthorizationData({ email: `${userEmail}`, password: `${userPassword}` }, actionType)
-      .then((res, rej) => {
-        if (res) {
-          const regAuthData = {
-            email: userEmail,
-            password: userPassword,
-            id: res.id,
-          };
-          localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
-          toogleTabActive();
-        }
-        if (rej) {
-          throw new Error();
-        }
+      .then((response) => {
+        const regAuthData = {
+          email: userEmail,
+          password: userPassword,
+          id: response.data.id,
+        };
+        localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
+        toogleTabActive();
+      })
+      .catch((error) => {
+        console.log(error);
       })
       .then(() => logIn());
   } else {
