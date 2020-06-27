@@ -16,6 +16,7 @@ const constants = {
     STEAM_INNER: document.querySelector('.steam-animation'),
     STEAM: document.querySelector('.steam'),
     POSSIBLE_ANSWERS: document.querySelectorAll('.answer-text'),
+    POSSIBLE_ANSWERS_CONTAINER: document.querySelectorAll('.possible-answer'),
     ANSWER_OPTIONS: document.querySelector('.answer-options'),
     WATER_IMAGE: document.querySelector('.water-image')
 }
