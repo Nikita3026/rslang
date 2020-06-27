@@ -130,8 +130,8 @@ cursor: pointer;
 .btn_false:hover {
     cursor: pointer;
     }
-
-.key_false {
+.keys {
+  .key_false {
     background-color: #fff;
     border: 0;
     outline: 0;
@@ -139,21 +139,20 @@ cursor: pointer;
     box-shadow: 0px 5px 10px #131518;
     transition: all 0.3s;
     transition: all 0.3s;
-    cursor: pointer;
+    cursor: default;
     border-radius: 5px;
     border-bottom: 4px solid #d9d9d9;
     margin: 30px;
     padding: 0 40px;
     width: 105px;
-}
-
-.key_false:hover {
-    box-shadow: 0px 15px 25px -5px #32a16e;
-    transform: scale(1.03);
-    transform: scale(1.03);
+    // &:hover,
+    &.active {
+      box-shadow: 0px 15px 25px -5px #32a16e;
+      transform: scale(1.03);
+      transform: scale(1.03);
+    }
   }
-
-.key_true {
+  .key_true {
     background-color: #fff;
     border: 0;
     outline: 0;
@@ -161,19 +160,20 @@ cursor: pointer;
     box-shadow: 0px 5px 10px #131518;
     transition: all 0.3s;
     transition: all 0.3s;
-    cursor: pointer;
+    cursor: default;
     border-radius: 5px;
     border-bottom: 4px solid #d9d9d9;
     margin: 30px;
     padding: 0 40px;
     width: 105px;
-}
-
-.key_true:hover {
-    box-shadow: 0px 15px 25px -5px #32a16e;
-    -webkit-transform: scale(1.03);
-    transform: scale(1.03);
+    // &:hover,
+    &.active {
+      box-shadow: 0px 15px 25px -5px #32a16e;
+      -webkit-transform: scale(1.03);
+      transform: scale(1.03);
+    }
   }
+}
 
 .timer {
     text-align: center;

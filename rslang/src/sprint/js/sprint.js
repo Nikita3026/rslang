@@ -18,10 +18,10 @@ const btnTrue = document.querySelector('.btn_true');
 const btnFalse = document.querySelector('.btn_false');
 const points = document.querySelector('.points');
 const totalPoints = document.querySelector('.total-points');
+const keysButton = document.querySelector('.keys');
 let pointsPerAnswer = 10;
 let rigthInRow = 0;
 let timeinterval;
-// let word = null;
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -61,6 +61,7 @@ function clearRight() {
 }
 
 async function generateWords() {
+  clearRight();
   const activeLevel = document.querySelector('.level__active');
   const group = Number(activeLevel.innerHTML) - 1;
   console.log(group);
@@ -72,23 +73,21 @@ async function generateWords() {
     wordRu.innerHTML = words[0].wordTranslate;
     wordEn.innerHTML = words[0].word;
     btnTrue.classList.add('right');
+    btnFalse.classList.remove('right');
   } else {
     wordRu.innerHTML = words[0].wordTranslate;
     wordEn.innerHTML = words[randomFalseWord].word;
     btnFalse.classList.add('right');
+    btnTrue.classList.remove('right');
   }
 }
 
 function changeLevel(event) {
   if (event.target.closest('.level')) {
-    // for (let i = 0; i <= levels.length; i += 1) {
-    //   levels[i].classList.remove('level__active');
-    //   event.target.closest('.level').classList.add('level__active');
-    // }
-    for (const level of levels) {
+    levels.forEach((level) => {
       level.classList.remove('level__active');
       event.target.closest('.level').classList.add('level__active');
-    }
+    });
   }
   generateWords();
 }
@@ -103,25 +102,31 @@ function updateTotalPoints(pt) {
   totalPoints.innerHTML = counter;
 }
 
-async function answerHanlers(event) {
-  if (event.target.classList.contains('right')) {
-    console.log('right');
-    rigthInRow += 1;
-    if (rigthInRow === 4) {
-      rigthInRow = 0;
-      pointsPerAnswer *= 2;
-      updatePoints(pointsPerAnswer);
-    }
-    updateTotalPoints(pointsPerAnswer);
-    clearRight();
-    generateWords();
-  } else {
-    console.log('no');
+function setRightAnswer() {
+  console.log('right');
+  rigthInRow += 1;
+  if (rigthInRow === 4) {
     rigthInRow = 0;
-    pointsPerAnswer = 10;
+    pointsPerAnswer *= 2;
     updatePoints(pointsPerAnswer);
-    clearRight();
-    generateWords();
+  }
+  updateTotalPoints(pointsPerAnswer);
+  generateWords();
+}
+
+function setWrongAnswer() {
+  console.log('no');
+  rigthInRow = 0;
+  pointsPerAnswer = 10;
+  updatePoints(pointsPerAnswer);
+  generateWords();
+}
+
+function answerHanlers(event) {
+  if (event.target.classList.contains('right')) {
+    setRightAnswer();
+  } else {
+    setWrongAnswer();
   }
 }
 
@@ -152,16 +157,40 @@ async function startGame() {
   updatePoints(pointsPerAnswer);
   generateWords();
   updateTimer();
-  timeinterval = setInterval(updateTimer, 1000);
+  // timeinterval = setInterval(updateTimer, 1000);
+}
+
+function lightKeyPressButton(code) {
+  switch (code) {
+    case 'ArrowRight':
+      keysButton.children[1].classList.add('active');
+      keysButton.children[0].classList.remove('active');
+      break;
+    case 'ArrowLeft':
+      keysButton.children[0].classList.add('active');
+      keysButton.children[1].classList.remove('active');
+      break;
+
+    default:
+      break;
+  }
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
-    answerHanlers(event);
-    console.log('жмяк');
+    lightKeyPressButton(event.code);
+    if ((event.code === 'ArrowRight' && btnTrue.classList.contains('right'))
+  || (event.code === 'ArrowLeft' && btnFalse.classList.contains('right'))) {
+      setRightAnswer();
+    } else {
+      setWrongAnswer();
+    }
   }
+  console.log('жмяк');
 });
-
+document.addEventListener('keyup', () => {
+  keysButton.children.forEach((it) => it.classList.remove('active'));
+});
 buttons.addEventListener('click', answerHanlers);
 startGameButton.addEventListener('click', startGame);
 pagination.addEventListener('click', changeLevel);
