@@ -1,5 +1,9 @@
 import { cleareContainer } from './helpers';
-import { getAuthorizationData } from './getData';
+import GetData from '../../js/GetData';
+import 'bootstrap';
+
+const CREATE_USER_LINK = 'https://afternoon-falls-25894.herokuapp.com/users';
+const LOGIN_LINK = 'https://afternoon-falls-25894.herokuapp.com/signin';
 
 let isValidPassword = false;
 let isEqualPass = false;
@@ -18,15 +22,17 @@ const toogleTabActive = () => {
   const tabNavItems = document.querySelectorAll('.tab_navigation > .nav_item');
   tabNavItems.forEach((it) => {
     it.classList.toggle('active');
+    it.classList.toggle('border-bottom-0');
   });
   return false;
 };
 
 export const logIn = () => {
-  const AUTHCONTANER = document.querySelector('section.login_from__container');
+  const AUTHCONTANER = document.querySelector('section.Login_from__container');
   const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
   const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
-  return getAuthorizationData({ email: `${userEmail}`, password: `${userPassword}` }, 'login')
+  const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${userEmail}`, password: `${userPassword}` })
+    .sendRequest()
     .then((response) => {
       const loginAuthData = {
         email: userEmail,
@@ -39,8 +45,9 @@ export const logIn = () => {
       cleareContainer(AUTHCONTANER);
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
+  return authLogin;
 };
 
 export const handleAuthorize = (event) => {
@@ -53,7 +60,8 @@ export const handleAuthorize = (event) => {
   const isRegistration = actionType === 'register';
   if (isRegistration && !isFormValid) return;
   if (isRegistration) {
-    getAuthorizationData({ email: `${userEmail}`, password: `${userPassword}` }, actionType)
+    new GetData(CREATE_USER_LINK, 'post', { email: `${userEmail}`, password: `${userPassword}` })
+      .sendRequest()
       .then((response) => {
         const regAuthData = {
           email: userEmail,
@@ -67,9 +75,7 @@ export const handleAuthorize = (event) => {
         console.log(error);
       })
       .then(() => logIn());
-  } else {
-    logIn();
-  }
+  } else logIn();
 };
 
 const checkIsPasswordValid = (value) => {
@@ -108,7 +114,7 @@ const checkIsButtonActive = () => {
 
 const getInputEmailElement = () => {
   const emailInputElement = document.createElement('input');
-  emailInputElement.classList.add('login_from_item', 'email');
+  emailInputElement.classList.add('form-control', 'login_from_item', 'email');
   emailInputElement.type = 'email';
   emailInputElement.required = true;
   emailInputElement.placeholder = 'Enter your e-mail*';
@@ -128,7 +134,7 @@ const getInputEmailElement = () => {
 
 const getInputPasswordElement = (type) => {
   const passwordInputElement = document.createElement('input');
-  passwordInputElement.classList.add('login_from_item', 'password', type);
+  passwordInputElement.classList.add('form-control', 'login_from_item', 'password', type);
   passwordInputElement.type = 'password';
   passwordInputElement.required = true;
   passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'Repeat your password*';
@@ -157,11 +163,11 @@ const getInputPasswordElement = (type) => {
 };
 
 const getSubmitBtnElement = (text) => {
-  const submitBtnElement = document.createElement('input');
-  submitBtnElement.classList.add('login_from_item', 'submit');
-  submitBtnElement.type = 'submit';
+  const submitBtnElement = document.createElement('button');
+  submitBtnElement.classList.add('btn', 'btn-success', 'login_from_item', 'submit');
+  submitBtnElement.type = 'button';
   submitBtnElement.disabled = !isFormValid;
-  submitBtnElement.value = text;
+  submitBtnElement.innerText = text;
   submitBtnElement.addEventListener('click', (event) => handleAuthorize(event));
   return submitBtnElement;
 };
@@ -204,8 +210,10 @@ const runListener = () => {
     }
     return TABNAVIGATION.children.forEach((ch) => {
       ch.classList.remove('active');
+      ch.classList.remove('border-bottom-0');
       if (ch.dataset.type === type) {
         ch.classList.add('active');
+        ch.classList.add('border-bottom-0');
         renderAuthForm(type);
       }
     });
@@ -225,7 +233,7 @@ const getHelloText = () => {
   h1Element.innerText = 'RSLang';
 
   const h3Element = document.createElement('h3');
-  h3Element.innerText = 'Please LogIn or Register to start playing.';
+  h3Element.innerText = 'Please Log in or Register to start playing.';
 
   helloWordContainer.insertAdjacentElement('beforeend', h1Element);
   helloWordContainer.insertAdjacentElement('beforeend', h3Element);
@@ -236,12 +244,15 @@ const getNavigateTabs = () => {
   const tabNavigationContainer = document.createElement('nav');
   tabNavigationContainer.classList.add('tab_navigation__container');
   const ulTabNavigation = document.createElement('ul');
-  ulTabNavigation.classList.add('tab_navigation');
-  ['login', 'register'].map((it) => {
+  ulTabNavigation.classList.add('nav', 'tab_navigation');
+  ['Login', 'Register'].map((it) => {
+    const lowerIt = it.toLowerCase();
     const liElement = document.createElement('li');
-    liElement.classList.add('nav_item', it);
-    liElement.setAttribute('data-type', it);
+    liElement.classList.add('nav_item', lowerIt, 'rounded-top', 'border');
+    if (it === 'Login') liElement.classList.add('active', 'border-bottom-0');
+    liElement.setAttribute('data-type', lowerIt);
     const link = document.createElement('a');
+    link.classList.add('nav-link');
     link.setAttribute('href', '#');
     link.innerText = it;
     liElement.insertAdjacentElement('beforeend', link);
@@ -259,7 +270,7 @@ const getFromContainer = () => {
 
 const getFormElementContainer = () => {
   const fromElement = document.createElement('form');
-  fromElement.classList.add('login_form', 'from_login');
+  fromElement.classList.add('form-group', 'login_form', 'from_login', 'border', 'border-top-0');
   return fromElement;
 };
 
