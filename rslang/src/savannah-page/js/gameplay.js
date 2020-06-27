@@ -33,6 +33,7 @@ const increaseLevel = () => {
 
 const startLoweringNewWord = async() => {
     await setNewWords();
+    constants.ANSWER_OPTIONS.hidden = false;
     increaseLevel();
     constants.MAIN_WORD.classList.remove('not-guessed');
     constants.STEAM_INNER.classList.add('hide-steam');
@@ -125,4 +126,15 @@ constants.WATER_IMAGE.addEventListener('animationend', () => {
     setTimeout(() => {
         startLoweringNewWord();
     }, 250);
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key == '1' ||
+        event.key == '2' ||
+        event.key == '3' ||
+        event.key == '4') {
+        constants.POSSIBLE_ANSWERS_CONTAINER[event.key - 1].dispatchEvent(new Event('click', {
+            bubbles: true
+        }));
+    }
 })
