@@ -157,7 +157,7 @@ async function startGame() {
   updatePoints(pointsPerAnswer);
   generateWords();
   updateTimer();
-  // timeinterval = setInterval(updateTimer, 1000);
+  timeinterval = setInterval(updateTimer, 1000);
 }
 
 function lightKeyPressButton(code) {
