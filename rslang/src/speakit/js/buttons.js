@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { recognition } from './webSpeech';
 import { renderStatToDom } from './stat';
 import {

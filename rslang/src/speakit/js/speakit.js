@@ -2,7 +2,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '../css/style.scss';
-import { getWords } from './getData';
+import GetData from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
@@ -66,10 +66,12 @@ export const setActiveLevelPage = () => {
 
 export const renderWords = () => {
   setActiveLevelPage();
-  return getWords(page, level)
+  const linkRequest = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`;
+  return new GetData(linkRequest, 'get')
+    .sendRequest()
     .then((response) => setDataFromReq(response.data))
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     })
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
