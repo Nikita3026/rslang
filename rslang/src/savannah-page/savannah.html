@@ -14,6 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 </head>
 
 <body class="savannah">
@@ -37,7 +39,6 @@
                         <button class="btn modal-btn btn-cancellation" data-toggle="modal" data-target="#modalLoginAvatar">Отмена</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -47,7 +48,6 @@
         </p>
         <button class="btn btn-start">Начать</button>
     </div>
-
     <div class="page-loading" hidden>
         <div class="cssload-loader">
             <div class="cssload-inner cssload-one"></div>
@@ -109,10 +109,41 @@
         </div>
     </div>
 
+    <div class="statistic-modal-inner result-page" hidden>
+        <div class="result-info">В этот раз не получилось, но продолжай тренироваться!</div>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">
+                    <div class="overflow-auto result-info-text">
+                        <label for='give-up-result' class="give-up-result-label">ОШИБОК: </label>
+                        <div class="give-up-number">5</div>
+                        <ul id='give-up-result'>
+                        </ul>
+                        <label for='know-result' class="know-result-label">ЗНАЮ:</label>
+                        <div class="know-number">5</div>
+                        <ul id='know-result'>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="result-control-buttons">
+            <button class="btn modal-btn btn-cancellation" data-toggle="modal" data-target="#modalLoginAvatar"><a class = "result-link">Продолжить тренировку</a></button>
+            <button class="btn modal-btn btn-game-quit"><a class = "result-link">К списку тренировок</a></button>
+        </div>
+    </div>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 </body>
 
 </html>

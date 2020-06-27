@@ -396,7 +396,7 @@
             user-select: none;
             position: absolute;
             left: 50%;
-            top: -50px;
+            top: -100px;
             text-transform: lowercase;
             transform: translateX(-50%);
         }
@@ -457,6 +457,97 @@
                 color: #d32f2f;
                 top: 425px;
             }
+        }
+    }
+    .statistic-modal-inner {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 85%;
+        transform: translateY(-5%);
+    }
+    .statistic-modal-inner.result-page {
+        color: black;
+    }
+    .result-page {
+        width: 40rem;
+        height: 45rem;
+        background-color: white;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 2em 0.5em;
+        .result-info {
+            margin-top: 0.5em;
+            font-size: 27px;
+            line-height: 1.8rem;
+            font-weight: 400;
+            text-align: center;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 70%;
+            .swiper-slide {
+                font-size: 18px;
+                background: #fff;
+                &:first-child {
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+        .result-info-text {
+            margin-top: 1.5em;
+            font-size: 19px;
+            font-weight: 600;
+            width: 82%;
+            max-height: 22em;
+            transform: translateX(2%);
+        }
+        .result-control-buttons {
+            position: absolute;
+            bottom: 2.5rem;
+        }
+        .modal-btn {
+            margin-top: 0.6rem;
+            color: white;
+            padding: 0.7rem 2.2rem;
+            background-color: #A0C96F !important;
+            font-weight: 600;
+            width: 100%;
+            &:hover {
+                color: #9B7C87 !important;
+            }
+        }
+        .give-up-result-label,
+        .know-result-label {
+            color: #f44336;
+            font-size: 15px;
+        }
+        .know-result-label {
+            margin-top: 1rem;
+            color: #A0C96F;
+        }
+        .give-up-number,
+        .know-number {
+            padding: 0.05rem 0.7rem;
+            border-radius: 0.7rem;
+            font-size: 13px;
+            color: white;
+            display: inline-block;
+        }
+        .give-up-number {
+            background-color: #f44336;
+        }
+        .know-number {
+            background-color: #A0C96F;
         }
     }
 }

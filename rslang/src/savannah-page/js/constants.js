@@ -1,4 +1,7 @@
 const constants = {
+    MAX_LEVEL: '29',
+    MAX_PAGE: '5',
+    MAX_WORD_NUMBER: '19',
     BTN_START: document.querySelector('.btn-start'),
     START_PAGE: document.querySelector('.savannah-start-page'),
     MAIN_PAGE: document.querySelector('.savannah-game-page'),
@@ -14,7 +17,7 @@ const constants = {
     STEAM: document.querySelector('.steam'),
     POSSIBLE_ANSWERS: document.querySelectorAll('.answer-text'),
     ANSWER_OPTIONS: document.querySelector('.answer-options'),
-    WATER_IMAGE: document.querySelector('.water-image'),
+    WATER_IMAGE: document.querySelector('.water-image')
 }
 
 export default constants;
