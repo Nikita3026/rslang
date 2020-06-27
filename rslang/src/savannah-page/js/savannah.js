@@ -2,9 +2,9 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '../../assets/scss/style.scss';
 
-
 import constants from './constants';
 import './gameplay';
+import './swiper';
 
 
 constants.BTN_START.addEventListener('click', () => {
