@@ -400,6 +400,15 @@
             text-transform: lowercase;
             transform: translateX(-50%);
         }
+        .highlight-wrong-word {
+            background-color: rgba(211, 47, 47, 0.6);
+        }
+        .highlight-right-word {
+            background-color: rgba(150, 161, 136, 0.7);
+        }
+        .highlight-right-choosen-word {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
         .steam-animation {
             max-width: 11vh;
             position: absolute;

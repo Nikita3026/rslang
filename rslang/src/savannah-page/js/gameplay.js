@@ -79,6 +79,7 @@ const correctAnswer = () => {
     constants.MAIN_WORD.classList.remove('main-word-animation');
     constants.WATER_IMAGE.classList.add('water-animation');
     constants.WATER_IMAGE.hidden = false;
+
 }
 
 constants.ANSWER_OPTIONS.addEventListener('click', ({ target }) => {
@@ -92,11 +93,30 @@ constants.ANSWER_OPTIONS.addEventListener('click', ({ target }) => {
     }
 
     let mainWord = JSON.parse(localStorage.currentMainWordOfSavannahGame);
-    if (realTarget.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
-        if (!constants.MAIN_WORD.classList.contains('not-guessed')) correctAnswer();
-    } else {
-        wrongAnswer();
+    if (constants.MAIN_WORD.classList.contains('main-word-animation')) {
+        if (realTarget.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
+            if (!constants.MAIN_WORD.classList.contains('not-guessed')) {
+                target.closest('.possible-answer').classList.add('highlight-right-choosen-word');
+                setTimeout(() => {
+                    target.closest('.possible-answer').classList.remove('highlight-right-choosen-word');
+                }, 1500);
+                correctAnswer();
+            }
+        } else {
+            target.closest('.possible-answer').classList.add('highlight-wrong-word');
+            constants.POSSIBLE_ANSWERS.forEach((item) => {
+                if (item.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
+                    item.closest('.possible-answer').classList.add('highlight-right-word');
+                    setTimeout(() => {
+                        target.closest('.possible-answer').classList.remove('highlight-wrong-word');
+                        item.closest('.possible-answer').classList.remove('highlight-right-word');
+                    }, 1500);
+                }
+            });
+            wrongAnswer();
+        }
     }
+
 })
 
 constants.WATER_IMAGE.addEventListener('animationend', () => {
