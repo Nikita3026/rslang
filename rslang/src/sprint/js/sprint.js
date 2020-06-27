@@ -1,3 +1,10 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import '../css/sprint.scss';
+import 'bootstrap';
+
+import GetData from '../../js/GetData';
+
 const startGameButton = document.querySelector('.start-game_button');
 const startingWindow = document.querySelector('.starting-window');
 const gameWindow = document.querySelector('.game-window');
@@ -14,16 +21,7 @@ const totalPoints = document.querySelector('.total-points');
 let pointsPerAnswer = 10;
 let rigthInRow = 0;
 let timeinterval;
-
-function updateTimer() {
-  const timerCurrent = timer.innerHTML;
-  if (timer.innerHTML > 0) {
-    timer.innerHTML = timerCurrent - 1;
-  }
-  if (timer.innerHTML === '0') {
-    stopTimer();
-  }
-}
+// let word = null;
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -31,25 +29,15 @@ function getRandomInt(max) {
 
 const getWords = async (group, page) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
-  const res = await fetch(url);
-  const json = await res.json();
-  (JSON.stringify(json, null, 1));
-  return json;
+  const request = new GetData(url, 'get');
+  let wordsArr = null;
+  await request.sendRequest()
+    .then((response) => {
+      wordsArr = response.data;
+    })
+    .catch((error) => console.error(error));
+  return wordsArr;
 };
-
-function changeLevel(event) {
-  if (event.target.closest('.level')) {
-    // for (let i = 0; i <= levels.length; i += 1) {
-    //   levels[i].classList.remove('level__active');
-    //   event.target.closest('.level').classList.add('level__active');
-    // }
-    for (const level of levels) {
-      level.classList.remove('level__active');
-      event.target.closest('.level').classList.add('level__active');
-    }
-  }
-  generateWords();
-}
 
 function hideStartingWindow() {
   startingWindow.classList.add('hidden');
@@ -91,6 +79,20 @@ async function generateWords() {
   }
 }
 
+function changeLevel(event) {
+  if (event.target.closest('.level')) {
+    // for (let i = 0; i <= levels.length; i += 1) {
+    //   levels[i].classList.remove('level__active');
+    //   event.target.closest('.level').classList.add('level__active');
+    // }
+    for (const level of levels) {
+      level.classList.remove('level__active');
+      event.target.closest('.level').classList.add('level__active');
+    }
+  }
+  generateWords();
+}
+
 function updatePoints(pt) {
   points.innerHTML = ` ${pt} очков за правильный ответ`;
 }
@@ -99,19 +101,6 @@ function updateTotalPoints(pt) {
   let counter = Number(totalPoints.innerHTML);
   counter += pt;
   totalPoints.innerHTML = counter;
-}
-
-async function startGame() {
-  hideStartingWindow();
-  showGameWindow();
-  timer.innerHTML = 160;
-  pointsPerAnswer = 10;
-  totalPoints.innerHTML = 0;
-  rigthInRow = 0;
-  updatePoints(pointsPerAnswer);
-  generateWords();
-  updateTimer();
-  timeinterval = setInterval(updateTimer, 1000);
 }
 
 async function answerHanlers(event) {
@@ -141,6 +130,29 @@ function stopTimer() {
   console.log('stop');
   hideGameWindow();
   showStartingWindow();
+}
+
+function updateTimer() {
+  const timerCurrent = timer.innerHTML;
+  if (timer.innerHTML > 0) {
+    timer.innerHTML = timerCurrent - 1;
+  }
+  if (timer.innerHTML === '0') {
+    stopTimer();
+  }
+}
+
+async function startGame() {
+  hideStartingWindow();
+  showGameWindow();
+  timer.innerHTML = 160;
+  pointsPerAnswer = 10;
+  totalPoints.innerHTML = 0;
+  rigthInRow = 0;
+  updatePoints(pointsPerAnswer);
+  generateWords();
+  updateTimer();
+  timeinterval = setInterval(updateTimer, 1000);
 }
 
 document.addEventListener('keydown', (event) => {
