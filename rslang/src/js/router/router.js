@@ -1,5 +1,7 @@
 import GetData from '../GetData';
-import { setHeadDataToDom, setBodyDataToDom, renderLoadingIcon } from './router.utils';
+import {
+  setHeadDataToDom, setBodyDataToDom, renderLoadingIcon, setIsLoaded,
+} from './router.utils';
 import '../../assets/scss/iconLoading.scss';
 
 export default class Router {
@@ -66,6 +68,7 @@ export default class Router {
 
   loadInitialRoute() {
     renderLoadingIcon(true);
+    setIsLoaded(false);
     const pathnameSplit = window.location.pathname.split('/');
     const pathSegments = pathnameSplit.length > 1 ? pathnameSplit.slice(1) : '';
     this.loadRoute(...pathSegments);

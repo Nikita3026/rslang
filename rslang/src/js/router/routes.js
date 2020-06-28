@@ -7,6 +7,10 @@ export const routes = [
     path: '/speakit',
     template: '/speakit.html',
   },
+  {
+    path: '/basicLayout',
+    template: '/basic-layout.html',
+  },
   // {
   //   path: '/contact',
   //   getTemplate: (params) => '<h1>Contact</h1>',

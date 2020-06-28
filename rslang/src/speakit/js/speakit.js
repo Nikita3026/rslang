@@ -8,7 +8,7 @@ import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
 import Router from '../../js/router/router';
 import { routes } from '../../js/router/routes';
-import { renderLoadingIcon } from '../../js/router/router.utils';
+import SideBar from '../../js/SideBar/SideBar';
 
 let dataArr = [];
 let dataArrActive = [];
@@ -85,11 +85,18 @@ const renderApp = () => {
   renderButtonsToDom();
 };
 
+const renderSideBar = () => {
+  const sideBar = new SideBar();
+  const sideBarElement = sideBar.init();
+  document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
+};
+
 const parseHTML = async () => {
   await new Router(routes);
 };
 
 window.onload = async () => {
+  renderSideBar();
   await parseHTML();
   setTimeout(() => {
     renderApp();

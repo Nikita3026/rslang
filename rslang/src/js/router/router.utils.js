@@ -1,4 +1,4 @@
-let isLoading = false;
+let isLoaded = null;
 
 export const renderLoadingIcon = (bool) => {
   const body = document.querySelector('body');
@@ -11,26 +11,26 @@ export const renderLoadingIcon = (bool) => {
   } else document.querySelector('.loading__container').remove();
 };
 
+export const setIsLoaded = (bool) => {
+  isLoaded = bool;
+};
+export const getIsLoaded = () => isLoaded;
+
 export const setHeadDataToDom = (head) => {
   const headElement = document.querySelector('head');
   Array.from(head.children).forEach((it) => {
-    if (it.localName === 'script') return;
     headElement.insertAdjacentElement('beforeend', it);
   });
   return headElement;
 };
 export const setBodyDataToDom = (body) => {
-  const bodyElement = document.querySelector('body');
+  const bodyElement = document.querySelector('body > script');
   // bodyElement.innerHTML = '';
   Array.from(body.children).forEach((it) => {
     if (it.localName === 'script') return;
-    bodyElement.insertAdjacentElement('beforeend', it);
+    bodyElement.insertAdjacentElement('beforebegin', it);
   });
+  setIsLoaded(true);
 };
-
-export const setIsLoading = (bool) => {
-  isLoading = bool;
-};
-export const getIsLoading = () => isLoading;
 
 export default {};
