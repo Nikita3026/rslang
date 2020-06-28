@@ -2,19 +2,19 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '../css/style.scss';
-import { getWords } from './getData';
+import GetData from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
-// import { startRouting } from '../../js/helpers';
 import Router from '../../js/router/router';
 import { routes } from '../../js/router/routes';
+import { renderLoadingIcon } from '../../js/router/router.utils';
 
-const router = new Router(routes);
 let dataArr = [];
 let dataArrActive = [];
 let page = 0;
 let level = 0;
+
 export const setDataArr = (data) => {
   dataArr = data;
 };
@@ -40,7 +40,6 @@ export const setLevel = (num) => {
 export const getLevel = () => level;
 
 const getActiveDataList = () => {
-  // dataList = [];
   const suffleArr = Array.isArray(dataArr) ? dataArr.sort(() => Math.random() - 0.5) : [];
   const dataList = suffleArr.slice(0, 10);
   setDataArrActive(dataList);
@@ -69,18 +68,30 @@ export const setActiveLevelPage = () => {
 
 export const renderWords = () => {
   setActiveLevelPage();
-  return getWords(page, level)
+  const linkRequest = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`;
+  return new GetData(linkRequest, 'get')
+    .sendRequest()
     .then((response) => setDataFromReq(response.data))
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     })
-    .then(() => renderButtonsToDom())
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
 
-window.onload = () => {
+const renderApp = () => {
   setActiveLevelPage();
   setActiveLevel();
   renderWords();
-  // renderButtonsToDom();
+  renderButtonsToDom();
+};
+
+const parseHTML = async () => {
+  await new Router(routes);
+};
+
+window.onload = async () => {
+  await parseHTML();
+  setTimeout(() => {
+    renderApp();
+  }, 500);
 };

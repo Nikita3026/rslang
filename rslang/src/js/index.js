@@ -3,6 +3,4 @@ import 'regenerator-runtime/runtime';
 
 import '../assets/scss/style.scss';
 
-window.onload = () => {
-  // startRouting();
-};
+window.onload = () => {};

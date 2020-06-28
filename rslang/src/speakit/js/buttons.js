@@ -6,8 +6,6 @@ import {
   restart, setIsPlay,
 } from './utils';
 
-const buttonsContainer = document.querySelector('section.buttons__container > .wrapper');
-
 const startSpeachListen = () => {
   recognition.start();
 };
@@ -40,6 +38,7 @@ export const handleButtonClick = (event) => {
 };
 
 const createButton = (text, classList) => {
+  const buttonsContainer = document.querySelector('section.buttons__container > .wrapper');
   const buttonElement = document.createElement('a');
   buttonElement.innerText = text;
   buttonElement.classList.add('btn');
@@ -48,6 +47,7 @@ const createButton = (text, classList) => {
 };
 
 export const renderButtonsToDom = () => {
+  const buttonsContainer = document.querySelector('section.buttons__container > .wrapper');
   createButton('Restart', 'btn_restart');
   createButton('Speach', 'btn_speach');
   createButton('Result', 'btn_result');

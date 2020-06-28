@@ -16,7 +16,6 @@
     "devDependencies": {
         "@babel/core": "^7.10.2",
         "@babel/preset-env": "^7.10.2",
-        "axios": "^0.19.2",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "bootstrap-loader": "^3.0.4",
@@ -41,6 +40,7 @@
     "dependencies": {
         "@babel/polyfill": "^7.10.1",
         "core-js": "^3.6.5",
+        "axios": "^0.19.2",
         "regenerator-runtime": "^0.13.5"
     }
 }
