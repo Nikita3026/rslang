@@ -41,6 +41,13 @@ constants.CANCEL_BTN.addEventListener('click', () => {
     constants.MAIN_WORD.classList.add('main-word-animation');
 })
 
-constants.QUIT_BTN.addEventListener('click', () => {
-    document.location.href = './index.html';
+document.addEventListener('click', ({ target }) => {
+    if (target.closest('.btn-game-quit').classList.contains('btn-game-quit')) {
+        document.location.href = './index.html';
+    }
+})
+
+constants.PROCEED_BTN.addEventListener('click', ({ target }) => {
+    constants.RESULT_PAGE.hidden = true;
+    constants.START_PAGE.hidden = false;
 })
