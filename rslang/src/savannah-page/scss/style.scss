@@ -359,7 +359,7 @@
             transform: translateX(-50%);
         }
         .water-animation {
-            animation: water-animation .7s linear;
+            animation: water-animation .5s linear;
         }
         @keyframes water-animation {
             from {
@@ -417,7 +417,7 @@
             transform: translateX(-50%);
         }
         .steam-up-animation {
-            animation: steam-up 2.3s linear;
+            animation: steam-up 1s linear;
         }
         .hide-steam {
             display: none;
@@ -504,12 +504,14 @@
             .swiper-slide {
                 font-size: 18px;
                 background: #fff;
-                &:first-child {
+                display: flex;
+                justify-content: center;
+                /* &:first-child {
                     text-align: center;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                }
+                } */
             }
         }
         .result-info-text {
@@ -535,16 +537,19 @@
                 color: #9B7C87 !important;
             }
         }
-        .give-up-result-label,
+        .wrong-result-label,
         .know-result-label {
             color: #f44336;
             font-size: 15px;
+        }
+        .english-word {
+            color: #4285F4;
         }
         .know-result-label {
             margin-top: 1rem;
             color: #A0C96F;
         }
-        .give-up-number,
+        .wrong-number,
         .know-number {
             padding: 0.05rem 0.7rem;
             border-radius: 0.7rem;
@@ -552,11 +557,32 @@
             color: white;
             display: inline-block;
         }
-        .give-up-number {
+        .wrong-number {
             background-color: #f44336;
         }
         .know-number {
             background-color: #A0C96F;
+        }
+        .statistic-element {
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: 20px;
+            color: grey;
+            font-weight: 400;
+        }
+        .word-translation {
+            font-style: none;
+            margin-left: 0.3rem;
+        }
+        .fa-bullhorn {
+            margin-right: 1.5rem;
+            font-size: 20px;
+            color: grey;
+            margin-left: 0.5rem;
+            &:hover {
+                color: #4285F4;
+                cursor: pointer;
+            }
         }
     }
 }

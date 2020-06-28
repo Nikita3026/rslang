@@ -60,7 +60,7 @@
             <p class="additional-information-text">Используйте клавиши 1, 2, 3, 4, чтобы дать быстрый ответ</p>
         </div>
     </div>
-    <div class="savannah-game-page">
+    <div class="savannah-game-page" hidden>
         <p class="mute-sounds"><i class="fab fa-itunes-note"></i>
             <div class="cross-out" hidden></div>
         </p>
@@ -109,20 +109,20 @@
         </div>
     </div>
 
-    <div class="statistic-modal-inner result-page" hidden>
+    <div class="statistic-modal-inner result-page">
         <div class="result-info">В этот раз не получилось, но продолжай тренироваться!</div>
         <!-- Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">Slide 1</div>
+                <!--  <div class="swiper-slide">Slide 1</div> -->
                 <div class="swiper-slide">
                     <div class="overflow-auto result-info-text">
-                        <label for='give-up-result' class="give-up-result-label">ОШИБОК: </label>
-                        <div class="give-up-number">5</div>
-                        <ul id='give-up-result'>
+                        <label for='wrong-result' class="wrong-result-label">ОШИБОК: </label>
+                        <div class="wrong-number"></div>
+                        <ul id='wrong-result'>
                         </ul>
                         <label for='know-result' class="know-result-label">ЗНАЮ:</label>
-                        <div class="know-number">5</div>
+                        <div class="know-number"></div>
                         <ul id='know-result'>
                         </ul>
                     </div>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="result-control-buttons">
-            <button class="btn modal-btn btn-cancellation" data-toggle="modal" data-target="#modalLoginAvatar"><a class = "result-link">Продолжить тренировку</a></button>
+            <button class="btn modal-btn btn-proceed"><a class = "result-link">Продолжить тренировку</a></button>
             <button class="btn modal-btn btn-game-quit"><a class = "result-link">К списку тренировок</a></button>
         </div>
     </div>
