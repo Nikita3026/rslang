@@ -6,8 +6,10 @@ import 'bootstrap';
 import GetData from '../../js/GetData';
 
 const startGameButton = document.querySelector('.start-game_button');
+const startAgainButton = document.querySelector('.start-again_button');
 const startingWindow = document.querySelector('.starting-window');
 const gameWindow = document.querySelector('.game-window');
+const statisticWindow = document.querySelector('.statisict-window');
 const timer = document.querySelector('.timer');
 const levels = document.querySelectorAll('.level');
 const pagination = document.querySelector('.difficulty');
@@ -18,10 +20,11 @@ const btnTrue = document.querySelector('.btn_true');
 const btnFalse = document.querySelector('.btn_false');
 const points = document.querySelector('.points');
 const totalPoints = document.querySelector('.total-points');
+const keysButton = document.querySelector('.keys');
+const statisict = document.querySelector('.statistic');
 let pointsPerAnswer = 10;
 let rigthInRow = 0;
 let timeinterval;
-// let word = null;
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -39,20 +42,33 @@ const getWords = async (group, page) => {
   return wordsArr;
 };
 
-function hideStartingWindow() {
-  startingWindow.classList.add('hidden');
+function fillStatistic(total) {
+  statisict.insertAdjacentHTML('afterbegin', `<p>Вы набрали: ${total} очков</p>`);
 }
 
-function showGameWindow() {
-  gameWindow.classList.remove('hidden');
+function hideStartingWindow() {
+  startingWindow.classList.add('hidden');
 }
 
 function showStartingWindow() {
   startingWindow.classList.remove('hidden');
 }
 
+function showGameWindow() {
+  gameWindow.classList.remove('hidden');
+}
+
 function hideGameWindow() {
   gameWindow.classList.add('hidden');
+}
+
+function hidestatisticWindow() {
+  statisticWindow.classList.add('hidden');
+}
+
+function showstatisticWindow() {
+  statisticWindow.classList.remove('hidden');
+  fillStatistic(totalPoints.innerHTML);
 }
 
 function clearRight() {
@@ -61,34 +77,36 @@ function clearRight() {
 }
 
 async function generateWords() {
+  clearRight();
   const activeLevel = document.querySelector('.level__active');
   const group = Number(activeLevel.innerHTML) - 1;
-  console.log(group);
   const page = getRandomInt(29);
+  console.log(`страница:${page}`);
   const words = await getWords(group, page);
   const trueFalseIndicator = getRandomInt(3);
+  const randomTrueWord = getRandomInt(19);
+  console.log(`тру:${randomTrueWord}`);
   const randomFalseWord = getRandomInt(19);
+  console.log(`нетру:${randomFalseWord}`);
   if (trueFalseIndicator >= 1) {
-    wordRu.innerHTML = words[0].wordTranslate;
-    wordEn.innerHTML = words[0].word;
+    wordRu.innerHTML = words[randomTrueWord].wordTranslate;
+    wordEn.innerHTML = words[randomTrueWord].word;
     btnTrue.classList.add('right');
+    btnFalse.classList.remove('right');
   } else {
-    wordRu.innerHTML = words[0].wordTranslate;
+    wordRu.innerHTML = words[randomTrueWord].wordTranslate;
     wordEn.innerHTML = words[randomFalseWord].word;
     btnFalse.classList.add('right');
+    btnTrue.classList.remove('right');
   }
 }
 
 function changeLevel(event) {
   if (event.target.closest('.level')) {
-    // for (let i = 0; i <= levels.length; i += 1) {
-    //   levels[i].classList.remove('level__active');
-    //   event.target.closest('.level').classList.add('level__active');
-    // }
-    for (const level of levels) {
+    levels.forEach((level) => {
       level.classList.remove('level__active');
       event.target.closest('.level').classList.add('level__active');
-    }
+    });
   }
   generateWords();
 }
@@ -103,25 +121,31 @@ function updateTotalPoints(pt) {
   totalPoints.innerHTML = counter;
 }
 
-async function answerHanlers(event) {
-  if (event.target.classList.contains('right')) {
-    console.log('right');
-    rigthInRow += 1;
-    if (rigthInRow === 4) {
-      rigthInRow = 0;
-      pointsPerAnswer *= 2;
-      updatePoints(pointsPerAnswer);
-    }
-    updateTotalPoints(pointsPerAnswer);
-    clearRight();
-    generateWords();
-  } else {
-    console.log('no');
+function setRightAnswer() {
+  console.log('right');
+  rigthInRow += 1;
+  if (rigthInRow === 4) {
     rigthInRow = 0;
-    pointsPerAnswer = 10;
+    pointsPerAnswer *= 2;
     updatePoints(pointsPerAnswer);
-    clearRight();
-    generateWords();
+  }
+  updateTotalPoints(pointsPerAnswer);
+  generateWords();
+}
+
+function setWrongAnswer() {
+  console.log('no');
+  rigthInRow = 0;
+  pointsPerAnswer = 10;
+  updatePoints(pointsPerAnswer);
+  generateWords();
+}
+
+function answerHanlers(event) {
+  if (event.target.classList.contains('right')) {
+    setRightAnswer();
+  } else {
+    setWrongAnswer();
   }
 }
 
@@ -129,7 +153,7 @@ function stopTimer() {
   clearInterval(timeinterval);
   console.log('stop');
   hideGameWindow();
-  showStartingWindow();
+  showstatisticWindow();
 }
 
 function updateTimer() {
@@ -144,8 +168,9 @@ function updateTimer() {
 
 async function startGame() {
   hideStartingWindow();
+  hidestatisticWindow();
   showGameWindow();
-  timer.innerHTML = 160;
+  timer.innerHTML = 11;
   pointsPerAnswer = 10;
   totalPoints.innerHTML = 0;
   rigthInRow = 0;
@@ -155,13 +180,38 @@ async function startGame() {
   timeinterval = setInterval(updateTimer, 1000);
 }
 
+function lightKeyPressButton(code) {
+  switch (code) {
+    case 'ArrowRight':
+      keysButton.children[1].classList.add('active');
+      keysButton.children[0].classList.remove('active');
+      break;
+    case 'ArrowLeft':
+      keysButton.children[0].classList.add('active');
+      keysButton.children[1].classList.remove('active');
+      break;
+
+    default:
+      break;
+  }
+}
+
 document.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
-    answerHanlers(event);
-    console.log('жмяк');
+    lightKeyPressButton(event.code);
+    if ((event.code === 'ArrowRight' && btnTrue.classList.contains('right'))
+  || (event.code === 'ArrowLeft' && btnFalse.classList.contains('right'))) {
+      setRightAnswer();
+    } else {
+      setWrongAnswer();
+    }
   }
+  console.log('жмяк');
 });
-
+document.addEventListener('keyup', () => {
+  keysButton.children.forEach((it) => it.classList.remove('active'));
+});
 buttons.addEventListener('click', answerHanlers);
 startGameButton.addEventListener('click', startGame);
+startAgainButton.addEventListener('click', startGame);
 pagination.addEventListener('click', changeLevel);
