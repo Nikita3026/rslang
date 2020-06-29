@@ -26,6 +26,12 @@ const renderNavButtonToDom = () => {
   buttonElement.addEventListener('click', toggleSidebar);
 };
 
+const linkListener = ( el, link ) => {
+  el.addEventListener("click", () => {
+    import(/* webpackChunkName: "lazyLoaded" */ `./src${link}/js${link}.js`).then(module => module.renderApp());
+  });
+};
+
 export default class SideBar {
   constructor() {
     this.data = sideBarList;

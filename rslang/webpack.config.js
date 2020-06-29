@@ -10,6 +10,7 @@ module.exports = {
     index: './src/js/index.js',
     speakit: './src/speakit/js/speakit.js',
     basicLayout: './src/basic-layout/js/basic-layout.js',
+    sprint: './src/sprint/js/sprint.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -78,6 +79,11 @@ module.exports = {
       filename: 'basic-layout.html',
       template: './src/basic-layout/basic-layout.html',
       chunks: ['basicLayout'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'sprint.html',
+      template: './src/sprint/sprint.html',
+      chunks: ['sprint'],
     }),
     new CleanWebpackPlugin(),
   ],

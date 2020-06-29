@@ -91,13 +91,11 @@ const renderSideBar = () => {
   document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
 };
 
-const parseHTML = async () => {
-  await new Router(routes);
-};
+export const parseHTML = () => new Router(routes);
 
-window.onload = async () => {
+window.onload = () => {
   renderSideBar();
-  await parseHTML();
+  parseHTML();
   setTimeout(() => {
     renderApp();
   }, 500);

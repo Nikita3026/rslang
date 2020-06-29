@@ -11,6 +11,10 @@ export const routes = [
     path: '/basicLayout',
     template: '/basic-layout.html',
   },
+  {
+    path: '/sprint',
+    template: '/sprint.html',
+  },
   // {
   //   path: '/contact',
   //   getTemplate: (params) => '<h1>Contact</h1>',
