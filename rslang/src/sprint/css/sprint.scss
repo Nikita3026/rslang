@@ -231,3 +231,35 @@ cursor: pointer;
   max-width: 350px;
 
 }
+
+.statistic {
+  max-height: 500px;
+  overflow-y: scroll;
+  text-align: left;
+}
+
+.start-again_button {
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 4px 30px;
+}
+
+.stat-mistakes {
+  text-align: center;
+  padding: 3px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #dd5151;
+}
+
+.stat-correct{
+  text-align: center;
+  padding: 3px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #40b63b;
+}

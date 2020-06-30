@@ -22,6 +22,10 @@ const points = document.querySelector('.points');
 const totalPoints = document.querySelector('.total-points');
 const keysButton = document.querySelector('.keys');
 const statisict = document.querySelector('.statistic');
+let mistakesNumber = 0;
+let rightNumber = 0;
+let mistakesList = '';
+let correctList = '';
 let pointsPerAnswer = 10;
 let rigthInRow = 0;
 let timeinterval;
@@ -43,15 +47,19 @@ const getWords = async (group, page) => {
 };
 
 function fillStatistic(total) {
-  statisict.insertAdjacentHTML('afterbegin', `<p>Вы набрали: ${total} очков</p>`);
+  document.querySelector('.statistic-header').innerHTML = `<p>Вы набрали: ${total} очков</p>`;
+  statisict.innerHTML = '';
+  statisict.insertAdjacentHTML('afterbegin', `
+  <p class="stat-mistakes">Ошибок: ${mistakesNumber}</p>
+  ${mistakesList}
+  <hr>
+  <p class="stat-correct">Верно: ${rightNumber}</p>
+  ${correctList}
+  `);
 }
 
 function hideStartingWindow() {
   startingWindow.classList.add('hidden');
-}
-
-function showStartingWindow() {
-  startingWindow.classList.remove('hidden');
 }
 
 function showGameWindow() {
@@ -81,13 +89,10 @@ async function generateWords() {
   const activeLevel = document.querySelector('.level__active');
   const group = Number(activeLevel.innerHTML) - 1;
   const page = getRandomInt(29);
-  console.log(`страница:${page}`);
   const words = await getWords(group, page);
   const trueFalseIndicator = getRandomInt(3);
   const randomTrueWord = getRandomInt(19);
-  console.log(`тру:${randomTrueWord}`);
   const randomFalseWord = getRandomInt(19);
-  console.log(`нетру:${randomFalseWord}`);
   if (trueFalseIndicator >= 1) {
     wordRu.innerHTML = words[randomTrueWord].wordTranslate;
     wordEn.innerHTML = words[randomTrueWord].word;
@@ -99,6 +104,18 @@ async function generateWords() {
     btnFalse.classList.add('right');
     btnTrue.classList.remove('right');
   }
+  const statisticListElement = `<p><b>${words[randomTrueWord].word}</b> –– ${words[randomTrueWord].wordTranslate}</p>`;
+  return statisticListElement;
+}
+
+async function updateMistakesList() {
+  const listElement = await generateWords();
+  mistakesList += `${listElement}`;
+}
+
+async function updateCorrectList() {
+  const listElement = await generateWords();
+  correctList += `${listElement}`;
 }
 
 function changeLevel(event) {
@@ -112,7 +129,7 @@ function changeLevel(event) {
 }
 
 function updatePoints(pt) {
-  points.innerHTML = ` ${pt} очков за правильный ответ`;
+  points.innerHTML = `${pt} очков за правильный ответ`;
 }
 
 function updateTotalPoints(pt) {
@@ -123,7 +140,9 @@ function updateTotalPoints(pt) {
 
 function setRightAnswer() {
   console.log('right');
+  updateCorrectList();
   rigthInRow += 1;
+  rightNumber += 1;
   if (rigthInRow === 4) {
     rigthInRow = 0;
     pointsPerAnswer *= 2;
@@ -135,6 +154,8 @@ function setRightAnswer() {
 
 function setWrongAnswer() {
   console.log('no');
+  updateMistakesList();
+  mistakesNumber += 1;
   rigthInRow = 0;
   pointsPerAnswer = 10;
   updatePoints(pointsPerAnswer);
@@ -167,10 +188,11 @@ function updateTimer() {
 }
 
 async function startGame() {
+  statisict.innerHTML = '';
   hideStartingWindow();
   hidestatisticWindow();
   showGameWindow();
-  timer.innerHTML = 11;
+  timer.innerHTML = 61;
   pointsPerAnswer = 10;
   totalPoints.innerHTML = 0;
   rigthInRow = 0;
