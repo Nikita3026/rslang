@@ -4,4 +4,8 @@ export const createLink = (link) => {
   return linkElement;
 };
 
+export const routTo = (path) => {
+  window.location.href = path;
+};
+
 export default {};

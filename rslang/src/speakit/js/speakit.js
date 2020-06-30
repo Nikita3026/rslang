@@ -1,14 +1,14 @@
 /* eslint-disable import/no-cycle */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import '../css/style.scss';
+// import '../css/style.scss';
 import GetData from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
-import Router from '../../js/router/router';
-import { routes } from '../../js/router/routes';
-import SideBar from '../../js/SideBar/SideBar';
+// import Router from '../../js/router/router';
+// import { routes } from '../../js/router/routes';
+// import SideBar from '../../js/SideBar/SideBar';
 
 let dataArr = [];
 let dataArrActive = [];
@@ -78,25 +78,25 @@ export const renderWords = () => {
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   setActiveLevelPage();
   setActiveLevel();
   renderWords();
   renderButtonsToDom();
 };
 
-const renderSideBar = () => {
-  const sideBar = new SideBar();
-  const sideBarElement = sideBar.init();
-  document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
-};
+// const renderSideBar = () => {
+//   const sideBar = new SideBar();
+//   const sideBarElement = sideBar.init();
+//   document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
+// };
 
-export const parseHTML = () => new Router(routes);
+// export const parseHTML = () => new Router(routes);
 
-window.onload = () => {
-  renderSideBar();
-  parseHTML();
-  setTimeout(() => {
-    renderApp();
-  }, 500);
-};
+// window.onload = () => {
+//   renderSideBar();
+//   // parseHTML();
+//   setTimeout(() => {
+//     renderApp();
+//   }, 500);
+// };

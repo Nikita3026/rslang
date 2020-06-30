@@ -10,7 +10,7 @@ export default class Router {
     this.loadInitialRoute();
   }
 
-  loadRoute(...urlSegments) {
+  async loadRoute(...urlSegments) {
     console.log(urlSegments);
     const matchedRoute = this.matchUrlToRoute(urlSegments);
     console.log(matchedRoute);
@@ -25,7 +25,7 @@ export default class Router {
     //   matchedRoute.params,
     // );
     const parseHtml = new GetData(matchedRoute.template, 'get');
-    parseHtml.sendRequest()
+    await parseHtml.sendRequest()
       .then((response) => response.data)
       .then((html) => {
         console.log(html);

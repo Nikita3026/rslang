@@ -15,6 +15,10 @@ export const routes = [
     path: '/sprint',
     template: '/sprint.html',
   },
+  {
+    path: '/authorization',
+    template: '/authorization.html',
+  },
   // {
   //   path: '/contact',
   //   getTemplate: (params) => '<h1>Contact</h1>',

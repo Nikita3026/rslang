@@ -8,9 +8,10 @@ module.exports = {
   watch: true,
   entry: {
     index: './src/js/index.js',
-    speakit: './src/speakit/js/speakit.js',
+    speakit: './src/speakit/js/index.js',
     basicLayout: './src/basic-layout/js/basic-layout.js',
-    sprint: './src/sprint/js/sprint.js',
+    sprint: './src/sprint/js/index.js',
+    authorization: './src/authorization/js/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -70,11 +71,11 @@ module.exports = {
       template: './src/index.html',
       chunks: ['index'],
     }),
-    new HtmlWebPackPlugin({
-      filename: 'speakit.html',
-      template: './src/speakit/speakit.html',
-      chunks: ['speakit'],
-    }),
+    // new HtmlWebPackPlugin({
+    //   filename: 'speakit.html',
+    //   template: './src/speakit/speakit.html',
+    //   chunks: ['speakit'],
+    // }),
     new HtmlWebPackPlugin({
       filename: 'basic-layout.html',
       template: './src/basic-layout/basic-layout.html',
@@ -85,6 +86,11 @@ module.exports = {
       template: './src/sprint/sprint.html',
       chunks: ['sprint'],
     }),
+    // new HtmlWebPackPlugin({
+    //   filename: 'authorization.html',
+    //   template: './src/authorization/authorization.html',
+    //   chunks: ['authorization'],
+    // }),
     new CleanWebpackPlugin(),
   ],
   devServer: {
