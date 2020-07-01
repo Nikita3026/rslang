@@ -1,3 +1,4 @@
+import 'bootstrap';
 import { recognition } from './webSpeech';
 import { renderStatToDom } from './stat';
 import {

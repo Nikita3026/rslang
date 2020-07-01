@@ -1,35 +1,38 @@
 import 'bootstrap';
-import { createLink } from '../helpers';
+import { createLink, removeToken } from '../helpers';
 import sideBarList from './sideBarList';
 import './SideBar.scss';
 
+const closeCollapsed = () => {
+  const linkCollapsed = document.querySelector('.dropdown-toggle');
+  const ulCollapsed = document.querySelector('ul.collapse');
+  linkCollapsed.classList.add('collapsed');
+  linkCollapsed.setAttribute('aria-expanded', 'false');
+  ulCollapsed.classList.remove('show');
+};
+
 const toggleSidebar = () => {
   const sidebar = document.getElementById('sidebar');
+  const sideBarBtn = document.querySelector('.navbar');
+  if (sidebar.classList.contains('active')) {
+    closeCollapsed();
+  }
   sidebar.classList.toggle('active');
+  sideBarBtn.classList.toggle('active');
 };
 
 const renderNavButtonToDom = () => {
   const navButtonContainer = document.createElement('nav');
   navButtonContainer.classList.add('navbar', 'navbar-expand-lg', 'navbar-light');
-  const divBlocContainer = document.createElement('div');
-  divBlocContainer.classList.add('container-fluid');
   const buttonElement = document.createElement('button');
-  buttonElement.classList.add('btn', 'btn-info');
+  buttonElement.classList.add('btn', 'btn-light');
   buttonElement.id = 'sidebarCollapse';
   buttonElement.setAttribute('type', 'button');
   const spanElement = document.createElement('span');
-  spanElement.classList.add('navbar-toggler-icon');
   buttonElement.insertAdjacentElement('beforeend', spanElement);
-  divBlocContainer.insertAdjacentElement('beforeend', buttonElement);
-  navButtonContainer.insertAdjacentElement('beforeend', divBlocContainer);
+  navButtonContainer.insertAdjacentElement('beforeend', buttonElement);
   document.querySelector('body').insertAdjacentElement('afterbegin', navButtonContainer);
   buttonElement.addEventListener('click', toggleSidebar);
-};
-
-const linkListener = ( el, link ) => {
-  el.addEventListener("click", () => {
-    import(/* webpackChunkName: "lazyLoaded" */ `./src${link}/js${link}.js`).then(module => module.renderApp());
-  });
 };
 
 export default class SideBar {
@@ -43,7 +46,7 @@ export default class SideBar {
     this.renderSidebarHeaderToDom();
     this.renderNavListToDom();
     renderNavButtonToDom();
-    // this.addEventListener();
+    this.addEventListener();
     return this.sideBar;
   }
 
@@ -51,10 +54,11 @@ export default class SideBar {
     const sidebarHeaderContainer = document.createElement('div');
     sidebarHeaderContainer.classList.add('sidebar-header');
     const linkElement = createLink('/');
-    const h3 = document.createElement('h3');
-    h3.classList.add('logo');
-    h3.innerText = 'RS LANG';
-    linkElement.insertAdjacentElement('beforeend', h3);
+    const logoElement = document.createElement('h1');
+    logoElement.classList.add('logo');
+    logoElement.innerText = ('RSLang');
+    logoElement.style.backgroundImage = 'url(assets/images/logo.png)';
+    linkElement.insertAdjacentElement('beforeend', logoElement);
     sidebarHeaderContainer.insertAdjacentElement('beforeend', linkElement);
     this.sideBar.insertAdjacentElement('beforeend', sidebarHeaderContainer);
     return sidebarHeaderContainer;
@@ -67,8 +71,13 @@ export default class SideBar {
       const liElement = document.createElement('li');
       liElement.classList.add('li-item');
       const liLink = createLink(it.link);
+      liLink.classList.add(it.icon);
       liLink.innerText = it.title;
       liElement.insertAdjacentElement('beforeend', liLink);
+      const iconElement = document.createElement('span');
+      iconElement.classList.add('icon', it.icon);
+      iconElement.style.backgroundImage = `url(assets/images/${it.icon}.svg)`;
+      liLink.insertAdjacentElement('afterbegin', iconElement);
       if (it.child.length > 0) {
         liLink.classList.add('dropdown-toggle');
         liLink.setAttribute('data-toggle', 'collapse');
@@ -90,4 +99,20 @@ export default class SideBar {
     this.sideBar.insertAdjacentElement('beforeend', ulElement);
     return ulElement;
   }
+
+  addEventListener() {
+    this.sideBar.addEventListener('click', (event) => {
+      if (!this.sideBar.classList.contains('active') && event.target.parentNode.classList.contains('dropdown-toggle')) {
+        toggleSidebar();
+      }
+      if (event.target.classList.contains('logout')) {
+        removeToken();
+      }
+    });
+  }
+
+  // logout() {
+  //   const logoutBtn = document.querySelector('.logout');
+
+  // }
 }

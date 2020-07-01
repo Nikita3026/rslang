@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+import 'bootstrap';
 import Word from './Word';
 import { handleClickByWord, getImageFromData } from './utils';
 

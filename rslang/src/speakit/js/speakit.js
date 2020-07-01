@@ -1,14 +1,11 @@
 /* eslint-disable import/no-cycle */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-// import '../css/style.scss';
+import 'bootstrap';
 import GetData from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
-// import Router from '../../js/router/router';
-// import { routes } from '../../js/router/routes';
-// import SideBar from '../../js/SideBar/SideBar';
 
 let dataArr = [];
 let dataArrActive = [];

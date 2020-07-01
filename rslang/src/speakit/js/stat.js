@@ -1,3 +1,4 @@
+import 'bootstrap';
 import { restart } from './utils';
 
 let clonedData = null;

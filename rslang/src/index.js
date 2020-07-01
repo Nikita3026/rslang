@@ -1,9 +1,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import SideBar from './SideBar/SideBar';
-import '../assets/scss/style.scss';
-import { routTo } from './helpers';
-// import { authorization, logIn } from '../authorization/js/authorization';
+import SideBar from './js/SideBar/SideBar';
+import 'bootstrap';
+import './assets/scss/style.scss';
+import { routTo, checkValidToken } from './js/helpers';
 
 const renderSideBar = () => {
   const sideBar = new SideBar();
@@ -12,9 +12,9 @@ const renderSideBar = () => {
 };
 
 window.onload = () => {
-  if (localStorage.getItem('SWAuthData') && JSON.parse(localStorage.getItem('SWAuthData')).token) {
-    // renderHomePage();
+  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
     renderSideBar();
+    // renderHomePage();
   } else {
     routTo('/authorization');
   }

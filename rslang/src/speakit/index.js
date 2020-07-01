@@ -1,8 +1,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import '../css/style.scss';
-import { renderApp } from './speakit';
-import SideBar from '../../js/SideBar/SideBar';
+import 'bootstrap';
+import SideBar from '../js/SideBar/SideBar';
+import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
+
+import './css/style.scss';
+import { renderApp } from './js/speakit';
 
 const pageHTML = `<header>
 <div class="header__container">
@@ -58,7 +61,11 @@ const renderSideBar = () => {
 };
 
 window.onload = () => {
-  document.querySelector('body').innerHTML = pageHTML;
-  renderSideBar();
-  renderApp();
+  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
+    renderSideBar();
+    setBodyDataToDom(pageHTML, 'SpaekIt');
+    renderApp();
+  } else {
+    routTo('/authorization');
+  }
 };

@@ -1,12 +1,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
-import '../css/sprint.scss';
+import SideBar from '../js/SideBar/SideBar';
+import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
 
-import { renderApp } from './sprint';
-import SideBar from '../../js/SideBar/SideBar';
+import './css/sprint.scss';
+import { renderApp } from './js/sprint';
 
-const pageHTML = `<div class="container container-fluid starting-window wrapper">
+const pageHTML = `<div class="container container-fluid"><div class="starting-window wrapper">
 <ul class="title animate-ul">
     <li>S</li>
     <li>P</li>
@@ -20,7 +21,7 @@ const pageHTML = `<div class="container container-fluid starting-window wrapper"
 </div>
 
 <div class="container-fluid wrapper game-window hidden">
-<div class="row align-items-center">
+<div class="row align-items-center container-fluid">
   <div class="col difficulty">
       <div class="row justify-content-center level">6</div>
       <div class="row justify-content-center level">5</div>
@@ -60,6 +61,7 @@ const pageHTML = `<div class="container container-fluid starting-window wrapper"
       <div class="row justify-content-center timer"></div>
   </div>
 </div>
+</div>
 </div>`;
 
 const renderSideBar = () => {
@@ -69,7 +71,11 @@ const renderSideBar = () => {
 };
 
 window.onload = () => {
-  document.querySelector('body').innerHTML = pageHTML;
-  renderSideBar();
-  renderApp();
+  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
+    renderSideBar();
+    setBodyDataToDom(pageHTML, 'Sprint');
+    renderApp();
+  } else {
+    routTo('/authorization');
+  }
 };

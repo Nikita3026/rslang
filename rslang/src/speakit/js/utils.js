@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+import 'bootstrap';
 import {
   getDataArrActive,
   renderWords,
