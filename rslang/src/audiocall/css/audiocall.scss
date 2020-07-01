@@ -1,1 +1,39 @@
 @import "~bootstrap/scss/bootstrap";
+
+.game-window {
+    background-color: #ceb2b2;
+    height: 100vh;
+}
+
+.btn-exit {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(236, 60, 60);
+}
+
+.speacker{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(200, 212, 196);
+    margin: 0 auto;
+}
+
+.words-list {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.word {
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.btn-skip {
+    text-align: center;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 20px auto;
+}
