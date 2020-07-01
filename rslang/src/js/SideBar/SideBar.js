@@ -76,7 +76,7 @@ export default class SideBar {
       liElement.insertAdjacentElement('beforeend', liLink);
       const iconElement = document.createElement('span');
       iconElement.classList.add('icon', it.icon);
-      iconElement.style.backgroundImage = `url(assets/images/${it.icon}.svg)`;
+      iconElement.style.backgroundImage = `url(assets/images/icon/${it.icon}.svg)`;
       liLink.insertAdjacentElement('afterbegin', iconElement);
       if (it.child.length > 0) {
         liLink.classList.add('dropdown-toggle');
