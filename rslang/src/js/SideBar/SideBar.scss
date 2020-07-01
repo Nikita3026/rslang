@@ -1,0 +1,112 @@
+@import "~bootstrap/scss/bootstrap";
+
+// .wrapper {
+//     display: flex;
+//     width: 100%;
+//     align-items: stretch;
+// }
+
+.sidebar-header {
+    a {
+        color: transparent!important;
+        h1 {
+            background-size: 170px;
+            background-position: 5px 50%;
+            background-repeat: no-repeat;
+        }
+    }
+} 
+
+
+
+#sidebar {
+    width: 65px;
+    min-height: 100vh;
+    background-color: #fffcf9;
+    position: fixed;
+    z-index: 1;
+    outline: 5px solid #fffcf9;
+    top: 0;
+    overflow: hidden;
+    ul {
+        li {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 10px;
+            flex-direction: column;
+            overflow: hidden;
+            
+            a {
+                display: flex;
+                align-items: center;
+                color: transparent;
+                width: 100%;
+                justify-content: flex-start;
+                span {
+                    width: 50px;
+                    min-width: 50px;
+                    height: 50px;
+                    display: block;
+                    background-repeat: no-repeat;
+                    background-size: 30px;
+                    background-position: 50%;
+                }
+            }
+        }
+    }
+}
+
+#sidebar.active {
+    width: 180px;
+    ul {
+        a {
+            color: #333;
+        }
+    }
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -150px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+.navbar {
+    position: fixed!important;
+    padding: 0!important;
+    z-index: 2;
+    left: 70px;
+    top: 0;
+    &.active {
+        left: 185px;
+        span {
+            background-image: url(/assets/images/leftAr.svg);
+        }
+    }
+    button,
+    button:focus,
+    button:active,
+    button:hover {
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    span {
+        width: 20px;
+        height: 40px;
+        display: block;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-image: url(/assets/images/rightAr.svg);
+    }
+}

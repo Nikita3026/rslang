@@ -1,6 +1,7 @@
-import { cleareContainer } from './helpers';
 import GetData from '../../js/GetData';
 import 'bootstrap';
+import '../scss/authorization.scss';
+import { routTo } from '../../js/helpers';
 
 const CREATE_USER_LINK = 'https://afternoon-falls-25894.herokuapp.com/users';
 const LOGIN_LINK = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -27,22 +28,24 @@ const toogleTabActive = () => {
   return false;
 };
 
-export const logIn = () => {
-  const AUTHCONTANER = document.querySelector('section.Login_from__container');
-  const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
-  const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
-  const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${userEmail}`, password: `${userPassword}` })
+export const logIn = (emailValue, passwordValue) => {
+  // const AUTHCONTANER = document.querySelector('section.login_from__container');
+  // const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
+  // const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
+  const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${emailValue}`, password: `${passwordValue}` })
     .sendRequest()
     .then((response) => {
       const loginAuthData = {
-        email: userEmail,
-        password: userPassword,
+        email: emailValue,
+        password: passwordValue,
         userId: response.data.userId,
         message: response.data.message,
         token: response.data.token,
+        time: new Date(),
       };
+      // localStorage.removeItem('SWAuthData');
       localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-      cleareContainer(AUTHCONTANER);
+      routTo('/');
     })
     .catch((error) => {
       console.error(error);
@@ -74,8 +77,8 @@ export const handleAuthorize = (event) => {
       .catch((error) => {
         console.log(error);
       })
-      .then(() => logIn());
-  } else logIn();
+      .then(() => logIn(userEmail, userPassword));
+  } else logIn(userEmail, userPassword);
 };
 
 const checkIsPasswordValid = (value) => {
@@ -97,12 +100,19 @@ const checkIsEmailValid = (value) => {
   return isValid;
 };
 
-const checkIsButtonActive = () => {
+const checkIsButtonActive = (action) => {
   if (document.querySelector('.login_from_item.submit')) {
     if (
-      isValidPassword
+      (
+        action === 'register'
+      && isValidPassword
       && isEqualPass
-      && isValidEmail
+      && isValidEmail)
+      || (
+        action === 'login'
+        && isValidPassword
+        && isValidEmail
+      )
     ) {
       document.querySelector('.login_from_item.submit').removeAttribute('disabled');
     } else {
@@ -127,7 +137,7 @@ const getInputEmailElement = () => {
     } else {
       emailInputElement.classList.add('inValid');
     }
-    checkIsButtonActive();
+    checkIsButtonActive(getActiveTabType());
   });
   return emailInputElement;
 };
@@ -157,7 +167,7 @@ const getInputPasswordElement = (type) => {
         passwordInputElement.classList.add('inValid');
       }
     }
-    checkIsButtonActive();
+    checkIsButtonActive(getActiveTabType());
   });
   return passwordInputElement;
 };
@@ -190,7 +200,7 @@ const getFormElements = (type) => {
 
 const renderAuthForm = (type) => {
   const formContainer = document.querySelector('form.login_form');
-  cleareContainer(formContainer);
+  formContainer.innerHTML = '';
   const formContainerElements = getFormElements(type);
   formContainerElements.map((it) => {
     if (!it) return false;
@@ -208,7 +218,7 @@ const runListener = () => {
     if (classList.contains('active')) {
       return false;
     }
-    return TABNAVIGATION.children.forEach((ch) => {
+    return Array.from(TABNAVIGATION.children).forEach((ch) => {
       ch.classList.remove('active');
       ch.classList.remove('border-bottom-0');
       if (ch.dataset.type === type) {

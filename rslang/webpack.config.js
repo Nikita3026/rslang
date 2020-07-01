@@ -7,7 +7,8 @@ const path = require('path');
 module.exports = {
   watch: true,
   entry: {
-    index: './src/js/index.js',
+    index: './src/index.js',
+    authorization: './src/authorization/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
