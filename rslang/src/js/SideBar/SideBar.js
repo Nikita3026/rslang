@@ -34,7 +34,6 @@ const renderNavButtonToDom = () => {
   document.querySelector('body').insertAdjacentElement('afterbegin', navButtonContainer);
   buttonElement.addEventListener('click', toggleSidebar);
 };
-
 export default class SideBar {
   constructor() {
     this.data = sideBarList;
@@ -110,9 +109,10 @@ export default class SideBar {
       }
     });
   }
-
-  // logout() {
-  //   const logoutBtn = document.querySelector('.logout');
-
-  // }
 }
+
+export const renderSideBar = () => {
+  const sideBar = new SideBar();
+  const sideBarElement = sideBar.init();
+  document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
+};

@@ -9,8 +9,8 @@ import './css/style.scss';
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData') && checkValidToken()) {
     renderSideBar();
-    await setBodyDataToDom('sprint.html');
-    const { renderApp } = await import('./js/sprint');
+    await setBodyDataToDom('audiocall.html');
+    const { renderApp } = await import('./js/audiocall');
     renderApp();
   } else {
     routTo('/authorization');

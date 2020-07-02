@@ -9,8 +9,8 @@ import './css/style.scss';
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData') && checkValidToken()) {
     renderSideBar();
-    await setBodyDataToDom('sprint.html');
-    const { renderApp } = await import('./js/sprint');
+    await setBodyDataToDom('about.html');
+    const { renderApp } = await import('./js/about');
     renderApp();
   } else {
     routTo('/authorization');
