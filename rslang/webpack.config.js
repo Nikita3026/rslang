@@ -8,7 +8,7 @@ module.exports = {
   watch: true,
   entry: {
     index: './src/js/index.js',
-    speakit: './src/speakit/js/speakit.js',
+    speakit: './src/speakit/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

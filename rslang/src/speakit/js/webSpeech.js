@@ -1,3 +1,4 @@
+import 'bootstrap';
 import { getDataArrActive } from './speakit';
 import { checkResult, getIsPlay } from './utils';
 

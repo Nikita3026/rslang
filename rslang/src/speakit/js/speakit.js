@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import '../css/style.scss';
+import 'bootstrap';
 import GetData from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
@@ -37,7 +37,6 @@ export const setLevel = (num) => {
 export const getLevel = () => level;
 
 const getActiveDataList = () => {
-  // dataList = [];
   const suffleArr = Array.isArray(dataArr) ? dataArr.sort(() => Math.random() - 0.5) : [];
   const dataList = suffleArr.slice(0, 10);
   setDataArrActive(dataList);
@@ -76,9 +75,25 @@ export const renderWords = () => {
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
 
-window.onload = () => {
+export const renderApp = () => {
   setActiveLevelPage();
   setActiveLevel();
   renderWords();
   renderButtonsToDom();
 };
+
+// const renderSideBar = () => {
+//   const sideBar = new SideBar();
+//   const sideBarElement = sideBar.init();
+//   document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
+// };
+
+// export const parseHTML = () => new Router(routes);
+
+// window.onload = () => {
+//   renderSideBar();
+//   // parseHTML();
+//   setTimeout(() => {
+//     renderApp();
+//   }, 500);
+// };

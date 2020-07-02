@@ -1,3 +1,4 @@
+import 'bootstrap';
 import GetData from '../../js/GetData';
 
 const DATAPATH = 'https://raw.githubusercontent.com/okrypets/rslang-data/master/data/';
