@@ -1,3 +1,5 @@
+import GetData from './GetData';
+
 export const createLink = (link) => {
   const linkElement = document.createElement('a');
   linkElement.href = link;
@@ -25,15 +27,46 @@ const createHead = (title) => {
   return headElement;
 };
 
-export const setBodyDataToDom = (stringHTML, title) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(stringHTML, 'text/html');
+// export const setBodyDataToDom = (stringHTML, title) => {
+//   const parser = new DOMParser();
+//   const doc = parser.parseFromString(stringHTML, 'text/html');
+//   const bodyElement = document.querySelector('body > script');
+//   Array.from(doc.body.children).forEach((it) => {
+//     if (it.localName === 'script') return;
+//     bodyElement.insertAdjacentElement('beforebegin', it);
+//   });
+//   createHead(title);
+// };
+
+export const renderHeadDataToDom = (head) => {
+  const headElement = document.querySelector('head');
+  Array.from(head.children).forEach((it) => {
+    headElement.insertAdjacentElement('beforeend', it);
+  });
+  return headElement;
+};
+
+export const renderBodyDataToDom = (body) => {
   const bodyElement = document.querySelector('body > script');
-  Array.from(doc.body.children).forEach((it) => {
+  Array.from(body.children).forEach((it) => {
     if (it.localName === 'script') return;
     bodyElement.insertAdjacentElement('beforebegin', it);
   });
-  createHead(title);
+};
+
+export const setBodyDataToDom = async (path) => {
+  const parseHtml = new GetData(path, 'get');
+  await parseHtml.sendRequest()
+    .then((response) => response.data)
+    .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      renderHeadDataToDom(doc.head);
+      renderBodyDataToDom(doc.body);
+    })
+    .catch((err) => {
+      console.error('Something went wrong.', err);
+    });
 };
 
 export const removeToken = () => {

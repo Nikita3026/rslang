@@ -70,6 +70,11 @@ module.exports = {
       template: './src/index.html',
       chunks: ['index'],
     }),
+    new HtmlWebPackPlugin({
+      filename: 'speakit.html',
+      template: './src/speakit/speakit.html',
+      chunks: ['speakit'],
+    }),
     new CleanWebpackPlugin(),
   ],
   devServer: {

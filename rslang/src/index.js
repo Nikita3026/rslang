@@ -14,6 +14,7 @@ const renderSideBar = () => {
 window.onload = () => {
   if (localStorage.getItem('SWAuthData') && checkValidToken()) {
     renderSideBar();
+    // const { renderApp } = await import('./js/renderApp'); 
     // renderHomePage();
   } else {
     routTo('/authorization');
