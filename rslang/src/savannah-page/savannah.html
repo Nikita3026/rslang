@@ -22,6 +22,11 @@
     <button type="button" class="close" aria-label="Close">
         <span class = "close-button" aria-hidden="true" data-toggle="modal" data-target="#modalLoginAvatar">×</span>
     </button>
+    <audio src="../assets/audio/rightAnswer.wav" class="right-answer-audio"></audio>
+    <audio src="../assets/audio/wrongAnswer.wav" class="wrong-answer-audio"></audio>
+    <audio src="../assets/audio/gong.mp3" class="start-audio"></audio>
+    <audio src="../assets/audio/endGame.mp3" class="end-game-audio"></audio>
+    <audio src="../assets/audio/strik.mp3" class="strik-audio"></audio>
 
     <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog cascading-modal modal-avatar " role="document">
@@ -42,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div class="savannah-start-page" hidden>
+    <div class="savannah-start-page">
         <p class="name-of-the-game">Саванна</p>
         <p class="info-about-game">Тренировка Саванна развивает словарный запас. Чем больше слов ты узнаешь, тем больше очков опыта получишь.
         </p>
@@ -71,14 +76,21 @@
             <i class="fas fa-heart"></i>
             <i class="fas fa-heart"></i>
         </div>
+
         <div class="right-answer-target">
-            <img src="../assets/images/fire.png" alt="fire-image" class="fire-image">
+            <!--  <div class="cssload-loader loader-in-game">
+                <div class="cssload-inner cssload-one"></div>
+                <div class="cssload-inner cssload-two"></div>
+                <div class="cssload-inner cssload-three"></div>
+            </div> -->
+
+            <img src="../assets/images/glass.png" alt="glass-image" class="glass-image">
             <img src="../assets/images/water.png" alt="water-image" class="water-image" hidden>
-            <div class="answer-options" hidden>
-                <div class="possible-answer"><span class="number-of-answer">1</span><span class="answer-text"></span></div>
-                <div class="possible-answer"><span class="number-of-answer">2</span><span class="answer-text"></span></div>
-                <div class="possible-answer"><span class="number-of-answer">3</span><span class="answer-text"></span></div>
-                <div class="possible-answer"><span class="number-of-answer">4</span><span class="answer-text"></span></div>
+            <div class="answer-options row" hidden>
+                <div class="possible-answer row-md-4"><span class="number-of-answer">1</span><span class="answer-text"></span></div>
+                <div class="possible-answer row-md-4"><span class="number-of-answer">2</span><span class="answer-text"></span></div>
+                <div class="possible-answer row-md-4"><span class="number-of-answer">3</span><span class="answer-text"></span></div>
+                <div class="possible-answer row-md-4"><span class="number-of-answer">4</span><span class="answer-text"></span></div>
             </div>
             <p class="main-word">Chain</p>
             <svg class="steam-animation hide-steam" viewBox="0 0 600 600">
@@ -109,8 +121,8 @@
         </div>
     </div>
 
-    <div class="statistic-modal-inner result-page">
-        <div class="result-info">В этот раз не получилось, но продолжай тренироваться!</div>
+    <div class="statistic-modal-inner result-page" hidden>
+        <div class="result-info"></div>
         <!-- Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -129,7 +141,7 @@
                 </div>
             </div>
             <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
+            <!--   <div class="swiper-pagination"></div> -->
         </div>
 
         <div class="result-control-buttons">

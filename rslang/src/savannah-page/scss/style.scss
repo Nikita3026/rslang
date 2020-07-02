@@ -280,7 +280,8 @@
             font-size: 20px;
             max-width: 40rem;
             text-align: center;
-            margin-top: 3.2rem;
+            /*   margin-top: 3.2rem; */
+            margin: 3.2rem 2rem 0 2rem;
         }
         .btn-start {
             padding: 0.9rem 3.8rem;
@@ -290,6 +291,14 @@
             &:hover {
                 color: #9B7C87 !important;
             }
+        }
+    }
+    @media(max-width:575px) {
+        .name-of-the-game {
+            font-size: 40px !important;
+        }
+        .info-about-game {
+            font-size: 19px !important;
         }
     }
     @media(max-width:675px) {
@@ -304,7 +313,7 @@
         .mute-sounds {
             position: fixed;
             left: 30px;
-            font-size: 35px;
+            font-size: 30px;
             top: 10px;
             opacity: 0.5;
             text-shadow: 0 1px 0 #fff;
@@ -328,15 +337,15 @@
         .life-counter {
             position: fixed;
             right: 70px;
-            font-size: 26px;
-            top: 16px;
+            font-size: 21px;
+            top: 24px;
             color: #ef5350;
         }
         .broken {
             color: black;
             opacity: 0.75;
         }
-        .fire-image {
+        .glass-image {
             position: fixed;
             left: 50%;
             transform: translateX(-50%);
@@ -373,21 +382,34 @@
             transform: translateY(-7.5rem);
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            margin-right: 2.5rem;
+            margin-left: 2.5rem;
             .possible-answer {
                 font-size: 26px;
-                margin-right: 40px;
+                margin: 0;
+                margin-right: 20px;
+                margin-bottom: 10px;
                 padding: 0.8rem 1.3rem;
                 user-select: none;
                 text-transform: lowercase;
-                &:last-child {
-                    margin-right: 0;
-                }
                 &:hover {
                     background-color: rgba(0, 0, 0, 0.2);
                     cursor: pointer;
                 }
                 .number-of-answer {
                     margin-right: 15px;
+                }
+            }
+        }
+        @media(max-width:610px) {
+            .answer-options {
+                flex-direction: column;
+                justify-content: center;
+                .possible-answer {
+                    &:first-child {
+                        margin-top: 0;
+                    }
                 }
             }
         }
@@ -475,7 +497,6 @@
         justify-content: center;
         flex-direction: column;
         max-width: 85%;
-        transform: translateY(-5%);
     }
     .statistic-modal-inner.result-page {
         color: black;
@@ -506,12 +527,6 @@
                 background: #fff;
                 display: flex;
                 justify-content: center;
-                /* &:first-child {
-                    text-align: center;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                } */
             }
         }
         .result-info-text {
@@ -522,9 +537,29 @@
             max-height: 22em;
             transform: translateX(2%);
         }
+        @media(max-width:575px) {
+            .result-info {
+                font-size: 23px;
+            }
+            .swiper-container {
+                .swiper-slide {
+                    font-size: 15px;
+                }
+            }
+            .result-info-text {
+                font-size: 16px;
+                max-height: 100%;
+            }
+        }
+        @media(max-width:360px) {
+            .swiper-container {
+                height: 60%;
+            }
+        }
         .result-control-buttons {
             position: absolute;
             bottom: 2.5rem;
+            margin-right: 1.5rem;
         }
         .modal-btn {
             margin-top: 0.6rem;
