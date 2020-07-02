@@ -3,4 +3,4 @@ import 'regenerator-runtime/runtime';
 
 import '../assets/scss/style.scss';
 
-location.href = './savannah.html'
+document.location.href = './savannah.html';
