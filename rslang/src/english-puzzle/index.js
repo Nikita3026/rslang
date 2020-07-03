@@ -8,9 +8,9 @@ import './css/style.scss';
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-    await setBodyDataToDom('speakit.html');
+    await setBodyDataToDom('english-puzzle.html');
     renderSideBar();
-    const { renderApp } = await import('./js/speakit');
+    const { renderApp } = await import('./js/english-puzzle');
     renderApp();
   } else {
     routTo('/authorization');
