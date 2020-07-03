@@ -1,3 +1,5 @@
+/* import 'bootstrap'; */
+
 const constants = {
   MAX_LEVEL: '29',
   MAX_PAGE: '5',

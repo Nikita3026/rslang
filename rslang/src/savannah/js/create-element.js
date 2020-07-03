@@ -1,3 +1,5 @@
+/* import 'bootstrap'; */
+
 const createElement = (type, attributes = {}, styles = {}) => {
   const elem = document.createElement(type);
   Object.keys(attributes).forEach((key) => {

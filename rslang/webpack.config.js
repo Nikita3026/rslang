@@ -10,7 +10,7 @@ module.exports = {
     watch: true,
     entry: {
         index: './src/js/index.js',
-        savannah: './src/savannah-page/js/savannah.js'
+        savannah: './src/savannah/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -80,7 +80,7 @@ module.exports = {
         }),
         new HtmlWebPackPlugin({
             filename: 'savannah.html',
-            template: './src/savannah-page/savannah.html',
+            template: './src/savannah/savannah.html',
             chunks: ['savannah']
         }),
         new CleanWebpackPlugin(),
