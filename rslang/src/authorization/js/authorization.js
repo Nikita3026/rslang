@@ -1,7 +1,7 @@
 import GetData from '../../js/GetData';
 import 'bootstrap';
 import '../scss/authorization.scss';
-import { routTo } from '../../js/helpers';
+import { routTo, checkValidToken } from '../../js/helpers';
 
 const CREATE_USER_LINK = 'https://afternoon-falls-25894.herokuapp.com/users';
 const LOGIN_LINK = 'https://afternoon-falls-25894.herokuapp.com/signin';

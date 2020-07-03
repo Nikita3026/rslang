@@ -111,3 +111,9 @@ export default class SideBar {
     });
   }
 }
+
+export const renderSideBar = () => {
+  const sideBar = new SideBar();
+  const sideBarElement = sideBar.init();
+  document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
+};

@@ -68,6 +68,11 @@ module.exports = {
       template: './src/index.html',
       chunks: ['index'],
     }),
+    new HtmlWebPackPlugin({
+      filename: 'authorization.html',
+      template: './src/authorization/authorization.html',
+      chunks: ['authorization'],
+    }),
     new CleanWebpackPlugin(),
   ],
   devServer: {
