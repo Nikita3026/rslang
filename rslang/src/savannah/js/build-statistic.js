@@ -1,5 +1,6 @@
 import constants from './constants';
 import createElement from './create-element';
+/* import 'bootstrap'; */
 
 const buildStatistic = async () => {
   let idNumber = 0;

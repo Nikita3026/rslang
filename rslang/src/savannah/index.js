@@ -6,13 +6,14 @@ import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
 
 import './css/style.scss';
 
-window.onload = async () => {
-  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-    await setBodyDataToDom('savannah.html');
-    renderSideBar();
-    const { renderApp } = await import('./js/savannah');
-    renderApp();
-  } else {
-    routTo('/authorization');
-  }
+window.onload = async() => {
+    if (localStorage.getItem('SWAuthData') && checkValidToken()) {
+        await setBodyDataToDom('savannah.html');
+        renderSideBar();
+        const { renderApp } = await
+        import ('./js/savannah');
+        renderApp();
+    } else {
+        routTo('/authorization');
+    }
 };

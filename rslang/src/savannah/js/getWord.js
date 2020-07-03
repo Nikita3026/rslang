@@ -1,3 +1,5 @@
+/* import 'bootstrap';
+ */
 const axios = require('axios');
 
 const getWord = async (pageNumber, levelNumber) => {

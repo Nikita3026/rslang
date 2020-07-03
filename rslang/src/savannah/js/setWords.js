@@ -1,14 +1,15 @@
 import constants from './constants';
 import getWord from './getWord';
+/* import 'bootstrap'; */
 
 const getWrongAnswerOptions = async () => {
   const arrayOfWrongAnswerOptions = [];
   const arrayOfrandomValues = [];
   for (let i = 0; i < 3; i += 1) {
     const randomValue = {
-      randomPage: Math.round(Math.random() * (5 - 1) + 1),
-      randomLevel: Math.round(Math.random() * (29 - 1) + 1),
-      randomNumberOfWord: Math.round(Math.random() * 19),
+      randomPage: Math.round(Math.random() * ((+constants.MAX_PAGE) - 1) + 1),
+      randomLevel: Math.round(Math.random() * (+constants.MAX_LEVEL - 1) + 1),
+      randomNumberOfWord: Math.round(Math.random() * (+constants.MAX_WORD_NUMBER)),
     };
     arrayOfrandomValues.push(randomValue);
   }
