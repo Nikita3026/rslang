@@ -1,5 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 
+.starting-window {
+    background-color: #ceb2b2;
+    height: 100vh;
+}
+
 .game-window {
     background-color: #ceb2b2;
     height: 100vh;
@@ -36,4 +41,37 @@
     padding: 10px;
     border: 1px solid black;
     margin: 20px auto;
+}
+
+.difficulty {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    max-width: 350px; 
+    margin: 20px auto;
+}
+
+.level {
+    cursor: pointer;
+    margin: 10px auto;
+    height: 30px;
+    width: 30px;
+    border: rgb(0, 0, 0) solid 1px;
+    border-radius: 50%;
+    margin-top: 5px;
+    padding-top: 2px;
+    font-size: 15px;
+    
+}
+
+.level__active {
+    height: 40px;
+    width: 40px;
+    border: #ffffff solid 1px;
+    font-size: 24px;
+    padding-top: 0px;
+}
+  
+.hidden {
+    display: none;
 }

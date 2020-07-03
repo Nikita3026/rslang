@@ -7,6 +7,11 @@
     <title>Audiocall</title>
   </head>
   <body>
+    <div class="container container-fluid starting-window hidden">
+        <div class="row justify-content-center align-items-center">
+            <div class="button start-game_button"><a href="#">Начать</a></div>  
+        </div>
+    </div>
     <div class="container-fluid game-window">
         <div class="row justify-content-end">
             <div class="btn-exit"></div>
@@ -24,6 +29,27 @@
         <div class="row">
             <div class="btn-skip">не знаю</div>
         </div>
+        <div class="row justify-content-center difficulty">
+            <div class="row justify-content-center level">6</div>
+            <div class="row justify-content-center level">5</div>
+            <div class="row justify-content-center level">4</div>
+            <div class="row justify-content-center level">3</div>
+            <div class="row justify-content-center level">2</div>
+            <div class="row justify-content-center level level__active">1</div>
+        </div>
     </div>
+
+    <div class="container container-fluid statisict-window wrapper hidden">
+        <div class="card  text-center">
+          <div class="card-header">
+              <h4 class="statistic-header">статистика</h4>
+          </div>
+          <div class="card-body statistic">
+            
+          </div>
+          <div class="card-footer text-muted">
+            <div class="button start-again_button"><a href="#">Еще раз</a></div>
+          </div>
+      </div>
   </body>
 </html>
