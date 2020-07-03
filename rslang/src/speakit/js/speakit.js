@@ -81,19 +81,3 @@ export const renderApp = () => {
   renderWords();
   renderButtonsToDom();
 };
-
-// const renderSideBar = () => {
-//   const sideBar = new SideBar();
-//   const sideBarElement = sideBar.init();
-//   document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
-// };
-
-// export const parseHTML = () => new Router(routes);
-
-// window.onload = () => {
-//   renderSideBar();
-//   // parseHTML();
-//   setTimeout(() => {
-//     renderApp();
-//   }, 500);
-// };

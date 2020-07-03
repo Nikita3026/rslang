@@ -10,7 +10,7 @@ body {
     background: #27292f;
 }
 
-header {
+.header {
     nav.header_navigation {
         ul {
             display: flex;
@@ -68,7 +68,7 @@ header {
 }
 
 
-main {
+.main {
     section {
         .wrapper {
             justify-content: center; 
