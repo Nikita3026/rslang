@@ -1,10 +1,12 @@
 @import './values.scss';
 @import './iconLoading.scss';
+@import '~bootstrap/scss/bootstrap';
 
 main {
     &.main__container {
         grid-area: main;
         padding: 1.5em;
+        position: relative;
     }
 }
 
@@ -25,6 +27,7 @@ body {
         'header header'
         'sidebar main';
         @media screen and (max-width: 600px) {
-            grid-template-columns: 50px 1fr;
+            grid-template-columns: 40px 1fr;
+            grid-template-rows: 40px 1fr;
         }
 }
