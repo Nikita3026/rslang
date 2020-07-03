@@ -10,7 +10,12 @@ const NUMBER_STEP_SIZE = 360;
 const NUMBER_ONE_PERCENT = 36;
 const MAX_WORDS = 3600;
 
-const saveStatistic = JSON.parse(localStorage.getItem('statistic'));
+let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
+if (!saveStatistic) {
+  saveStatistic = {};
+  const date = new Date().toLocaleDateString();
+  saveStatistic[`${date}`] = 0;
+}
 
 let days = [];
 let words = [];

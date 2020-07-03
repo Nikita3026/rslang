@@ -9,8 +9,8 @@ import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
 
 window.onload = async () => {
   // if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-  renderSideBar();
   await setBodyDataToDom('statistics.html');
+  renderSideBar();
   await import('./js/statistics');
   // } else {
   //   routTo('/authorization');
