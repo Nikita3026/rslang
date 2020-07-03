@@ -151,11 +151,13 @@
 }
 
 .user_icon {
-	background-image: url(./img/user_ic.png);
+	// background-image: url(./img/user_ic.png);
+	background-image: url(../images/user_ic.png);
 }
 
 .user__email_icon {
-	background-image: url(./img/email_ic.png);
+	// background-image: url(./img/email_ic.png);
+	background-image: url(../images/email_ic.png);
 }
 
 .user_icon,
@@ -199,7 +201,8 @@
 .eye {
 	width: 20px;
 	height: 20px;
-	background-image: url(./img/castle.png);
+	// background-image: url(./img/castle.png);
+	background-image: url(../images/castle.png);
 	margin-right: 15px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -208,13 +211,15 @@
 }
 
 .eye {
-	background-image: url(./img/eyeoff.png);
+	// background-image: url(./img/eyeoff.png);
+	background-image: url(../images/eyeoff.png);
 	right: -15px;
 	cursor: pointer;
 }
 
 .eye:hover {
-	background-image: url(./img/eye.png);
+	// background-image: url(./img/eye.png);
+	background-image: url(../images/eye.png);
 	right: -15px;
 	cursor: pointer;
 }
@@ -256,7 +261,7 @@
 .button_arrow {
 	width: 12px;
 	height: 12px;
-	background-image: url(./img/arrow.png);
+	background-image: url(../images/arrow.png);
 	margin-left: 15px;
 	background-position: center;
 	background-repeat: no-repeat;
