@@ -18,15 +18,15 @@ export default [
     icon: 'puzzle',
   },
   {
-    title: 'Statistics', link: '/statistics', child: [], icon: 'home',
+    title: 'Statistics', link: '/statistics', child: [], icon: 'statistics',
   },
   {
-    title: 'Dictionary', link: '/dictionary', child: [], icon: 'home',
+    title: 'Dictionary', link: '/dictionary', child: [], icon: 'dictionary',
   },
   {
     title: 'Settings', link: '/setting', child: [], icon: 'adjust',
   },
   {
-    title: 'LogOut', link: '/authorization', child: [], icon: 'logout',
+    title: 'Exit', link: '/authorization', child: [], icon: 'logout',
   },
 ];
