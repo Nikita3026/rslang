@@ -1,8 +1,8 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-/* import 'bootstrap'; */
+import 'bootstrap';
 
-import { routTo } from '../js/helpers';
+import { routTo } from '../../js/helpers';
 import constants from './constants';
 import checkMute from './check-mute';
 import { runGameplay } from './gameplay';

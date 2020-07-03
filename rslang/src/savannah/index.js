@@ -4,7 +4,7 @@ import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
 
-import './css/style.scss';
+import './scss/style.scss';
 
 window.onload = async() => {
     if (localStorage.getItem('SWAuthData') && checkValidToken()) {
