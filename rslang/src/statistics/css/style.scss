@@ -1,0 +1,25 @@
+.header-statistics {
+    display: flex;
+    margin: 20px;
+    justify-content: space-around;
+}
+
+.chart {
+    width: 80% !important;
+    max-width: 1000px !important;
+    margin: 0 auto;;
+}
+
+.hide {
+    display: none !important;
+}
+
+.card {
+    width: 90% !important;
+    margin: 20px auto !important;
+}
+
+.word {
+    border-bottom: 1px solid !important;
+    margin: 10px !important;
+}
