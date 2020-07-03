@@ -8,8 +8,8 @@ import './css/style.scss';
 
 window.onload = async () => {
   // if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-  //  renderSideBar();
     await setBodyDataToDom('setting.html');
+      //  renderSideBar();
     const { renderApp } = await import('./js/setting');
     renderApp();
   // } else {
