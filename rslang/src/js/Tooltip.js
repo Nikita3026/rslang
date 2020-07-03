@@ -14,17 +14,9 @@ export default class Tooltip {
     this.tooltipPointer.classList.add('tooltip-pointer');
     this.tooltipContainer.insertAdjacentElement('beforeend', this.tooltipPointer);
     this.tooltipContainer.insertAdjacentElement('beforeend', tooltipValue);
-    
+
     return this.tooltipContainer;
   }
-
-  // getPosition() {
-  //   const position = this.parent.getBoundingClientRect();
-  //   // const {
-  //   //   top, right, bottom, left,
-  //   // } = position;
-  //   return position;
-  // }
 }
 
 const setStyle = (parent, placement) => {
@@ -53,7 +45,7 @@ const setStyle = (parent, placement) => {
       tooltipPointer.style.top = '0';
       tooltipPointer.style.left = '50%';
       break;
-  
+
     default:
       tooltipContainer.style.top = `${position.top}px`;
       tooltipContainer.style.left = `${position.left + position.width / 2}px`;
@@ -63,16 +55,12 @@ const setStyle = (parent, placement) => {
       break;
   }
   return position;
-}
+};
 
 export const showTooltip = (event) => {
   const { dataset } = event.currentTarget;
-  console.log(event);
-  console.log(event.currentTarget);
-  console.log(event.currentTarget.getBoundingClientRect());
   const tooltip = new Tooltip(event.currentTarget, dataset.tooltip, dataset.placement);
   const tooltipElement = tooltip.show();
-  // event.currentTarget.insertAdjacentElement('beforeend', tooltipElement);
   document.querySelector('body').insertAdjacentElement('beforeend', tooltipElement);
   setStyle(event.currentTarget, dataset.placement);
 };
