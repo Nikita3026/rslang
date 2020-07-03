@@ -2,7 +2,6 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
 import './scss/authorization.scss';
-import '../assets/scss/style.scss';
 import { authorization } from './js/authorization';
 import { setBodyDataToDom } from '../js/helpers';
 
