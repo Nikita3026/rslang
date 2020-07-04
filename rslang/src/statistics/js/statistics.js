@@ -8,18 +8,19 @@ const NEXT_NUMBER = 1;
 const NUMBER_DATES = 5;
 const NUMBER_STEP_SIZE = 360;
 const NUMBER_ONE_PERCENT = 36;
-const MAX_WORDS = 3600;
+const date = new Date().toLocaleDateString();
 
 let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
 if (!saveStatistic) {
   saveStatistic = {};
-  const date = new Date().toLocaleDateString();
   saveStatistic[`${date}`] = 0;
 }
 
 let days = [];
 let words = [];
 let numberWords = 0;
+
+delete saveStatistic.seria;
 
 function createDataWords() {
   const statistics = Object.entries(saveStatistic);
@@ -70,7 +71,6 @@ const chartOptions = {
       ticks: {
         suggestedMin: MIN_NUMBER,
         stepSize: NUMBER_STEP_SIZE,
-        max: MAX_WORDS,
         callback(value) {
           return `${value / NUMBER_ONE_PERCENT}%`;
         },

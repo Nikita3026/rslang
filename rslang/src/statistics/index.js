@@ -8,11 +8,11 @@ import { renderSideBar } from '../js/SideBar/SideBar';
 import { setBodyDataToDom, checkValidToken, routTo } from '../js/helpers';
 
 window.onload = async () => {
-  // if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-  await setBodyDataToDom('statistics.html');
-  renderSideBar();
-  await import('./js/statistics');
-  // } else {
-  //   routTo('/authorization');
-  // }
+  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
+    await setBodyDataToDom('statistics.html');
+    renderSideBar();
+    await import('./js/statistics');
+  } else {
+    routTo('/authorization');
+  }
 };
