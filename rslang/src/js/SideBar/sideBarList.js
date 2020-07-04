@@ -3,7 +3,7 @@ export default [
     title: 'Home', link: '/', child: [], icon: 'home',
   },
   {
-    title: 'About', link: '/about', child: [], icon: 'info',
+    title: 'About Us', link: '/about', child: [], icon: 'info',
   },
   {
     title: 'Games',
@@ -11,16 +11,22 @@ export default [
     child: [
       { title: 'SpeakIt', link: '/speakit' },
       { title: 'Sprint', link: '/sprint' },
+      { title: 'English puzzle', link: '/englishpuzzle' },
+      { title: 'Savannah', link: '/savannah' },
+      { title: 'AudioCall', link: '/audiocall' },
     ],
     icon: 'puzzle',
   },
   {
-    title: 'Portfolio', link: '/portfolio', child: [], icon: 'home',
+    title: 'Statistics', link: '/statistics', child: [], icon: 'statistics',
   },
   {
-    title: 'Settings', link: '#settings', child: [], icon: 'adjust',
+    title: 'Dictionary', link: '/dictionary', child: [], icon: 'dictionary',
   },
   {
-    title: 'LogOut', link: '/authorization', child: [], icon: 'logout',
+    title: 'Settings', link: '/setting', child: [], icon: 'adjust',
+  },
+  {
+    title: 'Exit', link: '/authorization', child: [], icon: 'logout',
   },
 ];

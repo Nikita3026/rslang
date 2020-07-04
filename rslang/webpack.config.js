@@ -8,6 +8,15 @@ module.exports = {
   watch: true,
   entry: {
     index: './src/index.js',
+    speakit: './src/speakit/index.js',
+    sprint: './src/sprint/index.js',
+    about: './src/about/index.js',
+    englishpuzzle: './src/english-puzzle/index.js',
+    savannah: './src/savannah/index.js',
+    audiocall: './src/audiocall/index.js',
+    statistics: './src/statistics/index.js',
+    dictionary: './src/dictionary/index.js',
+    setting: './src/setting/index.js',
     authorization: './src/authorization/index.js',
   },
   output: {
@@ -69,9 +78,54 @@ module.exports = {
       chunks: ['index'],
     }),
     new HtmlWebPackPlugin({
+      filename: 'speakit.html',
+      template: './src/speakit/speakit.html',
+      chunks: ['speakit'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'sprint.html',
+      template: './src/sprint/sprint.html',
+      chunks: ['sprint'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'about.html',
+      template: './src/about/about.html',
+      chunks: ['about'],
+    }),
+    new HtmlWebPackPlugin({
       filename: 'authorization.html',
       template: './src/authorization/authorization.html',
       chunks: ['authorization'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'audiocall.html',
+      template: './src/audiocall/audiocall.html',
+      chunks: ['audiocall'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'dictionary.html',
+      template: './src/dictionary/dictionary.html',
+      chunks: ['dictionary'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'english-puzzle.html',
+      template: './src/english-puzzle/english-puzzle.html',
+      chunks: ['englishpuzzle'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'savannah.html',
+      template: './src/savannah/savannah.html',
+      chunks: ['savannah'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'setting.html',
+      template: './src/setting/setting.html',
+      chunks: ['setting'],
+    }),
+    new HtmlWebPackPlugin({
+      filename: 'statistics.html',
+      template: './src/statistics/statistics.html',
+      chunks: ['statistics'],
     }),
     new CleanWebpackPlugin(),
   ],

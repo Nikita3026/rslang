@@ -31,8 +31,22 @@ const renderNavButtonToDom = () => {
   const spanElement = document.createElement('span');
   buttonElement.insertAdjacentElement('beforeend', spanElement);
   navButtonContainer.insertAdjacentElement('beforeend', buttonElement);
-  document.querySelector('body').insertAdjacentElement('afterbegin', navButtonContainer);
+  document.querySelector('header').insertAdjacentElement('beforeend', navButtonContainer);
   buttonElement.addEventListener('click', toggleSidebar);
+};
+
+const renderSidebarHeaderToDom = () => {
+  const sidebarHeaderContainer = document.createElement('div');
+  sidebarHeaderContainer.classList.add('sidebar-header');
+  const linkElement = createLink('/');
+  const logoElement = document.createElement('h1');
+  logoElement.classList.add('logo');
+  logoElement.innerText = ('RSLang');
+  logoElement.style.backgroundImage = 'url(assets/images/logo.png)';
+  linkElement.insertAdjacentElement('beforeend', logoElement);
+  sidebarHeaderContainer.insertAdjacentElement('beforeend', linkElement);
+  document.querySelector('header').insertAdjacentElement('afterbegin', sidebarHeaderContainer);
+  return sidebarHeaderContainer;
 };
 
 export default class SideBar {
@@ -43,25 +57,11 @@ export default class SideBar {
 
   init() {
     this.sideBar.id = 'sidebar';
-    this.renderSidebarHeaderToDom();
+    renderSidebarHeaderToDom();
     this.renderNavListToDom();
     renderNavButtonToDom();
     this.addEventListener();
     return this.sideBar;
-  }
-
-  renderSidebarHeaderToDom() {
-    const sidebarHeaderContainer = document.createElement('div');
-    sidebarHeaderContainer.classList.add('sidebar-header');
-    const linkElement = createLink('/');
-    const logoElement = document.createElement('h1');
-    logoElement.classList.add('logo');
-    logoElement.innerText = ('RSLang');
-    logoElement.style.backgroundImage = 'url(assets/images/logo.png)';
-    linkElement.insertAdjacentElement('beforeend', logoElement);
-    sidebarHeaderContainer.insertAdjacentElement('beforeend', linkElement);
-    this.sideBar.insertAdjacentElement('beforeend', sidebarHeaderContainer);
-    return sidebarHeaderContainer;
   }
 
   renderNavListToDom() {
