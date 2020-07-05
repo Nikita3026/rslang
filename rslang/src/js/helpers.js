@@ -37,7 +37,7 @@ export const setBodyDataToDom = async (path) => {
       renderBodyDataToDom(doc.body);
     })
     .catch((err) => {
-      console.error('Something went wrong.', err);
+      console.log('Something went wrong.', err);
     });
 };
 
@@ -59,6 +59,58 @@ export const checkValidToken = () => {
     result = comp < 14400000;
   }
   return result;
+};
+
+export const updateToken = () => {
+  const localData = JSON.parse(localStorage.getItem('SWAuthData'));
+  const options = {
+    headers: {
+      common: {
+        Authorization: `Bearer ${localData.refreshToken}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        WithCredentials: true,
+        'Access-Control-Allow-Origin': '*',
+      },
+    },
+  };
+  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, 'get', options)
+    .sendRequest()
+    .then((response) => {
+      const loginAuthData = {
+        ...localData,
+        token: response.data.token,
+        refreshToken: response.data.refreshToken,
+        time: new Date(),
+      };
+      localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        routTo('/authorization');
+      }
+      console.log(error.response.data);
+    });
+};
+
+export const renderAlert = (alertValue, alertClass) => {
+  const alertContainer = document.createElement('div');
+  const dopClass = alertClass || 'alert-danger';
+  alertContainer.classList.add('alert', dopClass);
+  alertContainer.setAttribute('role', 'alert');
+  alertContainer.innerText = alertValue;
+  const closeIcon = document.createElement('span');
+  closeIcon.classList.add('icon', 'icon-close');
+  alertContainer.insertAdjacentElement('afterbegin', closeIcon);
+  closeIcon.addEventListener('click', () => {
+    alertContainer.classList.add('hide');
+    setTimeout(() => alertContainer.remove(), 300);
+  });
+  setTimeout(() => {
+    alertContainer.classList.add('hide');
+    setTimeout(() => alertContainer.remove(), 300);
+  }, 5000);
+  return alertContainer;
 };
 
 export default {};

@@ -1,7 +1,8 @@
 import GetData from '../../js/GetData';
 import 'bootstrap';
 import '../scss/authorization.scss';
-import { routTo } from '../../js/helpers';
+import { routTo, renderAlert } from '../../js/helpers';
+import Modal from '../../js/Modal/Modal';
 
 const CREATE_USER_LINK = 'https://afternoon-falls-25894.herokuapp.com/users';
 const LOGIN_LINK = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -28,36 +29,6 @@ const toogleTabActive = () => {
   return false;
 };
 
-export const updateToken = () => {
-  const localData = JSON.parse(localStorage.getItem('SWAuthData'));
-  const options = {
-    headers: {
-      common: {
-        Authorization: `Bearer ${localData.refreshToken}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        WithCredentials: true,
-        'Access-Control-Allow-Origin': '*',
-      },
-    },
-  };
-  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, 'get', options)
-    .sendRequest()
-    .then((response) => {
-      const loginAuthData = {
-        ...localData,
-        token: response.data.token,
-        refreshToken: response.data.refreshToken,
-        time: new Date(),
-      };
-      localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-      routTo(window.location.href);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
 export const logIn = (emailValue, passwordValue) => {
   const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${emailValue}`, password: `${passwordValue}` })
     .sendRequest()
@@ -75,7 +46,17 @@ export const logIn = (emailValue, passwordValue) => {
       routTo('/');
     })
     .catch((error) => {
-      console.error(error);
+      if (error.response.status === 404) {
+        const alertElement = renderAlert('Пользователя с таким email не существует');
+        document.querySelector('body').insertAdjacentElement('afterbegin', alertElement);
+        document.querySelector('form.form-group > button').disabled = true;
+      }
+      if (error.response.status === 403) {
+        const alertElement = renderAlert('Комбинация email и пароль не верна');
+        document.querySelector('body').insertAdjacentElement('afterbegin', alertElement);
+        document.querySelector('form.form-group > button').disabled = true;
+      }
+      console.log(error.response.status);
     });
   return authLogin;
 };
@@ -101,14 +82,27 @@ export const handleAuthorize = (event) => {
         localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
         toogleTabActive();
       })
+      .then(() => logIn(userEmail, userPassword))
       .catch((error) => {
-        console.log(error);
-      })
-      .then(() => logIn(userEmail, userPassword));
+        if (error.response.status === 417) {
+          // const alertElement = renderAlert('Пользователя с таким email уже существует.');
+          const buttons = [{ buttonLink: '/authorization', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
+          const modal = new Modal('Ошибка', 'Пользователя с таким email уже существует.', 'auth', buttons);
+          modal.init();
+          document.querySelector('form.form-group > button').disabled = true;
+        }
+        if (error.response.status === 422) {
+          const alertElement = renderAlert('Комбинация email и пароль не верна.');
+          document.querySelector('body').insertAdjacentElement('afterbegin', alertElement);
+          document.querySelector('form.form-group > button').disabled = true;
+        }
+        console.log(error.response.status);
+      });
   } else logIn(userEmail, userPassword);
 };
 
 const checkIsPasswordValid = (value) => {
+  if (!value) return false;
   const isValid = regexValidationPassword.test(value);
   isFormValid = isValid;
   return isValid;
@@ -122,6 +116,7 @@ const checkIsPasswordEqual = () => {
 };
 
 const checkIsEmailValid = (value) => {
+  if (!value) return false;
   const isValid = regexValidationEmail.test(value);
   isFormValid = isValid;
   return isValid;
@@ -155,7 +150,7 @@ const getInputEmailElement = () => {
   emailInputElement.type = 'email';
   emailInputElement.required = true;
   emailInputElement.placeholder = 'Enter your e-mail*';
-  emailInputElement.addEventListener('change', (event) => {
+  emailInputElement.addEventListener('keyup', (event) => {
     emailInputElement.classList.remove('valid');
     emailInputElement.classList.remove('inValid');
     isValidEmail = checkIsEmailValid(event.target.value);
@@ -175,23 +170,26 @@ const getInputPasswordElement = (type) => {
   passwordInputElement.type = 'password';
   passwordInputElement.required = true;
   passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'Repeat your password*';
-  passwordInputElement.addEventListener('change', (event) => {
-    if (!event.target.value) return;
+  passwordInputElement.addEventListener('keyup', (event) => {
     passwordInputElement.classList.remove('valid');
     passwordInputElement.classList.remove('inValid');
     if (type === 'main') {
       isValidPassword = checkIsPasswordValid(event.target.value);
       if (isValidPassword) {
         passwordInputElement.classList.add('valid');
+        document.querySelector('.pass_comment').style.display = 'none';
       } else {
         passwordInputElement.classList.add('inValid');
+        document.querySelector('.pass_comment').style.display = 'block';
       }
     } else {
       isEqualPass = checkIsPasswordEqual(event.target.value);
       if (isEqualPass && isValidPassword) {
         passwordInputElement.classList.add('valid');
+        document.querySelector('.rpass_comment').style.display = 'none';
       } else {
         passwordInputElement.classList.add('inValid');
+        document.querySelector('.rpass_comment').style.display = 'block';
       }
     }
     checkIsButtonActive(getActiveTabType());
@@ -219,10 +217,24 @@ const getFormElements = (type) => {
   const passInputElement = getInputPasswordElement('main');
   const rSWeatPassInputElement = type === 'register' ? getInputPasswordElement('rSWeat') : null;
   const isRegistrated = getAuthIdFromLocalStorage();
-
   const submitInputElement = getSubmitBtnElement(!isRegistrated ? 'SignIn' : 'LogIn');
-
-  return [emailInputElement, passInputElement, rSWeatPassInputElement, submitInputElement];
+  const commentPassword = document.createElement('label');
+  commentPassword.innerText = `Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, 
+  одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}`;
+  commentPassword.classList.add('pass_comment');
+  commentPassword.style.display = 'none';
+  const commentRPassword = document.createElement('label');
+  commentRPassword.innerText = 'Пароли не совпадают';
+  commentRPassword.classList.add('rpass_comment');
+  commentRPassword.style.display = 'none';
+  return [
+    emailInputElement,
+    passInputElement,
+    commentPassword,
+    rSWeatPassInputElement,
+    commentRPassword,
+    submitInputElement,
+  ];
 };
 
 const renderAuthForm = (type) => {
