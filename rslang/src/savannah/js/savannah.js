@@ -50,10 +50,15 @@ const runListeners = () => {
     constants.CANCEL_BTN.addEventListener('click', () => {
         constants.MAIN_WORD.classList.add('main-word-animation');
     });
+    constants.MODAL.addEventListener('click', ({ target }) => {
+        if (target.classList.contains('modal')) {
+            constants.MAIN_WORD.classList.add('main-word-animation');
+        }
+    })
 
     constants.QUIT_BTNS.forEach((item) => {
         item.addEventListener('click', () => {
-            routTo('/index');
+            routTo('../');
         });
     });
 
@@ -62,7 +67,26 @@ const runListeners = () => {
     });
 };
 
+const createSounds = () => {
+    const sounds = {
+        RIGHT_ANSWER_SOUND: new Audio(),
+        WRONG_ANSWER_SOUND: new Audio(),
+        END_GAME_SOUND: new Audio(),
+        START_SOUND: new Audio(),
+        STRIK_SOUND: new Audio()
+    };
+    sounds.RIGHT_ANSWER_SOUND.src = '../../assets/audio/rightAnswer.wav';
+    sounds.WRONG_ANSWER_SOUND.src = '../../assets/audio/wrongAnswer.wav';
+    sounds.END_GAME_SOUND.src = '../../assets/audio/endGame.mp3';
+    sounds.START_SOUND.src = '../../assets/audio/gong.mp3';
+    sounds.STRIK_SOUND.src = '../../assets/audio/strik.mp3';
+    Object.keys(sounds).forEach((key) => {
+        constants[key] = sounds[key];
+    })
+}
+
 export const renderApp = () => {
+    createSounds();
     runListeners();
     runGameplay();
 };

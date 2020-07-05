@@ -87,7 +87,6 @@ const correctAnswer = async() => {
     const tempStatisticObject = JSON.parse(localStorage.shortTermStatisticSavannah);
     tempStatisticObject.guessedWords.push(JSON.parse(localStorage.currentMainWordOfSavannahGame));
     localStorage.setItem('shortTermStatisticSavannah', JSON.stringify(tempStatisticObject));
-    console.log(localStorage.shortTermStatisticSavannah);
     if (!checkMute()) {
         constants.RIGHT_ANSWER_SOUND.play();
     }
@@ -186,7 +185,7 @@ const runListenters = () => {
 };
 
 const setLocalStorageValues = () => {
-    localStorage.setItem('learningWordsForSavannahGame', localStorage.learningWords);
+    localStorage.setItem('learningWordsForSavannahGame', localStorage.dictionary);
     localStorage.setItem('shortTermStatisticSavannah', JSON.stringify({
         guessedWords: [],
         unspokenWords: [],
@@ -197,6 +196,8 @@ const setLocalStorageValues = () => {
         localStorage.savannahNumberOfWord = 0;
     }
 };
+
+
 
 export const runGameplay = () => {
     setLocalStorageValues();

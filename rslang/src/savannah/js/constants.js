@@ -18,6 +18,7 @@ const constants = {
     PROCEED_BTN: document.querySelector('.btn-proceed'),
     CROSS_OUT: document.querySelector('.cross-out'),
     MAIN_WORD: document.querySelector('.main-word'),
+    MODAL: document.querySelector('#modalLoginAvatar'),
     STEAM_INNER: document.querySelector('.steam-animation'),
     STEAM: document.querySelector('.steam'),
     GLASS: document.querySelector('.glass-image'),
@@ -30,12 +31,7 @@ const constants = {
     STATISTIC_WRONG_INNER: document.querySelector('#wrong-result'),
     STATISTIC_RIGHT_INNER: document.querySelector('#know-result'),
     RESULT_INNER: document.querySelector('.result-info-text'),
-    RESULT_PHRASE: document.querySelector('.result-info'),
-    RIGHT_ANSWER_SOUND: document.querySelector('.right-answer-audio'),
-    WRONG_ANSWER_SOUND: document.querySelector('.wrong-answer-audio'),
-    START_SOUND: document.querySelector('.start-audio'),
-    END_GAME_SOUND: document.querySelector('.end-game-audio'),
-    STRIK_SOUND: document.querySelector('.strik-audio'),
+    RESULT_PHRASE: document.querySelector('.result-info')
 };
 
 export default constants;
