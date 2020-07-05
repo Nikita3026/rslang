@@ -28,10 +28,37 @@ const toogleTabActive = () => {
   return false;
 };
 
+export const updateToken = () => {
+  const localData = JSON.parse(localStorage.getItem('SWAuthData'));
+  const options = {
+    headers: {
+      common: {
+        Authorization: `Bearer ${localData.refreshToken}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        WithCredentials: true,
+        'Access-Control-Allow-Origin': '*',
+      },
+    },
+  };
+  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, 'get', options)
+    .sendRequest()
+    .then((response) => {
+      const loginAuthData = {
+        ...localData,
+        token: response.data.token,
+        refreshToken: response.data.refreshToken,
+        time: new Date(),
+      };
+      localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
+      routTo(window.location.href);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 export const logIn = (emailValue, passwordValue) => {
-  // const AUTHCONTANER = document.querySelector('section.login_from__container');
-  // const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
-  // const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
   const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${emailValue}`, password: `${passwordValue}` })
     .sendRequest()
     .then((response) => {
@@ -41,9 +68,9 @@ export const logIn = (emailValue, passwordValue) => {
         userId: response.data.userId,
         message: response.data.message,
         token: response.data.token,
+        refreshToken: response.data.refreshToken,
         time: new Date(),
       };
-      // localStorage.removeItem('SWAuthData');
       localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
       routTo('/');
     })
