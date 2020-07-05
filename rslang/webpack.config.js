@@ -60,6 +60,13 @@ module.exports = {
                 }
             },
             {
+                test: /\.(ogg|mp3|wav|mpe?g)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
+            },
+            {
                 test: /\.scss$/,
                 use: [
                     'style-loader',
@@ -134,6 +141,11 @@ module.exports = {
             filename: 'statistics.html',
             template: './src/statistics/statistics.html',
             chunks: ['statistics'],
+        }),
+        new HtmlWebPackPlugin({
+            filename: 'savannah.html',
+            template: './src/savannah/savannah.html',
+            chunks: ['savannah']
         }),
         new CleanWebpackPlugin(),
     ],
