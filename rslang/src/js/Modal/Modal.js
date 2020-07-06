@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { createLink } from '../helpers';
 
 export default class Modal {

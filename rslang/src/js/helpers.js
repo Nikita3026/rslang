@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import GetData from './GetData';
 
 export const createLink = (link) => {
@@ -6,7 +7,7 @@ export const createLink = (link) => {
   return linkElement;
 };
 
-export const routTo = (path) => {
+export const routeTo = (path) => {
   window.location.href = path;
 };
 
@@ -27,17 +28,14 @@ export const renderBodyDataToDom = (body) => {
 };
 
 export const setBodyDataToDom = async (path) => {
-  const parseHtml = new GetData(path, 'get');
-  await parseHtml.sendRequest()
+  const parseHtml = new GetData(path);
+  await parseHtml.parseHtmlToDOM()
     .then((response) => response.data)
     .then((html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       renderHeadDataToDom(doc.head);
       renderBodyDataToDom(doc.body);
-    })
-    .catch((err) => {
-      console.log('Something went wrong.', err);
     });
 };
 
@@ -49,7 +47,7 @@ export const removeToken = () => {
   return localStorage.setItem('SWAuthData', newLocalStorageData);
 };
 
-export const checkValidToken = () => {
+export const checkTokenIsValid = () => {
   const localStorageData = JSON.parse(localStorage.getItem('SWAuthData'));
   let result = false;
   if (localStorageData && localStorageData.token) {
@@ -63,20 +61,10 @@ export const checkValidToken = () => {
 
 export const updateToken = () => {
   const localData = JSON.parse(localStorage.getItem('SWAuthData'));
-  const options = {
-    headers: {
-      common: {
-        Authorization: `Bearer ${localData.refreshToken}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        WithCredentials: true,
-        'Access-Control-Allow-Origin': '*',
-      },
-    },
-  };
-  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, 'get', options)
-    .sendRequest()
+  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, localData.refreshToken)
+    .updateToken()
     .then((response) => {
+      if (!response) return;
       const loginAuthData = {
         ...localData,
         token: response.data.token,
@@ -84,12 +72,6 @@ export const updateToken = () => {
         time: new Date(),
       };
       localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-    })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        routTo('/authorization');
-      }
-      console.log(error.response.data);
     });
 };
 
@@ -110,7 +92,7 @@ export const renderAlert = (alertValue, alertClass) => {
     alertContainer.classList.add('hide');
     setTimeout(() => alertContainer.remove(), 300);
   }, 5000);
-  return alertContainer;
+  return document.querySelector('body').insertAdjacentElement('afterbegin', alertContainer);
 };
 
 export default {};
