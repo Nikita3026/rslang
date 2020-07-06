@@ -35,7 +35,6 @@ const temeDark = document.querySelector('#theme_dark');
 
 let checkRepeatedClick;
 
-
 let settings = {
 	userFullName: "Иван Иванович Иванов",
 	userEmail: "name@mail.com",
@@ -119,9 +118,6 @@ function changeChecboxChecked() {
 		noRepeatWord.checked = "on";
 	}
 }
-
-
-
 
 
 // ---------------------------------------------------------------------------
@@ -322,15 +318,15 @@ function zzz(el, ind) {
 
 // ---------test----------
 
-const buttonOn = document.querySelector('.on');
+// const buttonOn = document.querySelector('.on');
 
-buttonOn.addEventListener('click', () => {
-	sectionSetting.classList.remove('none');
-	setTimeout(() => {
-		sectionSetting.classList.add('active');
-		blockSettingPadding.classList.add('active');
-	}, 10);
-});
+// buttonOn.addEventListener('click', () => {
+// 	sectionSetting.classList.remove('none');
+// 	setTimeout(() => {
+// 		sectionSetting.classList.add('active');
+// 		blockSettingPadding.classList.add('active');
+// 	}, 10);
+// });
 
 
 

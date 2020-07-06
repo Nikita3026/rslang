@@ -8,9 +8,9 @@ import './css/style.scss';
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData') && checkValidToken()) {
-    await setBodyDataToDom('setting.html');
+    await setBodyDataToDom('setting-page.html');
     renderSideBar();
-    const { renderApp } = await import('./js/setting');
+    const { renderApp } = await import('./js/setting-page');
     renderApp();
   } else {
     routTo('/authorization');
