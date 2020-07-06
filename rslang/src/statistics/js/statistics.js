@@ -8,18 +8,16 @@ const NEXT_NUMBER = 1;
 const NUMBER_DATES = 5;
 const NUMBER_STEP_SIZE = 360;
 const NUMBER_ONE_PERCENT = 36;
-const date = new Date().toLocaleDateString();
 
 let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
 if (!saveStatistic) {
   saveStatistic = {};
-  saveStatistic[`${date}`] = 0;
 }
+saveStatistic['начало использования приложения'] = 0;
 
 let days = [];
 let words = [];
 let numberWords = 0;
-
 delete saveStatistic.seria;
 
 function createDataWords() {
