@@ -9,7 +9,7 @@ const path = require('path');
 module.exports = {
     watch: true,
     entry: {
-        index: './src/js/index.js',
+        setting: './src/setting-page/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -65,9 +65,9 @@ module.exports = {
             ]
         }),
         new HtmlWebPackPlugin({
-            filename: 'index.html',
-            template: './src/index.html',
-            chunks: ['index']
+            filename: 'setting-page.html',
+            template: './src/setting-page/setting-page.html',
+            chunks: ['setting']
         }),
         new CleanWebpackPlugin(),
     ],
