@@ -15,5 +15,7 @@ module.exports = {
         sourceType: 'module',
     },
     parser: 'babel-eslint',
-    rules: {},
+    rules: {
+        'linebreak-style': ['error', 'windows'],
+    },
 };

@@ -1,14 +1,7 @@
+@import "~bootstrap/scss/bootstrap";
+@import '../../assets/scss/style.scss';
 $Green_main: #00c49d;
 $White_Light: #f3f3f3;
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: #27292f;
-}
 
 .header {
     nav.header_navigation {
@@ -16,6 +9,9 @@ body {
             display: flex;
             margin: 2em 0;
             padding: 0;
+            @media screen and (max-width: 600px) {
+                margin: 1em 0;
+            }
             li {
                 display: flex;
                 margin: 5px;
@@ -79,23 +75,31 @@ body {
 
 .image__container {
     margin: 2em;
+    @media screen and (max-width: 600px) {
+        margin: 0;
+    }
     .wrapper {
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        height: 325px;
+        // height: 325px;
+        @media screen and (max-width: 600px) {
+            height: auto;
+        }
         img {
             width: auto;
             max-width: 100%;
         }
         .translation__container {
-            color: $White_Light;
             width: 390px;
             max-width: 100%;
             text-align: center;
             margin-top: 10px;
-            border: 2px solid $White_Light;
-            border-radius: 10px;            
+            border: 2px solid #333;
+            border-radius: 10px;  
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }          
             p {
                 margin: 0;
                 font-size: 24px;
@@ -112,6 +116,7 @@ body {
             display: flex;
             align-items: center;
             font-size: 20px;
+            border-bottom: 1px solid #333;
             span {
                 padding: 0 0 0 2em;
             }
@@ -134,6 +139,7 @@ body {
             border-radius: 5px;
             align-items: center;
             min-width: 150px;
+            border: 1px solid #e2e2e2;
             p {
                 margin: 0;
                 padding-left: 2.5em;
@@ -166,7 +172,6 @@ body {
     .wrapper {
         flex-wrap: wrap;
         .btn {
-            background: $Green_main;
             display: flex;
             padding: 0.5em 1em;
             flex: 1 0 auto;
@@ -175,15 +180,8 @@ body {
             font-size: 1.5em;
             line-height: 1;
             cursor: pointer;
-            border-radius: 5px;
-            &:hover {
-                background: darken($Green_main, 10%);
-            }
             &.btn_speach {
                 flex-grow: 2;
-                &.active {
-                    background: darken($Green_main, 10%);
-                }
             }
         }
     }
@@ -192,26 +190,36 @@ body {
 
 .stat__container {
     display: none;
+    background: #fffcf9;
     position: fixed;
     top: 0;
-    background: #333;
-    width: 100%;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    .wrapper {
-        width: 80%;
-        background: #fff;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    flex-direction: column;
+    > .stat_wrapper {
         display: flex;
         flex-direction: column;
-        padding: 2em;
+        padding: 1em;
+        margin: 0;
+        max-height: calc(100vh - 45px);
+        overflow-y: auto;
         .word_item {
             display: flex;
+            flex-wrap: wrap;
+            align-items: center;
             audio {
                 display: none;
             }
             svg {
                 width: 40px;
+                min-width: 40px;
+            }
+            p {
+                margin: 0 0.5em 0 0;
             }
         }
         .result_count_header {
@@ -231,16 +239,44 @@ body {
                 }
             }
         }
+        
+    }
+    .buttons__container {
+        margin: 0.5em 1em;
         .btn {
-            border: 1px solid #333;
-            border-radius: 5px;
             padding: 0.5em 1em;
             display: inline-block;
             margin-right: 0.5em;
-            &:hover {
-                background: $Green_main; 
-            }            
         }
+    }    
+}
+.start_page__container {
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    text-align: center;
+    background: url(../img/start_bg.jpg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .start_text_container {
+        margin-bottom: 1em;
+    }
+    h1 {
+        font-weight: normal;
+        font-size: 3em;
+        margin: 0;
+        margin-bottom: 1em;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+    }
+    h3 {
+        font-weight: normal;
+    font-size: 1.5em;
+    margin: 0;
     }
 }
-@import '../../assets/scss/style.scss';

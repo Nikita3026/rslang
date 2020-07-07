@@ -203,9 +203,15 @@
   }
 }
 
+main {
+  position: relative;
+}
+
 main.main__container {
   grid-area: main;
   padding: 1.5em;
+  overflow: auto;
+  max-height: calc(100vh - 60px);
 }
 
 nav#sidebar {
@@ -214,6 +220,7 @@ nav#sidebar {
 
 header {
   grid-area: header;
+  z-index: 1;
 }
 
 body {
@@ -222,6 +229,7 @@ body {
   grid-template-rows: 60px 1fr;
   min-height: 100vh;
   grid-template-areas: 'header header' 'sidebar main';
+  overflow: hidden;
 }
 
 @media screen and (max-width: 600px) {

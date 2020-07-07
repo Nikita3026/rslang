@@ -1,12 +1,14 @@
+/* eslint-disable import/no-cycle */
 import 'bootstrap';
 import { restart } from './utils';
 
 let clonedData = null;
 
-const STATSCONTAINER = document.querySelector('section.stat__container > .wrapper');
+const STATSCONTAINER = document.querySelector('section.stat__container');
+const STATSWRAPPER = document.querySelector('section.stat__container > .stat_wrapper');
 
 const clearStat = () => {
-  STATSCONTAINER.innerHTML = '';
+  STATSWRAPPER.innerHTML = '';
 };
 
 const closeStat = () => {
@@ -16,14 +18,14 @@ const closeStat = () => {
 const getSuccessContainer = () => {
   const successContainer = document.createElement('div');
   successContainer.classList.add('success_items');
-  STATSCONTAINER.insertAdjacentElement('beforeend', successContainer);
+  STATSWRAPPER.insertAdjacentElement('beforeend', successContainer);
   return successContainer;
 };
 
 const getFailedContainer = () => {
   const failedContainer = document.createElement('div');
   failedContainer.classList.add('failed_items');
-  STATSCONTAINER.insertAdjacentElement('beforeend', failedContainer);
+  STATSWRAPPER.insertAdjacentElement('beforeend', failedContainer);
   return failedContainer;
 };
 
@@ -79,10 +81,13 @@ const renderFailedNodesToDom = () => {
 };
 
 const createButton = (text, classList) => {
-  const buttonElement = document.createElement('a');
+  const buttonElement = document.createElement('button');
   buttonElement.innerText = text;
+  const classListArr = classList.split(',');
+  classListArr.forEach((it) => {
+    buttonElement.classList.add(it.replace(/\s*/, ''));
+  });
   buttonElement.classList.add('btn');
-  buttonElement.classList.add(classList);
   return buttonElement;
 };
 
@@ -101,8 +106,9 @@ const handleClickStatButtons = (event) => {
 };
 
 const renderStatButtonsToDom = () => {
-  const buttonReturn = createButton('Return', 'btn_return');
-  const buttonNewGame = createButton('New Game', 'btn_new_game');
+  if (document.querySelector('.stat__container .buttons__container')) return;
+  const buttonReturn = createButton('Return', 'btn_return, btn-info');
+  const buttonNewGame = createButton('New Game', 'btn_new_game, btn-success');
   const statButtonsContainer = document.createElement('div');
   statButtonsContainer.classList.add('buttons__container');
   STATSCONTAINER.insertAdjacentElement('beforeend', statButtonsContainer);

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import 'bootstrap';
 import { recognition } from './webSpeech';
 import { renderStatToDom } from './stat';
@@ -12,7 +13,7 @@ const startSpeachListen = () => {
 };
 
 export const toggleBtnSpeachClass = () => {
-  document.querySelector('section.buttons__container a.btn.btn_speach').classList.toggle('active');
+  document.querySelector('section.buttons__container .btn.btn_speach').classList.toggle('active');
 };
 
 export const handleButtonClick = (event) => {
@@ -40,9 +41,9 @@ export const handleButtonClick = (event) => {
 
 const createButton = (text, classList) => {
   const buttonsContainer = document.querySelector('section.buttons__container > .wrapper');
-  const buttonElement = document.createElement('a');
+  const buttonElement = document.createElement('button');
   buttonElement.innerText = text;
-  buttonElement.classList.add('btn');
+  buttonElement.classList.add('btn', 'btn-info');
   buttonElement.classList.add(classList);
   buttonsContainer.insertAdjacentElement('beforeend', buttonElement);
 };

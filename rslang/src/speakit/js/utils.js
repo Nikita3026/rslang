@@ -149,11 +149,18 @@ export const checkResult = (value) => {
   }
 };
 
+export const hideElement = (element) => {
+  element.setAttribute('style', 'display: none');
+};
+
+export const showElement = (element) => {
+  element.setAttribute('style', 'display: block');
+};
 export const restart = () => {
   document.querySelectorAll('section.words__container > .wrapper > div.word_item.checked').forEach((it) => {
     it.classList.remove('checked');
   });
-  document.querySelector('section.buttons__container a.btn.btn_speach').classList.remove('active');
+  document.querySelector('section.buttons__container .btn.btn_speach').classList.remove('active');
   setIsPlay(false);
   hideTranslation();
   hideMicropgoneLine();

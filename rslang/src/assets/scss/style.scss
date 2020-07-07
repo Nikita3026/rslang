@@ -2,9 +2,12 @@
 @import './iconLoading.scss';
 
 main {
+    position: relative;
     &.main__container {
         grid-area: main;
         padding: 1.5em;
+        overflow: auto;
+        max-height: calc(100vh - 60px);
     }
 }
 
@@ -14,6 +17,7 @@ nav#sidebar {
 
 header {
     grid-area: header;
+    z-index: 1;
 }
 
 body {
@@ -27,4 +31,5 @@ body {
         @media screen and (max-width: 600px) {
             grid-template-columns: 50px 1fr;
         }
+    overflow: hidden;
 }
