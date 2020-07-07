@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import GetData from './GetData';
+import apiService from './GetData';
 
 export const createLink = (link) => {
   const linkElement = document.createElement('a');
@@ -28,8 +28,7 @@ export const renderBodyDataToDom = (body) => {
 };
 
 export const setBodyDataToDom = async (path) => {
-  const parseHtml = new GetData(path);
-  await parseHtml.parseHtmlToDOM()
+  const parseHtml = await apiService.parseHtmlToDOM(path)
     .then((response) => response.data)
     .then((html) => {
       const parser = new DOMParser();
@@ -37,6 +36,7 @@ export const setBodyDataToDom = async (path) => {
       renderHeadDataToDom(doc.head);
       renderBodyDataToDom(doc.body);
     });
+  return parseHtml;
 };
 
 export const removeToken = () => {
@@ -61,8 +61,7 @@ export const checkTokenIsValid = () => {
 
 export const updateToken = () => {
   const localData = JSON.parse(localStorage.getItem('SWAuthData'));
-  new GetData(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, localData.refreshToken)
-    .updateToken()
+  apiService.updateToken(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, localData.refreshToken)
     .then((response) => {
       if (!response) return;
       const loginAuthData = {

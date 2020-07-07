@@ -1,4 +1,4 @@
-import GetData from '../../js/GetData';
+import apiService from '../../js/GetData';
 import 'bootstrap';
 import '../scss/authorization.scss';
 import { routeTo } from '../../js/helpers';
@@ -16,9 +16,8 @@ const getActiveTabType = () => {
   return type;
 };
 
-export const logIn = (emailValue, passwordValue) => {
-  const authLogin = new GetData(null, { email: `${emailValue}`, password: `${passwordValue}` })
-    .loginUser()
+export const logIn = async (emailValue, passwordValue) => {
+  const authLogin = await apiService.loginUser({ email: `${emailValue}`, password: `${passwordValue}` })
     .then((response) => {
       if (!response) return;
       const loginAuthData = {
@@ -37,7 +36,7 @@ export const logIn = (emailValue, passwordValue) => {
   return authLogin;
 };
 
-export const handleAuthorize = (event) => {
+export const handleAuthorize = async (event) => {
   event.preventDefault();
   event.stopPropagation();
   const { parentNode: { childNodes } } = event.target;
@@ -47,8 +46,7 @@ export const handleAuthorize = (event) => {
   const isRegistration = actionType === 'register';
   if (isRegistration && !isFormValid) return;
   if (isRegistration) {
-    new GetData(null, { email: `${userEmail}`, password: `${userPassword}` })
-      .createUser()
+    await apiService.createUser({ email: `${userEmail}`, password: `${userPassword}` })
       .then((response) => {
         if (!response) return;
         const regAuthData = {

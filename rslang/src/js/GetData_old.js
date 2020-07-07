@@ -4,13 +4,14 @@ import Modal from './Modal/Modal';
 
 const axios = require('axios').default;
 
-export class ApiService {
-  constructor() {
-    this.error = 'Что то пошло не так';
+export default class GetData {
+  constructor(link = '', body = null) {
+    this.link = link;
+    this.body = body;
   }
 
-  loginUser(body) {
-    return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', body)
+  loginUser() {
+    return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', this.body)
       .catch((error) => {
         if (error.response.status === 404) {
           renderAlert('Пользователь с таким email не существует');
@@ -20,12 +21,12 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.status);
       });
   }
 
-  createUser(body) {
-    return axios.post('https://afternoon-falls-25894.herokuapp.com/users', body)
+  createUser() {
+    return axios.post('https://afternoon-falls-25894.herokuapp.com/users', this.body)
       .catch((error) => {
         if (error.response.status === 417) {
           const buttons = [{ buttonLink: '/authorization', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
@@ -37,22 +38,22 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна.');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.status);
       });
   }
 
-  parseHtmlToDOM(link) {
-    return axios.get(link)
-      .catch((error) => {
-        renderAlert(`${this.error}: ${error.response.data}`);
+  parseHtmlToDOM() {
+    return axios.get(this.link)
+      .catch((err) => {
+        renderAlert('Something went wrong.', err);
       });
   }
 
-  updateToken(link, body) {
+  updateToken() {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${body}`,
+          Authorization: `Bearer ${this.body}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -60,23 +61,19 @@ export class ApiService {
         },
       },
     };
-    return axios.get(link, options)
+    return axios.get(this.link, options)
       .catch((error) => {
         if (error.response.status === 401) {
           routeTo('/authorization');
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 
-  getWords(link) {
-    return axios.get(link)
+  getWords() {
+    return axios.get(this.link)
       .catch((error) => {
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.status);
       });
   }
 }
-
-const apiService = new ApiService();
-
-export default apiService;
