@@ -1,36 +1,45 @@
-@import "~bootstrap/scss/bootstrap";
 
-header {
-    display: flex;
-    align-items: center;
-    background: #fffcf9;
-    box-shadow: 0px -4px 10px #505050;
-    position: relative;
-    .sidebar-header {
-        a {
-            color: transparent!important;
-            h1 {
-                background-size: 150px auto;
-                background-position: 5px 50%;
-                background-repeat: no-repeat;
-                margin: 0;
-                font-size: 3em;
+body {
+    & > header {
+        display: flex;
+        align-items: center;
+        background: #fffcf9;
+        box-shadow: 0px -4px 10px #505050;
+        position: fixed;
+        height: 60px;
+        z-index: 2;
+        @media screen and (max-width: 600px) {
+            height: 40px;
+        }
+        .sidebar-header {
+            a {
+                color: transparent!important;
+                h1 {
+                    background-size: 150px auto;
+                    background-position: 5px 50%;
+                    background-repeat: no-repeat;
+                    margin: 0;
+                    font-size: 3em;
+                    line-height: 1em;
+                }
             }
         }
     }
 }
+
 
 #sidebar {
     width: 65px;
     min-height: 100vh;
     background-color: #fffcf9;
     position: fixed;
-    // outline: 5px solid #fffcf9;
+    z-index: 1;
     top: 60px;
     overflow: hidden;
     box-shadow: -5px 0px 10px #505050;
     @media screen and (max-width: 600px) {
-        width: 50px;
+        width: 40px;
+        top: 40px;
     }
     ul {
         li {
@@ -46,6 +55,9 @@ header {
                 color: transparent;
                 width: 100%;
                 justify-content: flex-start;
+                @media screen and (max-width: 600px) {
+                    white-space: nowrap;
+                }                
                 span {
                     width: 50px;
                     min-width: 65px;
@@ -55,7 +67,10 @@ header {
                     background-size: 30px;
                     background-position: 50%;
                     @media screen and (max-width: 600px) {
-                        min-width: 50px
+                        min-width: 40px;
+                        width: 40px;
+                        background-size: 25px;
+                        height: 40px;
                     }
                 }
             }
@@ -90,7 +105,8 @@ a[data-toggle="collapse"] {
     top: 70px;
     border-left: 1px solid #e7e7e7;
     @media screen and (max-width: 600px) {
-        left: 50px;
+        left: 40px;
+        top: 50px;
     }
     &.active {
         left: 180px;

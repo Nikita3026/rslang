@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-cycle */
 import { renderAlert, routeTo } from './helpers';
 import Modal from './Modal/Modal';
@@ -5,10 +6,6 @@ import Modal from './Modal/Modal';
 const axios = require('axios').default;
 
 export class ApiService {
-  constructor() {
-    this.error = 'Что то пошло не так';
-  }
-
   loginUser(body) {
     return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', body)
       .catch((error) => {
@@ -20,7 +17,7 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 
@@ -37,14 +34,14 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна.');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 
   parseHtmlToDOM(link) {
     return axios.get(link)
       .catch((error) => {
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 
@@ -65,14 +62,14 @@ export class ApiService {
         if (error.response.status === 401) {
           routeTo('/authorization');
         }
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 
   getWords(link) {
     return axios.get(link)
       .catch((error) => {
-        renderAlert(`${this.error}: ${error.response.data}`);
+        renderAlert(error.response.data);
       });
   }
 }

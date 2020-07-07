@@ -1,5 +1,6 @@
 import 'bootstrap';
 import { createLink, removeToken } from '../helpers';
+import { showTooltip, hideTooltip } from '../Tooltip';
 import sideBarList from './sideBarList';
 import './SideBar.scss';
 
@@ -78,6 +79,8 @@ export default class SideBar {
       iconElement.classList.add('icon', it.icon);
       iconElement.style.backgroundImage = `url(assets/images/icon/${it.icon}.svg)`;
       liLink.insertAdjacentElement('afterbegin', iconElement);
+      liLink.setAttribute('data-tooltip', it.title);
+      liLink.setAttribute('data-placement', 'right');
       if (it.child.length > 0) {
         liLink.classList.add('dropdown-toggle');
         liLink.setAttribute('data-toggle', 'collapse');
@@ -95,6 +98,14 @@ export default class SideBar {
         liElement.insertAdjacentElement('beforeend', childUl);
       }
       ulElement.insertAdjacentElement('beforeend', liElement);
+      liLink.addEventListener('mouseover', (event) => {
+        if (this.sideBar.classList.contains('active')) return;
+        showTooltip(event);
+      });
+      liLink.addEventListener('mouseout', (event) => {
+        if (this.sideBar.classList.contains('active')) return;
+        hideTooltip(event);
+      });
     });
     this.sideBar.insertAdjacentElement('beforeend', ulElement);
     return ulElement;
@@ -104,6 +115,7 @@ export default class SideBar {
     this.sideBar.addEventListener('click', (event) => {
       if (!this.sideBar.classList.contains('active') && event.target.parentNode.classList.contains('dropdown-toggle')) {
         toggleSidebar();
+        hideTooltip(event);
       }
       if (event.target.classList.contains('logout')) {
         removeToken();
