@@ -10,6 +10,9 @@ main {
         overflow: auto;
         max-height: calc(100vh - 60px);
         position: relative;
+        @media screen and (max-width: 600px) {
+            max-height: calc(100vh - 40px);
+        }
     }
 }
 
