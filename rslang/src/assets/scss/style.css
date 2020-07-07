@@ -210,8 +210,12 @@ main {
 main.main__container {
   grid-area: main;
   padding: 1.5em;
+<<<<<<< HEAD
   overflow: auto;
   max-height: calc(100vh - 60px);
+=======
+  position: relative;
+>>>>>>> 5379dce236e7ffd0784a5bfef2f0d6108d01b482
 }
 
 nav#sidebar {
