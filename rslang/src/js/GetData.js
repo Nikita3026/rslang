@@ -17,7 +17,7 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(error.response.data);
+        console.log(error.response.data);
       });
   }
 
@@ -34,14 +34,14 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна.');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        renderAlert(error.response.data);
+        console.log(error.response.data);
       });
   }
 
   parseHtmlToDOM(link) {
     return axios.get(link)
       .catch((error) => {
-        renderAlert(error.response.data);
+        console.log(error.response.data);
       });
   }
 
@@ -62,14 +62,14 @@ export class ApiService {
         if (error.response.status === 401) {
           routeTo('/authorization');
         }
-        renderAlert(error.response.data);
+        console.log(error.response.data);
       });
   }
 
   getWords(link) {
     return axios.get(link)
       .catch((error) => {
-        renderAlert(error.response.data);
+        console.log(error.response.data);
       });
   }
 }
