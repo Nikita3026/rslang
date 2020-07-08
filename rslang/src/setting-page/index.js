@@ -13,9 +13,9 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    await setBodyDataToDom('dictionary.html');
+    await setBodyDataToDom('setting-page.html');
     renderSideBar();
-    const { renderApp } = await import('./js/dictionary');
+    const { renderApp } = await import('./js/setting-page');
     renderApp();
   } else {
     routeTo('/authorization');

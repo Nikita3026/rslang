@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-cycle */
 import { renderAlert, routeTo } from './helpers';
-// import Modal from './Modal/Modal';
+import Modal from './Modal/Modal';
 
 const axios = require('axios').default;
 
@@ -25,10 +25,9 @@ export class ApiService {
     return axios.post('https://afternoon-falls-25894.herokuapp.com/users', body)
       .catch((error) => {
         if (error.response.status === 417) {
-          // const buttons = [{ buttonLink: '/authorization', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
-          // const modal = new Modal('Ошибка', 'Пользователь с таким email уже существует.', 'auth', buttons);
-          // modal.init();
-          renderAlert('Пользователь с таким email уже существует.', 'alert-warning');
+          const buttons = [{ buttonLink: '/authorization', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
+          const modal = new Modal('Ошибка', 'Пользователь с таким email уже существует.', 'auth', buttons);
+          modal.init();
           document.querySelector('form.form-group > button').disabled = true;
         }
         if (error.response.status === 422) {
