@@ -5,6 +5,7 @@ import {
   renderWords,
   setLevel,
 } from './speakit';
+import apiService from '../../js/GetData';
 
 const DATAPATH = 'https://raw.githubusercontent.com/okrypets/rslang-data/master/data/';
 let isPlay = false;
@@ -131,7 +132,7 @@ const setWordChecked = (id) => {
   wordElement.classList.add('checked');
 };
 
-export const checkResult = (value) => {
+export const checkResult = async (value) => {
   const microphoneLineContainer = document.querySelector('.image__container > .wrapper > .microphone_line');
   microphoneLineContainer.innerText = '';
   const microphoneLineValue = document.createElement('span');
@@ -145,7 +146,39 @@ export const checkResult = (value) => {
   if (matchedWord) {
     microphoneLineValue.innerText = value;
     const wordId = getWordId(matchedWord);
+    const userWordId = matchedWord.id;
     setWordChecked(wordId);
+    const authData = JSON.parse(localStorage.getItem('SWAuthData'));
+    const word = { difficulty: 'weak', optional: { testFieldString: 'test', testFieldBoolean: true } };
+    await apiService.getUser(authData.userId, authData.token)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word, authData.token)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+    // const createUserWord = async ({ authData.userId, userWordId, word }) => {
+      // const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, {
+      //   method: 'POST',
+      //   withCredentials: true,
+      //   headers: {
+      //     'Authorization': `Bearer ${authData.token}`,
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(word),
+      // });
+      // const content = await rawResponse.json();
+    
+      // console.log(content);
+    // };
   }
 };
 

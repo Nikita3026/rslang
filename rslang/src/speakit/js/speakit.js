@@ -2,7 +2,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
-import GetData from '../../js/GetData';
+import apiService from '../../js/GetData';
 import { handleMenuClick, getActiveLevel, getActiveLevelPage } from './utils';
 import WordsList from './WordsList';
 import { renderButtonsToDom } from './buttons';
@@ -66,8 +66,7 @@ export const setActiveLevelPage = () => {
 export const renderWords = () => {
   setActiveLevelPage();
   const linkRequest = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`;
-  return new GetData(linkRequest, 'get')
-    .sendRequest()
+  return apiService.getWords(linkRequest)
     .then((response) => setDataFromReq(response.data))
     .catch((error) => {
       console.error(error);

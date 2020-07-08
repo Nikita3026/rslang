@@ -16,8 +16,8 @@ const renderInitText = () => {
 
   const h3ElementFirst = document.createElement('h3');
   h3ElementFirst.innerText = 'Click on words and repeat it.';
-//   const h3ElementSec = document.createElement('h3');
-//   h3ElementSec.innerText = '';
+  //   const h3ElementSec = document.createElement('h3');
+  //   h3ElementSec.innerText = '';
 
   initTextContainer.insertAdjacentElement('beforeend', h1Element);
   initTextContainer.insertAdjacentElement('beforeend', h3ElementFirst);
@@ -35,7 +35,8 @@ const hideStartPage = (event) => {
 
 const renderStartButton = () => {
   const buttonElement = document.createElement('button');
-  buttonElement.classList.add('btn', 'btn_info');
+  buttonElement.setAttribute('type', 'button');
+  buttonElement.classList.add('btn', 'btn-info');
   buttonElement.innerText = 'Start';
   buttonElement.addEventListener('click', (event) => {
     hideStartPage(event);
