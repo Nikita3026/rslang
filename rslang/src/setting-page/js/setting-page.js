@@ -28,306 +28,271 @@ const checkboxAgain = document.querySelector('#again');
 const checkboxHard = document.querySelector('#hard');
 const checkboxAlright = document.querySelector('#alright');
 const checkboxEasy = document.querySelector('#easy');
-const repeatWord = document.querySelector('#repeat_word');
+const repeatWords = document.querySelector('#repeat_word');
 const onlyDifficultWords = document.querySelector('#onlyDifficultWords');
+const noRepeatWord = document.querySelector('#no_repeat_word');
 const themeLight = document.querySelector('#theme_light');
 const temeDark = document.querySelector('#theme_dark');
 
 let checkRepeatedClick;
 
-let settings = {
-	userFullName: "Иван Иванович Иванов",
-	userEmail: "name@mail.com",
-	userPassword: "",
-	deleteUser: false,
-	theme: "light",
-	maxNewWords: 10,
-	maxCards: 10,
-	wordTranslate: true,
-	textMeaning: true,
-	textExample: true,
-	transcription: true,
-	image: true,
-	showAnswer: true,
-	difficultWords: true,
-	delete: true,
-	again: true,
-	hard: true,
-	alright: true,
-	easy: true,
-	repeatWords: true
-	// onlyDifficultWords: false
+const settings = {
+  userFullName: 'Иван Иванович Иванов',
+  userEmail: 'name@mail.com',
+  userPassword: '',
+  deleteUser: false,
+  theme: 'light',
+  maxNewWords: 10,
+  maxCards: 10,
+  wordTranslate: true,
+  textMeaning: true,
+  textExample: true,
+  transcription: true,
+  image: true,
+  showAnswer: true,
+  difficultWords: true,
+  delete: true,
+  again: true,
+  hard: true,
+  alright: true,
+  easy: true,
+  repeatWords: true,
+  onlyDifficultWords: false,
+  noRepeatWord: false,
 };
 
-reload();
-
 function reload() {
-
-	if (localStorage.length !== 0) {
-		for (let i = 0; i < localStorage.length; i++) {
-
-			for (key in settings) {
-				key === localStorage.key(i) && (settings[key] = localStorage.getItem(key));
-			}
-		}
-	}
-	console.log(settings);
-	changeChecboxChecked();
+  if (localStorage.length !== 0) {
+    for (let i = 0; i < localStorage.length; i++) {
+      for (key in settings) {
+        key === localStorage.key(i) && (settings[key] = localStorage.getItem(key));
+      }
+    }
+  }
+  // console.log(settings);
+  changeChecboxChecked();
 }
 
-
-
+reload();
 function setLocalstorage() {
-	for (key in settings) {
-		localStorage.setItem(`${key}`, settings[key]);
-	}
+  for (key in settings) {
+    localStorage.setItem(`${key}`, settings[key]);
+  }
 }
-
 
 // ----------------------reload change checked----------------------------------
 
-
 function changeChecboxChecked() {
+  maxWordCardAll.forEach(el => {
+    for (key in settings) {
+      if (el.id === key) {
+        el.value = settings[key];
+      }
+    }
+  }
+)
 
-	maxWordCardAll.forEach(el => {
-		for (key in settings) {
-			if (el.id === key) {
-				el.value = settings[key];
-			}
-		}
-	})
+  checkboxAll.forEach(el => {
+    for (key in settings) {
+      if (el.id === key && eval(`${settings[key]}`) === true) {
+        el.checked = true;
+      } else if (el.id === key && eval(`${settings[key]}`) === false) {
+        el.checked = false;
+      }
+    }
+  })
 
-	checkboxAll.forEach(el => {
-		for (key in settings) {
-			if (el.id === key && eval(`${settings[key]}`) === true) {
-				el.checked = true;
-			} else if (el.id === key && eval(`${settings[key]}`) === false) {
-				el.checked = false;
-			}
-		}
-	})
+  if (settings.theme === 'dark') {
+    temeDark.checked = 'on';
+  } else {
+    themeLight.checked = 'on';
+  }
 
-	if (settings.theme === "dark") {
-		temeDark.checked = "on";
-	} else {
-		themeLight.checked = "on";
-	}
-
-	if (settings.repeatWords === eval(`${true}`)) {
-		repeatWord.checked = "on";
-	} else {
-		onlyDifficultWords.checked = "on";
-	}
+  if (eval(`${settings.repeatWords}`) === true) {
+    repeatWords.checked = 'on';
+  } else if (eval(`${settings.onlyDifficultWords}`) === true) {
+    onlyDifficultWords.checked = 'on';
+  } else if (eval(`${settings.noRepeatWord}`) === true) {
+    noRepeatWord.checked = 'on';
+  }
 }
-
 
 // ---------------------------------------------------------------------------
 
-
 informations.forEach((el, ind) => {
-	el.addEventListener('click', () => openChangeBlock(ind));
+  el.addEventListener('click', () => openChangeBlock(ind));
 });
 
 function openChangeBlock(ind) {
-	buttonArrow.forEach((el) => el.classList.remove('active'));
-	change.forEach((el) => el.classList.remove('active'));
+  buttonArrow.forEach((el) => el.classList.remove('active'));
+  change.forEach((el) => el.classList.remove('active'));
 
-	if (checkRepeatedClick !== ind) {
-		changeChecboxChecked();
+  if (checkRepeatedClick !== ind) {
+    changeChecboxChecked();
 
-		buttonArrow[ind].classList.add('active');
-		change[ind].classList.add('active');
+    buttonArrow[ind].classList.add('active');
+    change[ind].classList.add('active');
 
-		informations[ind].classList.value === 'informations change_password' && (inputPassword.value = '');
-		informations[ind].classList.value === 'informations report_error' && (textareaMistake.value = '');
+    informations[ind].classList.value === 'informations change_password' && (inputPassword.value = '');
+    informations[ind].classList.value === 'informations report_error' && (textareaMistake.value = '');
 
-		checkRepeatedClick = ind;
-	} else {
-		checkRepeatedClick = -1;
-	}
+    checkRepeatedClick = ind;
+  } else {
+    checkRepeatedClick = -1;
+  }
 }
-
-// ----------------------work with button block_change_setting------------------------
-
-change.forEach((el, ind) => {
-	el.addEventListener('click', () => clickButtonBlockChangeSetting(ind));
-});
-
-function clickButtonBlockChangeSetting(ind) {
-	if (event.target.className === 'button_change save_password') {
-		openChangeBlock(ind);
-		changePassword();
-
-	} else if (event.target.className === 'button_change cansel') {
-		openChangeBlock(ind);
-
-	} else if (event.target.className === 'button_change delete') {
-		openChangeBlock(ind);
-		changeDeleteUser();
-
-	} else if (event.target.className === 'button_change send') {
-		openChangeBlock(ind);
-
-	} else if (event.target.className === 'button_change save_number_words') {
-		openChangeBlock(ind);
-		changeMaxNewWords();
-
-	} else if (event.target.className === 'button_change save_number_cards') {
-		openChangeBlock(ind);
-		changeMaxCards();
-
-	} else if (event.target.className === 'button_change save_info_card') {
-		openChangeBlock(ind);
-		changeInfoCard();
-
-	} else if (event.target.className === 'button_change save_learning_words') {
-		openChangeBlock(ind);
-		changeLearningWords();
-
-	} else if (event.target.className === 'button_change save_button_cards') {
-		openChangeBlock(ind);
-		changeButtonCards();
-
-	} else if (event.target.className === 'button_change save_button_page') {
-		openChangeBlock(ind);
-		changeButtonPage();
-
-	} else if (event.target.className === 'button_change save_theme') {
-		openChangeBlock(ind);
-		changeTheme();
-	}
-}
-
-
 
 // ---------------------change info-------------------------
 
 function changeInfoCard() {
-	settings.wordTranslate = checkboxTranslation.checked;
-	settings.textMeaning = checkboxMeaning.checked;
-	settings.textExample = checkboxUse.checked;
-	settings.transcription = checkboxTranscription.checked;
-	settings.image = checkboxImage.checked;
-	console.log(settings.wordTranslate, settings.textMeaning, settings.textExample, settings.transcription, settings.image);
-	setLocalstorage();
-	changeChecboxChecked()
-
+  settings.wordTranslate = checkboxTranslation.checked;
+  settings.textMeaning = checkboxMeaning.checked;
+  settings.textExample = checkboxUse.checked;
+  settings.transcription = checkboxTranscription.checked;
+  settings.image = checkboxImage.checked;
+  console.log(settings.wordTranslate, settings.textMeaning, settings.textExample, settings.transcription, settings.image);
+  setLocalstorage();
+  changeChecboxChecked()
 }
 
 function changeMaxCards() {
-	settings.maxCards = numberCards.value;
-	setLocalstorage();
-	console.log(settings.maxCards);
-	changeChecboxChecked()
+  settings.maxCards = numberCards.value;
+  setLocalstorage();
+  console.log(settings.maxCards);
+  changeChecboxChecked()
 }
 
 function changeMaxNewWords() {
-	settings.maxNewWords = numberWords.value;
-	setLocalstorage()
-	console.log(settings.maxNewWords);
-	changeChecboxChecked()
+  settings.maxNewWords = numberWords.value;
+  setLocalstorage()
+  console.log(settings.maxNewWords);
+  changeChecboxChecked()
 }
 
 function changeButtonCards() {
-	settings.showAnswer = checkboxAnswer.checked;
-	settings.difficultWords = checkboxDifficultGroup.checked;
-	settings.delete = checkboxDeleteWord.checked;
-	console.log(settings.showAnswer, settings.difficultWords, settings.delete);
-	setLocalstorage();
-	changeChecboxChecked()
-
+  settings.showAnswer = checkboxAnswer.checked;
+  settings.difficultWords = checkboxDifficultGroup.checked;
+  settings.delete = checkboxDeleteWord.checked;
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
 function changeButtonPage() {
-	settings.again = checkboxAgain.checked;
-	settings.hard = checkboxHard.checked;
-	settings.alright = checkboxAlright.checked;
-	settings.easy = checkboxEasy.checked;
-	console.log(settings.again, settings.hard, settings.alright, settings.easy);
-	setLocalstorage();
-	changeChecboxChecked()
-
+  settings.again = checkboxAgain.checked;
+  settings.hard = checkboxHard.checked;
+  settings.alright = checkboxAlright.checked;
+  settings.easy = checkboxEasy.checked;
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
 function changeLearningWords() {
-	settings.repeatWords = repeatWord.checked;
-	console.log(settings.repeatWords);
-	setLocalstorage();
-	changeChecboxChecked();
-
+  settings.repeatWords = repeatWords.checked;
+  settings.onlyDifficultWords = onlyDifficultWords.checked;
+  settings.noRepeatWord = noRepeatWord.checked;
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
 function changePassword() {
-	settings.userPassword = inputPassword.value;
-	console.log(settings.userPassword);
-	setLocalstorage();
-	changeChecboxChecked()
-
+  settings.userPassword = inputPassword.value;
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
 function changeDeleteUser() {
-	settings.deleteUser = true;
-	console.log(settings.deleteUser);
-	setLocalstorage();
-	changeChecboxChecked()
-
+  settings.deleteUser = true;
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
 function changeTheme() {
-	themeLight.checked ? settings.theme = "light" : settings.theme = "dark";
-	console.log(settings.theme);
-	setLocalstorage();
-	changeChecboxChecked();
-
-
+  themeLight.checked ? settings.theme = "light" : settings.theme = "dark";
+  setLocalstorage();
+  changeChecboxChecked();
 }
 
+// ----------------------work with button block_change_setting------------------------
 
+function clickButtonBlockChangeSetting(ind) {
+  if (event.target.className === 'button_change save_password') {
+    openChangeBlock(ind);
+    changePassword();
+  } else if (event.target.className === 'button_change cansel') {
+    openChangeBlock(ind);
+  } else if (event.target.className === 'button_change delete') {
+    openChangeBlock(ind);
+    changeDeleteUser();
+  } else if (event.target.className === 'button_change send') {
+    openChangeBlock(ind);
+  } else if (event.target.className === 'button_change save_number_words') {
+    openChangeBlock(ind);
+    changeMaxNewWords();
+  } else if (event.target.className === 'button_change save_number_cards') {
+    openChangeBlock(ind);
+    changeMaxCards();
+  } else if (event.target.className === 'button_change save_info_card') {
+    openChangeBlock(ind);
+    changeInfoCard();
+  } else if (event.target.className === 'button_change save_learning_words') {
+    openChangeBlock(ind);
+    changeLearningWords();
+  } else if (event.target.className === 'button_change save_button_cards') {
+    openChangeBlock(ind);
+    changeButtonCards();
+  } else if (event.target.className === 'button_change save_button_page') {
+    openChangeBlock(ind);
+    changeButtonPage();
+  } else if (event.target.className === 'button_change save_theme') {
+    openChangeBlock(ind);
+    changeTheme();
+  }
+}
+
+change.forEach((el, ind) => {
+  el.addEventListener('click', () => clickButtonBlockChangeSetting(ind));
+});
 
 // ---------------------see password-------------------------
 
-changeSeeHover.addEventListener('mouseover', seePassword);
-
 function seePassword() {
-	event.target.className === 'eye' ? (inputPassword.type = 'text') : (inputPassword.type = 'password');
+  event.target.className === 'eye' ? (inputPassword.type = 'text') : (inputPassword.type = 'password');
 }
+
+changeSeeHover.addEventListener('mouseover', seePassword);
 
 // ---------------------close setting-------------------------
 
-buttonSettingExit.addEventListener('click', closeSettingWindow);
-
 function closeSettingWindow() {
-	sectionSetting.classList.remove('active');
-	blockSettingPadding.classList.remove('active');
-
-	setTimeout(() => sectionSetting.classList.add('none'), 300);
+  sectionSetting.classList.remove('active');
+  blockSettingPadding.classList.remove('active');
+  setTimeout(() => sectionSetting.classList.add('none'), 300);
 }
+
+buttonSettingExit.addEventListener('click', closeSettingWindow);
 
 // ------------------click button setting----------------------
 
-buttonSettingAll.forEach((el, ind) => {
-	el.classList.value === 'button_setting exit' || el.addEventListener('click', () => zzz(el, ind));
-});
-
 function zzz(el, ind) {
-	buttonSettingAll.forEach((el) => el.classList.remove('active'));
-	settingAll.forEach((el) => el.classList.remove('active'));
+  buttonSettingAll.forEach((el) => el.classList.remove('active'));
+  settingAll.forEach((el) => el.classList.remove('active'));
 
-	el.classList.add('active');
-	settingAll[ind].classList.add('active');
+  el.classList.add('active');
+  settingAll[ind].classList.add('active');
 }
+
+buttonSettingAll.forEach((el, ind) => {
+  el.classList.value === 'button_setting exit' || el.addEventListener('click', () => zzz(el, ind));
+});
 
 // ---------test----------
 
 // const buttonOn = document.querySelector('.on');
 
 // buttonOn.addEventListener('click', () => {
-// 	sectionSetting.classList.remove('none');
-// 	setTimeout(() => {
-// 		sectionSetting.classList.add('active');
-// 		blockSettingPadding.classList.add('active');
-// 	}, 10);
+//   sectionSetting.classList.remove('none');
+//   setTimeout(() => {
+//     sectionSetting.classList.add('active');
+//     blockSettingPadding.classList.add('active');
+//   }, 10);
 // });
-
-
-
