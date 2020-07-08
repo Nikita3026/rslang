@@ -29,7 +29,7 @@ const checkboxHard = document.querySelector('#hard');
 const checkboxAlright = document.querySelector('#alright');
 const checkboxEasy = document.querySelector('#easy');
 const repeatWord = document.querySelector('#repeat_word');
-const noRepeatWord = document.querySelector('#no_repeat_word');
+const onlyDifficultWords = document.querySelector('#onlyDifficultWords');
 const themeLight = document.querySelector('#theme_light');
 const temeDark = document.querySelector('#theme_dark');
 
@@ -56,6 +56,7 @@ let settings = {
 	alright: true,
 	easy: true,
 	repeatWords: true
+	// onlyDifficultWords: false
 };
 
 reload();
@@ -115,7 +116,7 @@ function changeChecboxChecked() {
 	if (settings.repeatWords === eval(`${true}`)) {
 		repeatWord.checked = "on";
 	} else {
-		noRepeatWord.checked = "on";
+		onlyDifficultWords.checked = "on";
 	}
 }
 
