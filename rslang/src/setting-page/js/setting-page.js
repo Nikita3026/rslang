@@ -36,7 +36,7 @@ const temeDark = document.querySelector('#theme_dark');
 
 let checkRepeatedClick;
 
-const settings = {
+let settings = {
   userFullName: 'Иван Иванович Иванов',
   userEmail: 'name@mail.com',
   userPassword: '',
@@ -63,44 +63,47 @@ const settings = {
 
 function reload() {
   if (localStorage.length !== 0) {
-    for (let i = 0; i < localStorage.length; i++) {
-      for (key in settings) {
-        key === localStorage.key(i) && (settings[key] = localStorage.getItem(key));
-      }
-    }
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   for (key in settings) {
+    //     key === localStorage.key(i) && (settings[key] = localStorage.getItem(key));
+    //   }
+    // }
+
+    let settingsParse = localStorage.getItem('settings');
+    settings = JSON.parse(settingsParse);
   }
-  // console.log(settings);
   changeChecboxChecked();
 }
 
 reload();
+
 function setLocalstorage() {
   for (key in settings) {
     localStorage.setItem(`${key}`, settings[key]);
   }
+  localStorage.setItem('settings', JSON.stringify(settings));
 }
 
 // ----------------------reload change checked----------------------------------
 
 function changeChecboxChecked() {
-  maxWordCardAll.forEach(el => {
+  maxWordCardAll.forEach((el) => {
     for (key in settings) {
       if (el.id === key) {
         el.value = settings[key];
       }
     }
-  }
-)
+  });
 
-  checkboxAll.forEach(el => {
+  checkboxAll.forEach((el) => {
     for (key in settings) {
-      if (el.id === key && eval(`${settings[key]}`) === true) {
+      if (el.id === key && settings[key] === true) {
         el.checked = true;
-      } else if (el.id === key && eval(`${settings[key]}`) === false) {
+      } else if (el.id === key && settings[key] === false) {
         el.checked = false;
       }
     }
-  })
+  });
 
   if (settings.theme === 'dark') {
     temeDark.checked = 'on';
@@ -108,11 +111,11 @@ function changeChecboxChecked() {
     themeLight.checked = 'on';
   }
 
-  if (eval(`${settings.repeatWords}`) === true) {
+  if (settings.repeatWords === true) {
     repeatWords.checked = 'on';
-  } else if (eval(`${settings.onlyDifficultWords}`) === true) {
+  } else if (settings.onlyDifficultWords === true) {
     onlyDifficultWords.checked = 'on';
-  } else if (eval(`${settings.noRepeatWord}`) === true) {
+  } else if (settings.noRepeatWord === true) {
     noRepeatWord.checked = 'on';
   }
 }
@@ -152,21 +155,21 @@ function changeInfoCard() {
   settings.image = checkboxImage.checked;
   console.log(settings.wordTranslate, settings.textMeaning, settings.textExample, settings.transcription, settings.image);
   setLocalstorage();
-  changeChecboxChecked()
+  changeChecboxChecked();
 }
 
 function changeMaxCards() {
   settings.maxCards = numberCards.value;
   setLocalstorage();
   console.log(settings.maxCards);
-  changeChecboxChecked()
+  changeChecboxChecked();
 }
 
 function changeMaxNewWords() {
   settings.maxNewWords = numberWords.value;
-  setLocalstorage()
+  setLocalstorage();
   console.log(settings.maxNewWords);
-  changeChecboxChecked()
+  changeChecboxChecked();
 }
 
 function changeButtonCards() {
@@ -207,7 +210,7 @@ function changeDeleteUser() {
 }
 
 function changeTheme() {
-  themeLight.checked ? settings.theme = "light" : settings.theme = "dark";
+  themeLight.checked ? settings.theme = 'light' : settings.theme = 'dark';
   setLocalstorage();
   changeChecboxChecked();
 }
