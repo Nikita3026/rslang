@@ -16,7 +16,7 @@ module.exports = {
     audiocall: './src/audiocall/index.js',
     statistics: './src/statistics/index.js',
     dictionary: './src/dictionary/index.js',
-    setting: './src/setting/index.js',
+    setting: './src/setting-page/index.js',
     authorization: './src/authorization/index.js',
   },
   output: {
@@ -118,8 +118,8 @@ module.exports = {
       chunks: ['savannah'],
     }),
     new HtmlWebPackPlugin({
-      filename: 'setting.html',
-      template: './src/setting/setting.html',
+      filename: 'setting-page.html',
+      template: './src/setting-page/setting-page.html',
       chunks: ['setting'],
     }),
     new HtmlWebPackPlugin({
