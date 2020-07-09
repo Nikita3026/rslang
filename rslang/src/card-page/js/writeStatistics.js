@@ -58,6 +58,7 @@ function savingStatistic(learningWords, cards) {
   saveStatistic[date] = learningWords.length;
   localStorage.setItem('statistic', JSON.stringify(saveStatistic));
   numberSeria.innerText = saveStatistic.seria;
+  console.log(saveStatistic);
 }
 
 function writeStatistic(learningWords, cards) {

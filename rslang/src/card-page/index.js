@@ -7,6 +7,7 @@ import { renderSideBar } from '../js/SideBar/SideBar';
 import {
   setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
 } from '../js/helpers';
+import '../assets/scss/style.scss';
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData')) {
