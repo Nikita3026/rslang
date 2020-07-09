@@ -28,3 +28,11 @@
     width: 80%;
     margin: auto;
 }
+
+.container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+    top: 0 !important;
+}
+
+.chart-wrapper {
+    margin-top: 80px !important;
+}
