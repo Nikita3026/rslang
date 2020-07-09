@@ -13,25 +13,26 @@ const NUMBER_STEP_SIZE = 360;
 const NUMBER_ONE_PERCENT = 36;
 
 let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
-if (!saveStatistic) {
-  saveStatistic = {};
-}
-saveStatistic['начало использования приложения'] = 0;
 
 let days = [];
 let words = [];
 let numberWords = 0;
 
 function createStatisticsText() {
-  const proportionRightAnswer = saveStatistic.rightAnswer / saveStatistic.cards;
-  series.innerText = `Общее количество серий прохождения карточек: ${saveStatistic.seria}`;
-  cards.innerText = `Общее количество пройденных карточек: ${saveStatistic.cards}`;
-  rightAnswer.innerText = `Процент правильных ответов: ${proportionRightAnswer * 100}%`;
-  delete saveStatistic.seria;
-  delete saveStatistic.cards;
-  delete saveStatistic.rightAnswer;
+  if (!saveStatistic) {
+    saveStatistic = {};
+  } else {
+    const proportionRightAnswer = saveStatistic.rightAnswer / saveStatistic.cards;
+    series.innerText = `Общее количество серий прохождения карточек: ${saveStatistic.seria}`;
+    cards.innerText = `Общее количество пройденных карточек: ${saveStatistic.cards}`;
+    rightAnswer.innerText = `Процент правильных ответов: ${proportionRightAnswer * 100}%`;
+    delete saveStatistic.seria;
+    delete saveStatistic.cards;
+    delete saveStatistic.rightAnswer;
+  }
 }
 createStatisticsText();
+saveStatistic['начало использования приложения'] = 0;
 
 function createDataWords() {
   const statistics = Object.entries(saveStatistic);
