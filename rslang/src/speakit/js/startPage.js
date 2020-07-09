@@ -15,7 +15,7 @@ const renderInitText = () => {
   h1Element.innerText = 'SpeakIt';
 
   const h3ElementFirst = document.createElement('h3');
-  h3ElementFirst.innerText = 'Click on words and repeat it.';
+  h3ElementFirst.innerText = 'Слушай произношение слов и повторяй.';
   //   const h3ElementSec = document.createElement('h3');
   //   h3ElementSec.innerText = '';
 
@@ -37,7 +37,7 @@ const renderStartButton = () => {
   const buttonElement = document.createElement('button');
   buttonElement.setAttribute('type', 'button');
   buttonElement.classList.add('btn', 'btn-info');
-  buttonElement.innerText = 'Start';
+  buttonElement.innerText = 'Старт';
   buttonElement.addEventListener('click', (event) => {
     hideStartPage(event);
     showElement(document.querySelector('.header'));

@@ -36,6 +36,7 @@ export const handleButtonClick = (event) => {
   if (target.classList.contains('btn_result')) {
     document.querySelector('section.stat__container').style.display = 'flex';
     renderStatToDom();
+    recognition.stop();
   }
 };
 
@@ -50,9 +51,9 @@ const createButton = (text, classList) => {
 
 export const renderButtonsToDom = () => {
   const buttonsContainer = document.querySelector('section.buttons__container > .wrapper');
-  createButton('Restart', 'btn_restart');
-  createButton('Speach', 'btn_speach');
-  createButton('Result', 'btn_result');
+  createButton('Заново', 'btn_restart');
+  createButton('Играть', 'btn_speach');
+  createButton('Результат', 'btn_result');
   buttonsContainer.addEventListener('click', handleButtonClick);
 };
 

@@ -108,12 +108,10 @@ const handleClickStatButtons = (event) => {
 
 const renderStatButtonsToDom = () => {
   if (document.querySelector('.stat__container .buttons__container')) return;
-  const buttonReturn = createButton('Return', 'btn_return, btn-info');
   const buttonNewGame = createButton('New Game', 'btn_new_game, btn-success');
   const statButtonsContainer = document.createElement('div');
   statButtonsContainer.classList.add('buttons__container');
   STATSCONTAINER.insertAdjacentElement('beforeend', statButtonsContainer);
-  statButtonsContainer.insertAdjacentElement('beforeend', buttonReturn);
   statButtonsContainer.insertAdjacentElement('beforeend', buttonNewGame);
   statButtonsContainer.addEventListener('click', handleClickStatButtons);
 };
