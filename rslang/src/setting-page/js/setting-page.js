@@ -60,12 +60,13 @@ let settings = {
   noRepeatWord: false,
 };
 
-function reload() {
-  let settingsParse = localStorage.getItem('settings');
-  settings = JSON.parse(settingsParse);  
-  changeChecboxChecked();	
+export function reload() {
+  if (!localStorage.getItem('settings')) setLocalstorage();
+  const settingsParse = localStorage.getItem('settings');
+  settings = JSON.parse(settingsParse);
+  changeChecboxChecked();
   console.log(settings);
-}	
+}
 
 reload();
 
@@ -77,7 +78,7 @@ function setLocalstorage() {
 
 function changeChecboxChecked() {
   maxWordCardAll.forEach((el) => {
-    for (key in settings) {
+    for (let key in settings) {
       if (el.id === key) {
         el.value = settings[key];
       }
@@ -85,7 +86,7 @@ function changeChecboxChecked() {
   });
 
   checkboxAll.forEach((el) => {
-    for (key in settings) {
+    for (let key in settings) {
       if (el.id === key && settings[key] === true) {
         el.checked = true;
       } else if (el.id === key && settings[key] === false) {

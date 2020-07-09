@@ -10,8 +10,8 @@ window.onload = async () => {
   if (localStorage.getItem('SWAuthData') && checkTokenIsValid()) {
     await setBodyDataToDom('setting-page.html');
     renderSideBar();
-    const { renderApp } = await import('./js/setting-page');
-    renderApp();
+    const { reload } = await import('./js/setting-page');
+    reload();
   } else {
     routeTo('/authorization');
   }
