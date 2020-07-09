@@ -5,6 +5,7 @@ import Modal from './Modal/Modal';
 
 const axios = require('axios').default;
 
+const AUTHDATA = JSON.parse(localStorage.getItem('SWAuthData'));
 export class ApiService {
   loginUser(body) {
     return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', body)
@@ -45,11 +46,11 @@ export class ApiService {
       });
   }
 
-  updateToken(link, body) {
+  updateToken(link) {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${body}`,
+          Authorization: `Bearer ${AUTHDATA.refreshToken}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -73,25 +74,25 @@ export class ApiService {
       });
   }
 
-  getUser(id, token) {
+  getUser() {
     const options = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${AUTHDATA.token}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     };
-    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${id}`, options)
+    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.id}`, options)
       .catch((error) => {
         console.log(error.response.data);
       });
   }
 
-  createUserWord(link, word, token) {
+  createUserWord(link, word) {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${AUTHDATA.token}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -100,6 +101,38 @@ export class ApiService {
       },
     };
     return axios.post(link, word, options)
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  }
+
+  upsetStatistics(body) {
+    const options = {
+      headers: {
+        common: {
+          Authorization: `Bearer ${AUTHDATA.token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          WithCredentials: true,
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+    };
+    return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, body, options)
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  }
+
+  getStatistics() {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${AUTHDATA.token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    };
+    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, options)
       .catch((error) => {
         console.log(error.response.data);
       });

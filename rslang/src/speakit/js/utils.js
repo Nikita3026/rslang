@@ -62,21 +62,6 @@ export const toggleMenu = () => {
   document.querySelector('nav.header_navigation > ul > li').classList.toggle('active');
 };
 
-export const getActiveLevel = () => {
-  let activeLevel = 0;
-  const menuList = document.querySelector('nav.header_navigation > ul').children;
-  const activeMenuElement = Array.from(menuList)
-    .find((it) => it.classList.contains('active'));
-  const { dataset: { level } } = activeMenuElement;
-  activeLevel = Number(level);
-  return activeLevel;
-};
-
-export const getActiveLevelPage = () => {
-  const rand = Math.random() * 30;
-  return Math.floor(rand);
-};
-
 export const setMenuActive = (level) => {
   const menuList = document.querySelector('nav.header_navigation > ul').children;
   Array.from(menuList)
@@ -91,6 +76,23 @@ export const setMenuActive = (level) => {
     });
   setLevel(level);
   renderWords();
+};
+
+export const getActiveLevel = () => {
+  const localdataLevel = JSON.parse(localStorage.getItem('speakitConfig')).level;
+  let activeLevel = localdataLevel || 0;
+  setMenuActive(activeLevel);
+  const menuList = document.querySelector('nav.header_navigation > ul').children;
+  const activeMenuElement = Array.from(menuList)
+    .find((it) => it.classList.contains('active'));
+  const { dataset: { level } } = activeMenuElement;
+  activeLevel = Number(level);
+  return activeLevel;
+};
+
+export const getActiveLevelPage = () => {
+  const rand = Math.random() * 30;
+  return Math.floor(rand);
 };
 
 export const handleMenuClick = (event) => {
@@ -132,6 +134,25 @@ const setWordChecked = (id) => {
   wordElement.classList.add('checked');
 };
 
+const getDificaltyByLevel = (level) => {
+  switch (Number(level)) {
+    case 0:
+      return 'weak';
+    case 1:
+      return 'weak';
+    case 2:
+      return 'weak';
+    case 3:
+      return 'hard';
+    case 4:
+      return 'hard';
+    case 5:
+      return 'hard';
+
+    default: return 'weak';
+  }
+};
+
 export const checkResult = async (value) => {
   const microphoneLineContainer = document.querySelector('.image__container > .wrapper > .microphone_line');
   microphoneLineContainer.innerText = '';
@@ -146,39 +167,16 @@ export const checkResult = async (value) => {
   if (matchedWord) {
     microphoneLineValue.innerText = value;
     const wordId = getWordId(matchedWord);
-    const userWordId = matchedWord.id;
     setWordChecked(wordId);
+    const userWordId = matchedWord.id;
     const authData = JSON.parse(localStorage.getItem('SWAuthData'));
-    const word = { difficulty: 'weak', optional: { testFieldString: 'test', testFieldBoolean: true } };
-    await apiService.getUser(authData.userId, authData.token)
+    const localdataLevel = JSON.parse(localStorage.getItem('speakitConfig')).level || 0;
+    const difficultyWord = getDificaltyByLevel(localdataLevel);
+    const word = { difficulty: difficultyWord, optional: {} };
+    await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word)
       .then((response) => {
         console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
       });
-    await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word, authData.token)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-    // const createUserWord = async ({ authData.userId, userWordId, word }) => {
-      // const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, {
-      //   method: 'POST',
-      //   withCredentials: true,
-      //   headers: {
-      //     'Authorization': `Bearer ${authData.token}`,
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(word),
-      // });
-      // const content = await rawResponse.json();
-    
-      // console.log(content);
-    // };
   }
 };
 
@@ -214,12 +212,6 @@ export const handleClickByWord = (event) => {
   }
 };
 
-// export const getTranslationElement = (text) => {
-//   const translationTextElement = document.createElement('p');
-//   translationTextElement.classList.add('translation');
-//   translationTextElement.innerText = text;
-//   return translationTextElement;
-// };
 
 export const getImageFromData = () => {
   const imageElement = document.createElement('img');

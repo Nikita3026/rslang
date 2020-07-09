@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import 'bootstrap';
 import { restart } from './utils';
+import { createStatData } from '../../js/globalStat';
 
 let clonedData = null;
 
@@ -123,6 +124,7 @@ export const renderStatToDom = () => {
   renderSuccessNodesToDom();
   renderFailedNodesToDom();
   renderStatButtonsToDom();
+  createStatData(getSuccessNodes().length, 'speakIt', new Date());
 };
 
 export default {};

@@ -26,15 +26,21 @@ export const getDataArrActive = () => dataArrActive;
 
 export const setPage = (num) => {
   page = num;
+  const localDataConfig = JSON.parse(localStorage.getItem('speakitConfig'));
+  const newLocalDataConfig = { ...localDataConfig, page: num };
+  localStorage.setItem('speakitConfig', JSON.stringify(newLocalDataConfig));
 };
 
-export const getPage = () => page;
+export const getPage = () => JSON.parse(localStorage.getItem('speakitConfig')).page;
 
 export const setLevel = (num) => {
   level = num;
+  const localDataConfig = JSON.parse(localStorage.getItem('speakitConfig'));
+  const newLocalDataConfig = { ...localDataConfig, level: num };
+  localStorage.setItem('speakitConfig', JSON.stringify(newLocalDataConfig));
 };
 
-export const getLevel = () => level;
+export const getLevel = () => JSON.parse(localStorage.getItem('speakitConfig')).level;
 
 const getActiveDataList = () => {
   const suffleArr = Array.isArray(dataArr) ? dataArr.sort(() => Math.random() - 0.5) : [];
@@ -57,10 +63,17 @@ export const setDataFromReq = (data) => {
 
 export const setActiveLevel = () => {
   level = getActiveLevel();
+  const localDataConfig = JSON.parse(localStorage.getItem('speakitConfig'));
+  const newLocalDataConfig = { ...localDataConfig, level: getActiveLevel() };
+  localStorage.setItem('speakitConfig', JSON.stringify(newLocalDataConfig));
 };
 
 export const setActiveLevelPage = () => {
-  page = getActiveLevelPage();
+  const activePage = getActiveLevelPage();
+  page = activePage;
+  const localDataConfig = JSON.parse(localStorage.getItem('speakitConfig'));
+  const newLocalDataConfig = { ...localDataConfig, page: activePage };
+  localStorage.setItem('speakitConfig', JSON.stringify(newLocalDataConfig));
 };
 
 export const renderWords = () => {
