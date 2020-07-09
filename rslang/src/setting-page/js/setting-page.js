@@ -146,7 +146,6 @@ function changeInfoCard() {
   settings.textExample = checkboxUse.checked;
   settings.transcription = checkboxTranscription.checked;
   settings.image = checkboxImage.checked;
-  console.log(settings.wordTranslate, settings.textMeaning, settings.textExample, settings.transcription, settings.image);
   setLocalstorage();
   changeChecboxChecked();
 }
@@ -154,14 +153,12 @@ function changeInfoCard() {
 function changeMaxCards() {
   settings.maxCards = numberCards.value;
   setLocalstorage();
-  console.log(settings.maxCards);
   changeChecboxChecked();
 }
 
 function changeMaxNewWords() {
   settings.maxNewWords = numberWords.value;
   setLocalstorage();
-  console.log(settings.maxNewWords);
   changeChecboxChecked();
 }
 
@@ -259,7 +256,7 @@ changeSeeHover.addEventListener('mouseover', seePassword);
 
 // ------------------click button setting----------------------
 
-function zzz(el, ind) {
+function clickButtonSetting(el, ind) {
   buttonSettingAll.forEach((el) => el.classList.remove('active'));
   settingAll.forEach((el) => el.classList.remove('active'));
 
@@ -268,6 +265,5 @@ function zzz(el, ind) {
 }
 
 buttonSettingAll.forEach((el, ind) => {
-  el.classList.value === 'button_setting exit' || el.addEventListener('click', () => zzz(el, ind));
+  el.classList.value === 'button_setting exit' || el.addEventListener('click', () => clickButtonSetting(el, ind));
 });
-

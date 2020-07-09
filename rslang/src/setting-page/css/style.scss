@@ -30,7 +30,7 @@ h4 {
 
 .section_setting {
 	width: 100%;
-	min-height: 80vh;
+	min-height: 85vh;
 	transition: .3s;
 	position: relative;
 	top: 0;
@@ -186,7 +186,7 @@ h4 {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	padding: 10px 0px;
+	padding: 10px 5px;
 }
 
 .informations:hover {
@@ -196,7 +196,7 @@ h4 {
 .change {
 	display: none;
 	flex-direction: column;
-	padding: 20px 0px;
+	padding: 20px 5px 20px 0px;
 	position: relative;
 }
 
@@ -322,6 +322,7 @@ h4 {
 }
 
 label {
+	width: 90%;
 	margin: 0px;
 	line-height: 1;
 }
@@ -336,8 +337,8 @@ label {
 .radio_label:before {
 	content: "";
 	display: block;
-	width: 12px;
-	height: 12px;
+	width: 13px;
+	height: 13px;
 	border: 1px solid $grey;
 	background-color: $white;
 	border-radius: 50%;
@@ -351,8 +352,8 @@ label {
 .radio_label:after {
 	content: "";
 	display: block;
-	width: 8px;
-	height: 8px;
+	width: 7px;
+	height: 7px;
 	background-color: $darkBlue;
 	border-radius: 50%;
 	opacity: 0;
@@ -426,8 +427,8 @@ input[type=checkbox]:before {
 	content: "";
 	display: block;
 	position: absolute;
-	width: 12px;
-	height: 12px;
+	width: 13px;
+	height: 13px;
 	top: 0;
 	left: 0;
 	border: 1px solid $darkBlue;
@@ -438,8 +439,8 @@ input[type=checkbox]:before {
 input[type=checkbox]:checked:after {
 	content: "";
 	display: block;
-	width: 8px;
-	height: 8px;
+	width: 7px;
+	height: 7px;
 	background-color: $darkBlue;
 	border-radius: 2px;
 	position: absolute;
@@ -485,14 +486,14 @@ input[type=checkbox]:checked:after {
 		}
 
 		.block_setting {
-			min-height: 95vh;
+			min-height: 85vh;
 			border-radius: unset;
 			box-shadow: none;
 			border: none;
 		}
 
 		.wraper_setting_content {
-			min-height: 80vh;
+			min-height: 75vh;
 		}
 	}
 }
