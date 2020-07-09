@@ -6,7 +6,6 @@ const inputPassword = document.querySelector('.input_password');
 const eye = document.querySelector('.eye');
 const changeSeeHover = document.querySelector('.change.see_hover');
 const textareaMistake = document.querySelector('.textarea_mistake');
-const buttonSettingExit = document.querySelector('.button_setting.exit');
 const sectionSetting = document.querySelector('.section_setting');
 const blockSetting = document.querySelector('.block_setting');
 const blockSettingPadding = document.querySelector('.block_setting_padding');
@@ -63,12 +62,6 @@ let settings = {
 
 function reload() {
   if (localStorage.length !== 0) {
-    // for (let i = 0; i < localStorage.length; i++) {
-    //   for (key in settings) {
-    //     key === localStorage.key(i) && (settings[key] = localStorage.getItem(key));
-    //   }
-    // }
-
     let settingsParse = localStorage.getItem('settings');
     settings = JSON.parse(settingsParse);
   }
@@ -264,16 +257,6 @@ function seePassword() {
 
 changeSeeHover.addEventListener('mouseover', seePassword);
 
-// ---------------------close setting-------------------------
-
-function closeSettingWindow() {
-  sectionSetting.classList.remove('active');
-  blockSettingPadding.classList.remove('active');
-  setTimeout(() => sectionSetting.classList.add('none'), 300);
-}
-
-buttonSettingExit.addEventListener('click', closeSettingWindow);
-
 // ------------------click button setting----------------------
 
 function zzz(el, ind) {
@@ -287,15 +270,3 @@ function zzz(el, ind) {
 buttonSettingAll.forEach((el, ind) => {
   el.classList.value === 'button_setting exit' || el.addEventListener('click', () => zzz(el, ind));
 });
-
-// ---------test----------
-
-// const buttonOn = document.querySelector('.on');
-
-// buttonOn.addEventListener('click', () => {
-//   sectionSetting.classList.remove('none');
-//   setTimeout(() => {
-//     sectionSetting.classList.add('active');
-//     blockSettingPadding.classList.add('active');
-//   }, 10);
-// });
