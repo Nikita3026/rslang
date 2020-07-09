@@ -1,4 +1,5 @@
-import GetData from './GetData';
+/* eslint-disable import/no-cycle */
+import apiService from './GetData';
 
 export const createLink = (link) => {
   const linkElement = document.createElement('a');
@@ -6,7 +7,7 @@ export const createLink = (link) => {
   return linkElement;
 };
 
-export const routTo = (path) => {
+export const routeTo = (path) => {
   window.location.href = path;
 };
 
@@ -27,18 +28,15 @@ export const renderBodyDataToDom = (body) => {
 };
 
 export const setBodyDataToDom = async (path) => {
-  const parseHtml = new GetData(path, 'get');
-  await parseHtml.sendRequest()
+  const parseHtml = await apiService.parseHtmlToDOM(path)
     .then((response) => response.data)
     .then((html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       renderHeadDataToDom(doc.head);
       renderBodyDataToDom(doc.body);
-    })
-    .catch((err) => {
-      console.error('Something went wrong.', err);
     });
+  return parseHtml;
 };
 
 export const removeToken = () => {
@@ -49,7 +47,7 @@ export const removeToken = () => {
   return localStorage.setItem('SWAuthData', newLocalStorageData);
 };
 
-export const checkValidToken = () => {
+export const checkTokenIsValid = () => {
   const localStorageData = JSON.parse(localStorage.getItem('SWAuthData'));
   let result = false;
   if (localStorageData && localStorageData.token) {
@@ -59,6 +57,41 @@ export const checkValidToken = () => {
     result = comp < 14400000;
   }
   return result;
+};
+
+export const updateToken = () => {
+  const localData = JSON.parse(localStorage.getItem('SWAuthData'));
+  apiService.updateToken(`https://afternoon-falls-25894.herokuapp.com/users/${localData.userId}/tokens`, localData.refreshToken)
+    .then((response) => {
+      if (!response) return;
+      const loginAuthData = {
+        ...localData,
+        token: response.data.token,
+        refreshToken: response.data.refreshToken,
+        time: new Date(),
+      };
+      localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
+    });
+};
+
+export const renderAlert = (alertValue, alertClass) => {
+  const alertContainer = document.createElement('div');
+  const dopClass = alertClass || 'alert-danger';
+  alertContainer.classList.add('alert', dopClass);
+  alertContainer.setAttribute('role', 'alert');
+  alertContainer.innerText = alertValue;
+  const closeIcon = document.createElement('span');
+  closeIcon.classList.add('icon', 'icon-close');
+  alertContainer.insertAdjacentElement('afterbegin', closeIcon);
+  closeIcon.addEventListener('click', () => {
+    alertContainer.classList.add('hide');
+    setTimeout(() => alertContainer.remove(), 300);
+  });
+  setTimeout(() => {
+    alertContainer.classList.add('hide');
+    setTimeout(() => alertContainer.remove(), 300);
+  }, 5000);
+  return document.querySelector('body').insertAdjacentElement('afterbegin', alertContainer);
 };
 
 export default {};

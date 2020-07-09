@@ -1,3 +1,5 @@
+@import '../../assets/scss/style.scss';
+
 * {
 	margin: 0px;
 	padding: 0px;
@@ -28,9 +30,9 @@ h4 {
 
 .section_setting {
 	width: 100%;
-	min-height: 100vh;
+	min-height: 80vh;
 	transition: .3s;
-	position: absolute;
+	position: relative;
 	top: 0;
 }
 
@@ -44,7 +46,7 @@ h4 {
 
 .block_setting_padding {
 	max-width: 840px;
-	min-width: 300px;
+	min-width: 200px;
 	margin: auto;
 	position: absolute;
 	left: 0;
@@ -52,7 +54,6 @@ h4 {
 	top: 50%;
 	transform: translate(0, -50%);
 	transition: .3s;
-	padding: 0px 65px;
 	opacity: 0;
 }
 
@@ -69,6 +70,7 @@ h4 {
 	overflow: hidden;
 	transition: .3s;
 	box-shadow: inset 0px 0px 10px $grey;
+	border: 1px solid $darkBeige;
 }
 
 /* -----------block_button_setting------------ */
@@ -120,7 +122,7 @@ h4 {
 .wraper_setting_content {
 	height: 550px;
 	overflow: auto;
-	padding: 10px 10px 0px 0px;
+	padding-top: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -184,7 +186,7 @@ h4 {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	padding: 10px 5px;
+	padding: 10px 0px;
 }
 
 .informations:hover {
@@ -382,7 +384,6 @@ label {
 	text-align: end;
 	padding: 0px 5px 10px;
 	border-bottom: 3px solid $darkBlue;
-	margin-right: 10px;
 	font-size: 16px;
 	font-weight: bold;
 }
@@ -420,6 +421,7 @@ input[type=checkbox] {
 	position: relative;
 	cursor: pointer;
 }
+
 input[type=checkbox]:before {
 	content: "";
 	display: block;
@@ -452,22 +454,12 @@ input[type=checkbox]:checked:after {
 		min-width: 45%;
 	}
 
-	.container_settings {
-		padding-right: 0px;
-	}
-
 	.block_setting {
 		flex-direction: column-reverse;
-		margin-left: 40px;
-
-	}
-
-	.block_setting_padding {
-		padding: 0px;
 	}
 
 	.container_settings{
-		padding-top: 55px;
+		padding: 10px;
 	}
 
 	.block_content_setting {
@@ -486,16 +478,17 @@ input[type=checkbox]:checked:after {
 		border-right: 1px solid $darkBeige;
 	}
 
-	.block_setting_padding {
-		padding: 0px 10px;
-	}
-
 	@media (max-width: 360px) {
 
+		.container-fluid.main__container{
+			padding: 10px;
+		}
+
 		.block_setting {
-			min-height: 100vh;
+			min-height: 95vh;
 			border-radius: unset;
 			box-shadow: none;
+			border: none;
 		}
 
 		.wraper_setting_content {

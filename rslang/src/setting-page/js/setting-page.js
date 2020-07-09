@@ -270,3 +270,4 @@ function zzz(el, ind) {
 buttonSettingAll.forEach((el, ind) => {
   el.classList.value === 'button_setting exit' || el.addEventListener('click', () => zzz(el, ind));
 });
+
