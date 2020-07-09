@@ -1,5 +1,5 @@
-/* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-cycle */
+/* eslint-disable class-methods-use-this */
 import { renderAlert, routeTo } from './helpers';
 import Modal from './Modal/Modal';
 
@@ -18,7 +18,7 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -35,14 +35,14 @@ export class ApiService {
           renderAlert('Комбинация email и пароль не верна.');
           document.querySelector('form.form-group > button').disabled = true;
         }
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
   parseHtmlToDOM(link) {
     return axios.get(link)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -63,14 +63,14 @@ export class ApiService {
         if (error.response.status === 401) {
           routeTo('/authorization');
         }
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
   getWords(link) {
     return axios.get(link)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -84,7 +84,7 @@ export class ApiService {
     };
     return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.id}`, options)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -102,7 +102,7 @@ export class ApiService {
     };
     return axios.post(link, word, options)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -120,7 +120,7 @@ export class ApiService {
     };
     return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, body, options)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 
@@ -134,7 +134,7 @@ export class ApiService {
     };
     return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, options)
       .catch((error) => {
-        console.log(error.response.data);
+        throw new Error(error.response.data);
       });
   }
 }

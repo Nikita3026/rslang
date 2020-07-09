@@ -175,7 +175,7 @@ export const checkResult = async (value) => {
     const word = { difficulty: difficultyWord, optional: {} };
     await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word)
       .then((response) => {
-        console.log(response);
+        throw new Error(response);
       });
   }
 };
@@ -211,7 +211,6 @@ export const handleClickByWord = (event) => {
     wordAudioPlay(currentId);
   }
 };
-
 
 export const getImageFromData = () => {
   const imageElement = document.createElement('img');

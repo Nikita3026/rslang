@@ -82,7 +82,7 @@ export const renderWords = () => {
   return apiService.getWords(linkRequest)
     .then((response) => setDataFromReq(response.data))
     .catch((error) => {
-      console.error(error);
+      throw new Error(error);
     })
     .then(() => document.querySelector('nav.header_navigation > ul').addEventListener('click', handleMenuClick));
 };
