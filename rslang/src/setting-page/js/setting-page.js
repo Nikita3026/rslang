@@ -61,19 +61,15 @@ let settings = {
 };
 
 function reload() {
-  if (localStorage.length !== 0) {
-    let settingsParse = localStorage.getItem('settings');
-    settings = JSON.parse(settingsParse);
-  }
-  changeChecboxChecked();
-}
+  let settingsParse = localStorage.getItem('settings');
+  settings = JSON.parse(settingsParse);  
+  changeChecboxChecked();	
+  console.log(settings);
+}	
 
 reload();
 
 function setLocalstorage() {
-  for (key in settings) {
-    localStorage.setItem(`${key}`, settings[key]);
-  }
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
