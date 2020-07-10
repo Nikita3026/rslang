@@ -7,36 +7,76 @@
     <title>Audiocall</title>
   </head>
   <body>
-    <div class="container container-fluid starting-window hidden">
+    <div class="container container-fluid starting-window">
         <div class="row justify-content-center align-items-center">
-            <div class="button start-game_button"><a href="#">Начать</a></div>  
+          <button type="button" class="btn btn-outline-info start-game_button">Начать</button>
         </div>
     </div>
-    <div class="container-fluid game-window">
+    <div class="container-fluid game-window hidden">
+        <div class="progress bar" style="height: 3px">
+            <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
         <div class="row justify-content-end">
-            <div class="btn-exit"></div>
+            <button type="button" class="close btn-exit" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
         </div>
-        <div class="row">
-            <div class="speacker">speacker</div>
+        <div class="row justify-content-center row-picture">
+            <div class="word-picture hidden"></div>
         </div>
-        <div class="row row-cols-1 row-cols-md-5 words-list">
+        <div class="row justify-content-center row-speacker">
+            <div class="speacker"></div>
+            <p class="word-transcription"></p>
+        </div>
+        <div class="row justify-content-center row-words">
+            <ul class="list-group list-group-horizontal-md words-list">
+                <span class="word-number">1</span><li class="list-group-item word"></li>
+                <span class="word-number">2</span><li class="list-group-item word"></li>
+                <span class="word-number">3</span><li class="list-group-item word"></li>
+                <span class="word-number">4</span><li class="list-group-item word"></li>
+                <span class="word-number">5</span><li class="list-group-item word"></li>
+              </ul>
+        </div> 
+        <!-- <div class="row row-cols-1 row-cols-md-5 words-list">
           <div class="col word">Слово 1</div>
           <div class="col word">Слово 2</div>
           <div class="col word">Слово 3</div>
           <div class="col word">Слово 4</div>
           <div class="col word">Слово 5</div>
+        </div> -->
+        <div class="row justify-content-center row-button">
+            <button type="button" class="btn btn-outline-info btn-skip">не знаю</button>
+            <button type="button" class="btn btn-outline-info btn-next hidden">&rarr;</button>
         </div>
-        <div class="row">
-            <div class="btn-skip">не знаю</div>
-        </div>
-        <div class="row justify-content-center difficulty">
+        <ul class="pagination justify-content-center difficulty">
+            <li class="page-item level active"><a class="page-link " href="#">1</a></li>
+            <li class="page-item level"><a class="page-link " href="#">2</a></li>
+            <li class="page-item level"><a class="page-link " href="#">3</a></li>
+            <li class="page-item level"><a class="page-link " href="#">4</a></li>
+            <li class="page-item level"><a class="page-link " href="#">5</a></li>
+            <li class="page-item level"><a class="page-link " href="#">6</a></li>
+          </ul>
+        <!-- <div class="row justify-content-center">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2 difficulty" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-secondary level level__active">1</button>
+                  <button type="button" class="btn btn-secondary level">2</button>
+                  <button type="button" class="btn btn-secondary level">3</button>
+                  <button type="button" class="btn btn-secondary level">4</button>
+                  <button type="button" class="btn btn-secondary level">5</button>
+                  <button type="button" class="btn btn-secondary level">6</button>
+                </div>
+            </div>
+        </div> -->
+        
+        <!-- <div class="row justify-content-center difficulty">
             <div class="row justify-content-center level">6</div>
             <div class="row justify-content-center level">5</div>
             <div class="row justify-content-center level">4</div>
             <div class="row justify-content-center level">3</div>
             <div class="row justify-content-center level">2</div>
             <div class="row justify-content-center level level__active">1</div>
-        </div>
+        </div> -->
     </div>
 
     <div class="container container-fluid statisict-window wrapper hidden">
@@ -48,8 +88,10 @@
             
           </div>
           <div class="card-footer text-muted">
-            <div class="button start-again_button"><a href="#">Еще раз</a></div>
+            <button type="button" class="btn btn-outline-info start-again_button">Еще раз</button>
+            <!-- <div class="button start-again_button"><a href="#">Еще раз</a></div> -->
           </div>
       </div>
   </body>
+  
 </html>
