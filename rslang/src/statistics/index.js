@@ -9,6 +9,7 @@ import {
 } from '../js/helpers';
 import '../assets/scss/style.scss';
 
+
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData')) {
     if (!checkTokenIsValid()) {
