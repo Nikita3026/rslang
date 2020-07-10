@@ -44,6 +44,13 @@ module.exports = {
       }],
     },
     {
+      test: /\.(ogg|mp3|wav|mpe?g)$/i,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]'
+      }
+    },
+    {
       test: /\.scss$/,
       use: [
         'style-loader',
@@ -61,6 +68,7 @@ module.exports = {
     new CopyWebPackPlugin({
       patterns: [
         { from: 'src/assets/images/', to: './assets/images' },
+        { from: 'src/assets/audio/', to: './assets/audio' }
       ],
     }),
     new HtmlWebPackPlugin({
