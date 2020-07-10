@@ -37,10 +37,10 @@ function createDataWords() {
 
 function createLabels() {
   createDataWords();
-  const NUMBER_FOR_LABELS = Math.round(days.length / NUMBER_DATES);
+  const numberLabels = Math.round(days.length / NUMBER_DATES);
   const dataLabels = days.map((day, index) => {
     let currentDay = '';
-    if (index % NUMBER_FOR_LABELS === MIN_NUMBER) {
+    if (index % numberLabels === MIN_NUMBER) {
       currentDay = day;
     }
     return currentDay;
