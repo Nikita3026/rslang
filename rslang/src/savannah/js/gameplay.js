@@ -185,7 +185,8 @@ const runListenters = () => {
 };
 
 const setLocalStorageValues = () => {
-    localStorage.setItem('learningWordsForSavannahGame', localStorage.dictionary);
+    const tempDictionary = JSON.parse(localStorage.dictionary);
+    localStorage.setItem('learningWordsForSavannahGame', JSON.stringify(tempDictionary));
     localStorage.setItem('shortTermStatisticSavannah', JSON.stringify({
         guessedWords: [],
         unspokenWords: [],
