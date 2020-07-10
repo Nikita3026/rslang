@@ -1,15 +1,15 @@
 const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
-const buttonChangeCansel = document.querySelector('.button_change.cansel');
-const userEmail = document.querySelector('.email');
+// const buttonChangeCansel = document.querySelector('.button_change.cansel');
+// const userEmail = document.querySelector('.email');
 const inputPassword = document.querySelector('.input_password');
-const eye = document.querySelector('.eye');
+// const eye = document.querySelector('.eye');
 const changeSeeHover = document.querySelector('.change.see_hover');
 const textareaMistake = document.querySelector('.textarea_mistake');
-const sectionSetting = document.querySelector('.section_setting');
-const blockSetting = document.querySelector('.block_setting');
-const blockSettingPadding = document.querySelector('.block_setting_padding');
+// const sectionSetting = document.querySelector('.section_setting');
+// const blockSetting = document.querySelector('.block_setting');
+// const blockSettingPadding = document.querySelector('.block_setting_padding');
 const buttonSettingAll = document.querySelectorAll('.button_setting');
 const settingAll = document.querySelectorAll('.container_settings');
 const checkboxAll = document.querySelectorAll('.checkbox_word');
@@ -71,25 +71,19 @@ let settings = {
 //   userEmail.innerText = `${zz.email}`;
 // }
 
-function setLocalstorage() {
-  localStorage.setItem('settings', JSON.stringify(settings));
+export const setLocalstorage = () => {
+  localStorage.setItem('settings', JSON.stringify(settings))
+};
+
+if (!localStorage.getItem('settings')) {
+  setLocalstorage();
 }
-
-!localStorage.getItem('settings') && setLocalstorage();
-
-function reload() {
-  const settingsParse = localStorage.getItem('settings');
-  settings = JSON.parse(settingsParse);
-  changeChecboxChecked();
-}
-
-reload();
 
 // ----------------------reload change checked----------------------------------
 
 function changeChecboxChecked() {
   maxWordCardAll.forEach((el) => {
-    for (let key in settings) {
+    for (const key in settings) {
       if (el.id === key) {
         el.value = settings[key];
       }
@@ -97,7 +91,7 @@ function changeChecboxChecked() {
   });
 
   checkboxAll.forEach((el) => {
-    for (let key in settings) {
+    for (const key in settings) {
       if (el.id === key && settings[key] === true) {
         el.checked = true;
       } else if (el.id === key && settings[key] === false) {
@@ -121,6 +115,14 @@ function changeChecboxChecked() {
   }
 }
 
+function reload() {
+  const settingsParse = localStorage.getItem('settings');
+  settings = JSON.parse(settingsParse);
+  changeChecboxChecked();
+}
+
+reload();
+
 // ---------------------------------------------------------------------------
 
 function openChangeBlock(ind) {
@@ -133,9 +135,13 @@ function openChangeBlock(ind) {
     buttonArrow[ind].classList.add('active');
     change[ind].classList.add('active');
 
-    informations[ind].classList.value === 'informations change_password' && (inputPassword.value = '');
-    informations[ind].classList.value === 'informations report_error' && (textareaMistake.value = '');
+    if (informations[ind].classList.value === 'informations change_password') {
+      inputPassword.value = '';
+    }
 
+    if (informations[ind].classList.value === 'informations report_error') {
+      textareaMistake.value = '';
+    }
     checkRepeatedClick = ind;
   } else {
     checkRepeatedClick = -1;
@@ -208,7 +214,11 @@ function changeDeleteUser() {
 }
 
 function changeTheme() {
-  themeLight.checked ? settings.theme = 'light' : settings.theme = 'dark';
+  if (themeLight.checked) {
+    settings.theme = 'light';
+  } else {
+    settings.theme = 'dark';
+  }
   setLocalstorage();
   changeChecboxChecked();
 }
@@ -256,11 +266,15 @@ change.forEach((el, ind) => {
 
 // ---------------------see password-------------------------
 
-function seePassword() {
-  event.target.className === 'eye' ? (inputPassword.type = 'text') : (inputPassword.type = 'password');
+function seePassword(event) {
+  if (event.target.className === 'eye') {
+    inputPassword.type = 'text';
+  } else {
+    inputPassword.type = 'password';
+  }
 }
 
-changeSeeHover.addEventListener('mouseover', seePassword);
+changeSeeHover.addEventListener('mouseover', () => seePassword(event));
 
 // ------------------click button setting----------------------
 
@@ -273,5 +287,7 @@ function clickButtonSetting(el, ind) {
 }
 
 buttonSettingAll.forEach((el, ind) => {
-  el.classList.value === 'button_setting exit' || el.addEventListener('click', () => clickButtonSetting(el, ind));
+  if (el.classList.value !== 'button_setting exit') {
+    el.addEventListener('click', () => clickButtonSetting(el, ind));
+  }
 });
