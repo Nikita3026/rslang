@@ -1,27 +1,33 @@
 import Chart from 'chart.js';
+import {
+  elementNumberWords, speedCanvas, series, cards, rightAnswer, MIN_NUMBER, NEXT_NUMBER,
+  NUMBER_DATES, NUMBER_STEP_SIZE, NUMBER_ONE_PERCENT,
+} from './constans';
 
-const elementNumberWords = document.querySelector('.number-words');
-const speedCanvas = document.getElementById('speedChart');
-
-const MIN_NUMBER = 0;
-const NEXT_NUMBER = 1;
-const NUMBER_DATES = 5;
-const NUMBER_STEP_SIZE = 360;
-const NUMBER_ONE_PERCENT = 36;
-
-let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
-if (!saveStatistic) {
-  saveStatistic = {};
-}
-saveStatistic['начало использования приложения'] = 0;
+let statisticData = JSON.parse(localStorage.getItem('statistic'));
 
 let days = [];
 let words = [];
 let numberWords = 0;
-delete saveStatistic.seria;
+
+function createStatisticsText() {
+  if (!statisticData) {
+    statisticData = {};
+  } else {
+    const proportionRightAnswer = statisticData.rightAnswer / statisticData.cards;
+    series.innerText = `Общее количество серий прохождения карточек: ${statisticData.seria}`;
+    cards.innerText = `Общее количество пройденных карточек: ${statisticData.cards}`;
+    rightAnswer.innerText = `Процент правильных ответов: ${proportionRightAnswer * 100}%`;
+    delete statisticData.seria;
+    delete statisticData.cards;
+    delete statisticData.rightAnswer;
+  }
+}
+createStatisticsText();
+statisticData['начало использования приложения'] = 0;
 
 function createDataWords() {
-  const statistics = Object.entries(saveStatistic);
+  const statistics = Object.entries(statisticData);
   statistics.sort((first, second) => first[NEXT_NUMBER] - second[NEXT_NUMBER]);
   days = statistics.map((element) => element[MIN_NUMBER]);
   words = statistics.map((element) => element[NEXT_NUMBER]);
@@ -45,7 +51,7 @@ function createLabels() {
 const speedData = {
   labels: createLabels(),
   datasets: [{
-    label: 'Изученные слова',
+    label: 'Изучаемые слова',
     data: words,
     borderColor: 'rgba(255,45,45,1)',
     backgroundColor: 'rgba(255,90,90,0.5)',
