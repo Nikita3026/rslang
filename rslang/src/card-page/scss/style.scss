@@ -1,0 +1,154 @@
+.hide {
+    display: none !important;
+}
+
+.card {
+    margin: 50px auto;
+    font-family: Raleway;
+    padding: 10px;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.4);
+    width: 28rem;
+} 
+  
+.context {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 10px;
+    height: fit-content;
+    justify-content: space-between;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.translation-text{
+    font-size: 20px;
+}
+
+.img-card{
+    width: 100%;
+}
+
+.answer-input {
+    position: absolute;
+    width: 100%;
+    left: -1px;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    outline: none;
+}
+
+.change-btn{
+    margin: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+.answer-input:focus{
+    outline: none;
+}
+
+.answer-background {
+    position: relative;
+}
+
+.input-background {
+    position: relative;
+    width: fit-content; 
+}
+
+.answer-text {
+    font-size: 20px;
+    background-color: #cfdcee
+}
+
+.answer-text span {
+    visibility: hidden;
+}
+  
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  .next {
+    background-color: #538b8d;
+    color: white;
+  }
+  
+  .round {
+    border-radius: 50%;
+  }
+
+.right-answer{
+    visibility: visible !important;
+    color: green !important;
+}
+
+.visiable{
+    visibility: visible !important;
+}
+
+
+.red{
+    color: red !important;
+    visibility: visible !important;
+}
+
+.unvisiable{
+    color: transparent;
+}
+
+.orange{
+    color: orange;
+    visibility: visible !important;
+}
+
+.opacity{
+    opacity: 0.5;
+}
+
+.translation{
+    margin-top: 25px;
+}
+
+
+.img-card{
+    box-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+.buttons {
+    width: fit-content;
+}
+
+.progress { 
+    font-size: 1.75rem !important;
+    height: 2rem !important;
+    width: 80% !important;
+    margin: auto !important;
+    background-color: darkgrey !important;
+}
+
+.progress-bar {
+    overflow: visible !important;
+}
+
+.modal {
+    pointer-events: none;
+}
+
+.modal-header {
+    flex-direction: column !important;
+    margin: auto !important;
+    align-items: center !important;
+}
+
+.no-clickable {
+    pointer-events: none;
+}
+
+.metodic-buttons {
+    margin: 10px;
+}
