@@ -2,7 +2,8 @@ const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
 // const buttonChangeCansel = document.querySelector('.button_change.cansel');
-// const userEmail = document.querySelector('.email');
+const userEmail = document.querySelector('.email');
+// const userName = document.querySelector('.user_name');
 const inputPassword = document.querySelector('.input_password');
 // const eye = document.querySelector('.eye');
 const changeSeeHover = document.querySelector('.change.see_hover');
@@ -61,18 +62,20 @@ let settings = {
   noRepeatWord: false,
 };
 
-// getName();
+getUserData();
 
-// function getName() {
-//   let settingsParse = localStorage.getItem('SWAuthData');
-//   let zz = JSON.parse(settingsParse);
+function getUserData() {
+  const settingsParse = localStorage.getItem('SWAuthData');
+  const userData = JSON.parse(settingsParse);
 
-//   settings.userEmail = `${zz.email}`
-//   userEmail.innerText = `${zz.email}`;
-// }
+  settings.userEmail = `${userData.email}`;
+  // settings.userFullName = `${userData.userName}`;
+  userEmail.innerText = `${userData.email}`;
+  // userName.innerText = `${userData.userName}`;
+}
 
 export const setLocalstorage = () => {
-  localStorage.setItem('settings', JSON.stringify(settings))
+  localStorage.setItem('settings', JSON.stringify(settings));
 };
 
 if (!localStorage.getItem('settings')) {
