@@ -35,6 +35,11 @@ const setNewWords = async() => {
     let mainWord;
     let randomWordNumber;
     const tempArrayOfLearningWords = JSON.parse(localStorage.learningWordsForSavannahGame);
+    const wrongOptions = await getWrongAnswerOptions();
+    const maxPositionValue = constants.POSSIBLE_ANSWERS.length - 1;
+    const positionForRightAnswer = Math.round(Math.random() * maxPositionValue);
+    const rightAnswerPlace = constants.POSSIBLE_ANSWERS[positionForRightAnswer];
+
     if (tempArrayOfLearningWords.length === 0) {
         mainWord = await getWord(localStorage.savannahPage, localStorage.savannahLevel);
         mainWord = mainWord[+localStorage.savannahNumberOfWord];
@@ -45,11 +50,7 @@ const setNewWords = async() => {
         tempArrayOfLearningWords.splice(randomWordNumber, 1);
         localStorage.setItem('learningWordsForSavannahGame', JSON.stringify(tempArrayOfLearningWords));
     }
-    const wrongOptions = await getWrongAnswerOptions();
     constants.MAIN_WORD.innerText = mainWord.word.toLowerCase();
-    const maxPositionValue = constants.POSSIBLE_ANSWERS.length - 1;
-    const positionForRightAnswer = Math.round(Math.random() * maxPositionValue);
-    const rightAnswerPlace = constants.POSSIBLE_ANSWERS[positionForRightAnswer];
     rightAnswerPlace.innerText = mainWord.wordTranslate.toLowerCase();
     setWrongOptions(wrongOptions, positionForRightAnswer);
     localStorage.currentMainWordOfSavannahGame = JSON.stringify(mainWord);

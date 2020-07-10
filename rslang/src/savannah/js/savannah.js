@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
 
-import { routTo } from '../../js/helpers';
+import { routeTo } from '../../js/helpers';
 import constants from './constants';
 import checkMute from './check-mute';
 import { runGameplay } from './gameplay';
@@ -58,12 +58,12 @@ const runListeners = () => {
 
     constants.QUIT_BTNS.forEach((item) => {
         item.addEventListener('click', () => {
-            routTo('../');
+            routeTo('../');
         });
     });
 
     constants.PROCEED_BTN.addEventListener('click', () => {
-        routTo('/savannah');
+        routeTo('/savannah');
     });
 };
 

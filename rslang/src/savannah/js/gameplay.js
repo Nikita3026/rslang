@@ -5,21 +5,53 @@ import checkMute from './check-mute';
 import 'bootstrap';
 
 const increaseLevel = () => {
-    if (localStorage.savannahNumberOfWord === constants.MAX_WORD_NUMBER) {
-        localStorage.savannahNumberOfWord = 0;
-        if (localStorage.savannahLevel === constants.MAX_LEVEL) {
-            localStorage.savannahLevel = 0;
-            if (localStorage.savannahPage === constants.MAX_PAGE) {
-                localStorage.savannahPage = 0;
-            } else {
-                localStorage.savannahPage += 1;
+    const setCurrentLevelToLocalStorage = (isItNecessaryToReset, maxValue) => {
+        switch (maxValue) {
+            case constants.MAX_WORD_NUMBER:
+                if (isItNecessaryToReset) {
+                    localStorage.savannahNumberOfWord = 0;
+                } else {
+                    localStorage.savannahNumberOfWord = +localStorage.savannahNumberOfWord + 1;
+                }
+                break;
+            case constants.MAX_LEVEL:
+                if (isItNecessaryToReset) {
+                    localStorage.savannahLevel = 0;
+                } else {
+                    localStorage.savannahLevel = +localStorage.savannahLevel + 1;
+                }
+                break;
+            case constants.MAX_PAGE:
+                if (isItNecessaryToReset) {
+                    localStorage.savannahPage = 0;
+                } else {
+                    localStorage.savannahPage = +localStorage.savannahPage + 1;
+                }
+                break;
+        }
+    }
+
+    let callCounter = 0;
+    const increaseCurrent = (incrementValue, maximumPossibleValue) => {
+        if (incrementValue === maximumPossibleValue) {
+            callCounter += 1;
+            setCurrentLevelToLocalStorage(true, maximumPossibleValue);
+            switch (callCounter) {
+                case 1:
+                    increaseCurrent(localStorage.savannahLevel, constants.MAX_LEVEL);
+                    break;
+                case 2:
+                    increaseCurrent(localStorage.savannahPage, constants.MAX_PAGE);
+                    break;
+                default:
+                    break;
             }
         } else {
-            localStorage.savannahLevel += 1;
+            setCurrentLevelToLocalStorage(false, maximumPossibleValue);
         }
-    } else {
-        localStorage.savannahNumberOfWord += 1;
     }
+
+    increaseCurrent(localStorage.savannahNumberOfWord, constants.MAX_WORD_NUMBER);
 };
 
 const startLoweringNewWord = async() => {
@@ -121,27 +153,38 @@ const runListenters = () => {
             realTarget = target;
         }
         const mainWord = JSON.parse(localStorage.currentMainWordOfSavannahGame);
-        if (constants.MAIN_WORD.classList.contains('main-word-animation')) {
-            if (realTarget.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
-                if (!constants.MAIN_WORD.classList.contains('not-guessed')) {
-                    target.closest('.possible-answer').classList.add('highlight-right-choosen-word');
+        const rightAnswerActions = () => {
+            if (!constants.MAIN_WORD.classList.contains('not-guessed')) {
+                target.closest('.possible-answer').classList.add('highlight-right-choosen-word');
+                setTimeout(() => {
+                    target.closest('.possible-answer').classList.remove('highlight-right-choosen-word');
+                }, 1500);
+                correctAnswer();
+            }
+        }
+        const wrongAnswerActions = () => {
+            target.closest('.possible-answer').classList.add('highlight-wrong-word');
+            constants.POSSIBLE_ANSWERS.forEach((item) => {
+                if (item.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
+                    item.closest('.possible-answer').classList.add('highlight-right-word');
                     setTimeout(() => {
-                        target.closest('.possible-answer').classList.remove('highlight-right-choosen-word');
+                        target.closest('.possible-answer').classList.remove('highlight-wrong-word');
+                        item.closest('.possible-answer').classList.remove('highlight-right-word');
                     }, 1500);
-                    correctAnswer();
                 }
-            } else {
-                target.closest('.possible-answer').classList.add('highlight-wrong-word');
-                constants.POSSIBLE_ANSWERS.forEach((item) => {
-                    if (item.innerText.toLowerCase() === mainWord.wordTranslate.toLowerCase()) {
-                        item.closest('.possible-answer').classList.add('highlight-right-word');
-                        setTimeout(() => {
-                            target.closest('.possible-answer').classList.remove('highlight-wrong-word');
-                            item.closest('.possible-answer').classList.remove('highlight-right-word');
-                        }, 1500);
-                    }
-                });
-                wrongAnswer();
+            });
+            wrongAnswer();
+        }
+
+
+        if (constants.MAIN_WORD.classList.contains('main-word-animation')) {
+            switch (realTarget.innerText.toLowerCase()) {
+                case mainWord.wordTranslate.toLowerCase():
+                    rightAnswerActions();
+                    break;
+                default:
+                    wrongAnswerActions();
+                    break;
             }
         }
     });
