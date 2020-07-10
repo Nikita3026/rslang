@@ -21,6 +21,7 @@ export const logIn = async (emailValue, passwordValue) => {
     .then((response) => {
       if (!response) return;
       const loginAuthData = {
+        ...JSON.parse(localStorage.getItem('SWAuthData')),
         email: emailValue,
         password: passwordValue,
         userId: response.data.userId,
@@ -39,17 +40,18 @@ export const logIn = async (emailValue, passwordValue) => {
 export const handleAuthorize = async (event) => {
   event.preventDefault();
   event.stopPropagation();
-  const { parentNode: { childNodes } } = event.target;
-  const userEmail = childNodes[0].value;
-  const userPassword = childNodes[1].value;
+  const userEmail = document.querySelector('input.email').value;
+  const userPassword = document.querySelector('input.password').value;
   const actionType = getActiveTabType();
   const isRegistration = actionType === 'register';
   if (isRegistration && !isFormValid) return;
   if (isRegistration) {
+    const userName = document.querySelector('input.name').value;
     await apiService.createUser({ email: `${userEmail}`, password: `${userPassword}` })
       .then((response) => {
         if (!response) return;
         const regAuthData = {
+          name: userName,
           email: userEmail,
           password: userPassword,
           id: response.data.id,
@@ -108,7 +110,7 @@ const getInputEmailElement = () => {
   emailInputElement.classList.add('form-control', 'login_from_item', 'email');
   emailInputElement.type = 'email';
   emailInputElement.required = true;
-  emailInputElement.placeholder = 'Enter your e-mail*';
+  emailInputElement.placeholder = 'Ваш email*';
   emailInputElement.addEventListener('keyup', (event) => {
     emailInputElement.classList.remove('valid');
     emailInputElement.classList.remove('inValid');
@@ -123,12 +125,21 @@ const getInputEmailElement = () => {
   return emailInputElement;
 };
 
+const getInputNameElement = () => {
+  const emailInputElement = document.createElement('input');
+  emailInputElement.classList.add('form-control', 'login_from_item', 'name');
+  emailInputElement.type = 'text';
+  emailInputElement.required = true;
+  emailInputElement.placeholder = 'Ваше имя*';
+  return emailInputElement;
+};
+
 const getInputPasswordElement = (type) => {
   const passwordInputElement = document.createElement('input');
   passwordInputElement.classList.add('form-control', 'login_from_item', 'password', type);
   passwordInputElement.type = 'password';
   passwordInputElement.required = true;
-  passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'Repeat your password*';
+  passwordInputElement.placeholder = type === 'main' ? 'Ваш пароль*' : 'Повторите пароль*';
   passwordInputElement.addEventListener('keyup', (event) => {
     const { value } = event.target;
     passwordInputElement.classList.remove('valid');
@@ -173,11 +184,13 @@ export const getAuthIdFromLocalStorage = () => {
 };
 
 const getFormElements = (type) => {
+  const isRegistration = document.querySelector('.nav_item.register').classList.contains('active');
   const emailInputElement = getInputEmailElement();
+  const nameInputElement = isRegistration ? getInputNameElement() : null;
   const passInputElement = getInputPasswordElement('main');
   const rSWeatPassInputElement = type === 'register' ? getInputPasswordElement('rSWeat') : null;
   const isRegistrated = getAuthIdFromLocalStorage();
-  const submitInputElement = getSubmitBtnElement(!isRegistrated ? 'SignIn' : 'LogIn');
+  const submitInputElement = getSubmitBtnElement(!isRegistrated ? 'Войти' : 'Регистрация');
   const commentPassword = document.createElement('label');
   commentPassword.innerText = `Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, 
   одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}`;
@@ -188,6 +201,7 @@ const getFormElements = (type) => {
   commentRPassword.classList.add('rpass_comment');
   commentRPassword.style.display = 'none';
   return [
+    nameInputElement,
     emailInputElement,
     passInputElement,
     commentPassword,
@@ -242,7 +256,7 @@ const getHelloText = () => {
   h1Element.innerText = 'RSLang';
 
   const h3Element = document.createElement('h3');
-  h3Element.innerText = 'Please Log in or Register to start playing.';
+  h3Element.innerText = 'Авторизуйтесь или зарегистрируйтесь для начала игры.';
 
   helloWordContainer.insertAdjacentElement('beforeend', h1Element);
   helloWordContainer.insertAdjacentElement('beforeend', h3Element);
@@ -254,16 +268,15 @@ const getNavigateTabs = () => {
   tabNavigationContainer.classList.add('tab_navigation__container');
   const ulTabNavigation = document.createElement('ul');
   ulTabNavigation.classList.add('nav', 'tab_navigation');
-  ['Login', 'Register'].map((it) => {
-    const lowerIt = it.toLowerCase();
+  ['login', 'register'].map((it) => {
     const liElement = document.createElement('li');
-    liElement.classList.add('nav_item', lowerIt, 'rounded-top', 'border');
-    if (it === 'Login') liElement.classList.add('active', 'border-bottom-0');
-    liElement.setAttribute('data-type', lowerIt);
+    liElement.classList.add('nav_item', it, 'rounded-top', 'border');
+    if (it === 'login') liElement.classList.add('active', 'border-bottom-0');
+    liElement.setAttribute('data-type', it);
     const link = document.createElement('a');
     link.classList.add('nav-link');
     link.setAttribute('href', '#');
-    link.innerText = it;
+    link.innerText = it === 'login' ? 'Авторизация' : 'Регистрация';
     liElement.insertAdjacentElement('beforeend', link);
     return ulTabNavigation.insertAdjacentElement('beforeend', liElement);
   });
