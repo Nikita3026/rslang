@@ -88,7 +88,7 @@ export class ApiService {
       });
   }
 
-  createUserWord(link, word) {
+  createUserWord(wordId, word) {
     const options = {
       headers: {
         common: {
@@ -100,7 +100,25 @@ export class ApiService {
         },
       },
     };
-    return axios.post(link, word, options)
+    return axios.post(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/words/${wordId}`, word, options)
+      .catch((error) => {
+        throw new Error(error.response.data);
+      });
+  }
+
+  updateUserWord(wordId, word) {
+    const options = {
+      headers: {
+        common: {
+          Authorization: `Bearer ${AUTHDATA.token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          WithCredentials: true,
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+    };
+    return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/words/${wordId}`, word, options)
       .catch((error) => {
         throw new Error(error.response.data);
       });

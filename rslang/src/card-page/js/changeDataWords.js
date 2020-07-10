@@ -2,6 +2,7 @@ import { MIN_NUMBER, NEXT_NUMBER, LAST_NUMBER_FOR_DATE } from './constants';
 import { settings } from './settings';
 import getDataCard from './getData';
 import { changeNumberNewWords } from './writeStatistics';
+import apiService from '../../js/GetData';
 
 const saveDeletedWords = JSON.parse(localStorage.getItem('deleted'));
 const saveDifficultWords = JSON.parse(localStorage.getItem('difficult'));
@@ -72,10 +73,29 @@ function addWordToWords(allWords, index, coefficient, repeatWords) {
   word.oldInterval = new Date().toISOString().slice(MIN_NUMBER, LAST_NUMBER_FOR_DATE);
   word.interval = getInterval(word.coefficient);
   word.replays = getReplays(word.replays);
+  const optional = {
+    coefficient: word.coefficient,
+    index: word.index,
+    oldInterval: word.oldInterval,
+    interval: word.interval,
+    replays: word.replays,
+  };
+  const wordToSave = {
+    difficulty: String(word.coefficient),
+    optional,
+  };
   if (index >= MIN_NUMBER) {
     words[index] = word;
+    apiService.updateUserWord(word.id, wordToSave)
+      .then((response) => {
+        console.log(response);
+      });
   } else {
     words.push(word);
+    apiService.createUserWord(word.id, wordToSave)
+      .then((response) => {
+        console.log(response);
+      });
   }
   return words;
 }

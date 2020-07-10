@@ -2,6 +2,7 @@ import {
   MIN_NUMBER, NEXT_NUMBER, notification, statistic, app, LAST_NUMBER_FOR_DATE,
 } from './constants';
 import { settings } from './settings';
+import { createStatData } from '../../js/globalStat';
 
 const numbersStatistic = document.querySelector('.numbers-statistics');
 const buttonStatistic = document.querySelector('.button-statistic');
@@ -57,6 +58,7 @@ function savingStatistic(learningWords, cards) {
   saveStatistic.rightAnswer += rightAnswer;
   saveStatistic[date] = learningWords.length;
   localStorage.setItem('statistic', JSON.stringify(saveStatistic));
+  createStatData(saveStatistic.rightAnswer, 'cartPage', date);
   numberSeria.innerText = saveStatistic.seria;
 }
 

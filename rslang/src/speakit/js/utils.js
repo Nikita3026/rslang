@@ -169,11 +169,10 @@ export const checkResult = async (value) => {
     const wordId = getWordId(matchedWord);
     setWordChecked(wordId);
     const userWordId = matchedWord.id;
-    const authData = JSON.parse(localStorage.getItem('SWAuthData'));
     const localdataLevel = JSON.parse(localStorage.getItem('speakitConfig')).level || 0;
     const difficultyWord = getDificaltyByLevel(localdataLevel);
     const word = { difficulty: difficultyWord, optional: {} };
-    await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word)
+    await apiService.createUserWord(userWordId, word)
       .then((response) => {
         throw new Error(response);
       });
