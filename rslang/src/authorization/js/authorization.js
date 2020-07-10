@@ -1,10 +1,7 @@
-import GetData from '../../js/GetData';
+import apiService from '../../js/GetData';
 import 'bootstrap';
 import '../scss/authorization.scss';
-import { routTo } from '../../js/helpers';
-
-const CREATE_USER_LINK = 'https://afternoon-falls-25894.herokuapp.com/users';
-const LOGIN_LINK = 'https://afternoon-falls-25894.herokuapp.com/signin';
+import { routeTo } from '../../js/helpers';
 
 let isValidPassword = false;
 let isEqualPass = false;
@@ -19,41 +16,27 @@ const getActiveTabType = () => {
   return type;
 };
 
-const toogleTabActive = () => {
-  const tabNavItems = document.querySelectorAll('.tab_navigation > .nav_item');
-  tabNavItems.forEach((it) => {
-    it.classList.toggle('active');
-    it.classList.toggle('border-bottom-0');
-  });
-  return false;
-};
-
-export const logIn = (emailValue, passwordValue) => {
-  // const AUTHCONTANER = document.querySelector('section.login_from__container');
-  // const userEmail = JSON.parse(localStorage.getItem('SWAuthData')).email;
-  // const userPassword = JSON.parse(localStorage.getItem('SWAuthData')).password;
-  const authLogin = new GetData(LOGIN_LINK, 'post', { email: `${emailValue}`, password: `${passwordValue}` })
-    .sendRequest()
+export const logIn = async (emailValue, passwordValue) => {
+  const authLogin = await apiService.loginUser({ email: `${emailValue}`, password: `${passwordValue}` })
     .then((response) => {
+      if (!response) return;
       const loginAuthData = {
         email: emailValue,
         password: passwordValue,
         userId: response.data.userId,
         message: response.data.message,
         token: response.data.token,
+        refreshToken: response.data.refreshToken,
         time: new Date(),
       };
-      // localStorage.removeItem('SWAuthData');
       localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-      routTo('/');
-    })
-    .catch((error) => {
-      console.error(error);
+      routeTo('/');
     });
+
   return authLogin;
 };
 
-export const handleAuthorize = (event) => {
+export const handleAuthorize = async (event) => {
   event.preventDefault();
   event.stopPropagation();
   const { parentNode: { childNodes } } = event.target;
@@ -63,25 +46,22 @@ export const handleAuthorize = (event) => {
   const isRegistration = actionType === 'register';
   if (isRegistration && !isFormValid) return;
   if (isRegistration) {
-    new GetData(CREATE_USER_LINK, 'post', { email: `${userEmail}`, password: `${userPassword}` })
-      .sendRequest()
+    await apiService.createUser({ email: `${userEmail}`, password: `${userPassword}` })
       .then((response) => {
+        if (!response) return;
         const regAuthData = {
           email: userEmail,
           password: userPassword,
           id: response.data.id,
         };
         localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
-        toogleTabActive();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then(() => logIn(userEmail, userPassword));
+        logIn(userEmail, userPassword);
+      });
   } else logIn(userEmail, userPassword);
 };
 
 const checkIsPasswordValid = (value) => {
+  if (!value) return false;
   const isValid = regexValidationPassword.test(value);
   isFormValid = isValid;
   return isValid;
@@ -95,6 +75,7 @@ const checkIsPasswordEqual = () => {
 };
 
 const checkIsEmailValid = (value) => {
+  if (!value) return false;
   const isValid = regexValidationEmail.test(value);
   isFormValid = isValid;
   return isValid;
@@ -128,7 +109,7 @@ const getInputEmailElement = () => {
   emailInputElement.type = 'email';
   emailInputElement.required = true;
   emailInputElement.placeholder = 'Enter your e-mail*';
-  emailInputElement.addEventListener('change', (event) => {
+  emailInputElement.addEventListener('keyup', (event) => {
     emailInputElement.classList.remove('valid');
     emailInputElement.classList.remove('inValid');
     isValidEmail = checkIsEmailValid(event.target.value);
@@ -148,23 +129,27 @@ const getInputPasswordElement = (type) => {
   passwordInputElement.type = 'password';
   passwordInputElement.required = true;
   passwordInputElement.placeholder = type === 'main' ? 'Enter your password*' : 'Repeat your password*';
-  passwordInputElement.addEventListener('change', (event) => {
-    if (!event.target.value) return;
+  passwordInputElement.addEventListener('keyup', (event) => {
+    const { value } = event.target;
     passwordInputElement.classList.remove('valid');
     passwordInputElement.classList.remove('inValid');
     if (type === 'main') {
-      isValidPassword = checkIsPasswordValid(event.target.value);
+      isValidPassword = checkIsPasswordValid(value);
       if (isValidPassword) {
         passwordInputElement.classList.add('valid');
+        if (value.length > 3) document.querySelector('.pass_comment').style.display = 'none';
       } else {
         passwordInputElement.classList.add('inValid');
+        if (value.length > 3) document.querySelector('.pass_comment').style.display = 'block';
       }
     } else {
-      isEqualPass = checkIsPasswordEqual(event.target.value);
+      isEqualPass = checkIsPasswordEqual(value);
       if (isEqualPass && isValidPassword) {
         passwordInputElement.classList.add('valid');
+        if (value.length > 3) document.querySelector('.rpass_comment').style.display = 'none';
       } else {
         passwordInputElement.classList.add('inValid');
+        if (value.length > 3) document.querySelector('.rpass_comment').style.display = 'block';
       }
     }
     checkIsButtonActive(getActiveTabType());
@@ -192,10 +177,24 @@ const getFormElements = (type) => {
   const passInputElement = getInputPasswordElement('main');
   const rSWeatPassInputElement = type === 'register' ? getInputPasswordElement('rSWeat') : null;
   const isRegistrated = getAuthIdFromLocalStorage();
-
   const submitInputElement = getSubmitBtnElement(!isRegistrated ? 'SignIn' : 'LogIn');
-
-  return [emailInputElement, passInputElement, rSWeatPassInputElement, submitInputElement];
+  const commentPassword = document.createElement('label');
+  commentPassword.innerText = `Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, 
+  одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}`;
+  commentPassword.classList.add('pass_comment');
+  commentPassword.style.display = 'none';
+  const commentRPassword = document.createElement('label');
+  commentRPassword.innerText = 'Пароли не совпадают';
+  commentRPassword.classList.add('rpass_comment');
+  commentRPassword.style.display = 'none';
+  return [
+    emailInputElement,
+    passInputElement,
+    commentPassword,
+    rSWeatPassInputElement,
+    commentRPassword,
+    submitInputElement,
+  ];
 };
 
 const renderAuthForm = (type) => {

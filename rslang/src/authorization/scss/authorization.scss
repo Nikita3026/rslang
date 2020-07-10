@@ -30,6 +30,13 @@ section {
         .login_form__form_container {
             display: grid;
             grid-template-rows: 40px 1fr;
+            grid-template-columns: minmax(320px, 600px);
+            .pass_comment,
+            .rpass_comment {
+                display: block;
+                font-size: 80%;
+                color: red;
+            }
         }
     }
 }

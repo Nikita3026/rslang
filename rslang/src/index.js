@@ -1,21 +1,18 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import SideBar from './js/SideBar/SideBar';
+import { renderSideBar } from './js/SideBar/SideBar';
 import 'bootstrap';
 import './assets/scss/style.scss';
-import { routTo, checkValidToken } from './js/helpers';
-
-const renderSideBar = () => {
-  const sideBar = new SideBar();
-  const sideBarElement = sideBar.init();
-  document.querySelector('body').insertAdjacentElement('afterbegin', sideBarElement);
-};
+import { routeTo, checkTokenIsValid, updateToken } from './js/helpers';
 
 window.onload = () => {
-  if (localStorage.getItem('SWAuthData') && checkValidToken()) {
+  if (localStorage.getItem('SWAuthData')) {
+    if (!checkTokenIsValid()) {
+      updateToken();
+    }
     renderSideBar();
     // renderHomePage();
   } else {
-    routTo('/authorization');
+    routeTo('/authorization');
   }
 };
