@@ -2,6 +2,7 @@ const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
 const buttonChangeCansel = document.querySelector('.button_change.cansel');
+const userEmail = document.querySelector('.email');
 const inputPassword = document.querySelector('.input_password');
 const eye = document.querySelector('.eye');
 const changeSeeHover = document.querySelector('.change.see_hover');
@@ -37,7 +38,7 @@ let checkRepeatedClick;
 
 let settings = {
   userFullName: 'Иван Иванович Иванов',
-  userEmail: 'name@mail.com',
+  userEmail: '',
   userPassword: '',
   deleteUser: false,
   theme: 'light',
@@ -60,24 +61,35 @@ let settings = {
   noRepeatWord: false,
 };
 
-function reload() {
-  let settingsParse = localStorage.getItem('settings');
-  settings = JSON.parse(settingsParse);  
-  changeChecboxChecked();	
-  console.log(settings);
-}	
+// getName();
 
-reload();
+// function getName() {
+//   let settingsParse = localStorage.getItem('SWAuthData');
+//   let zz = JSON.parse(settingsParse);
+
+//   settings.userEmail = `${zz.email}`
+//   userEmail.innerText = `${zz.email}`;
+// }
 
 function setLocalstorage() {
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
+!localStorage.getItem('settings') && setLocalstorage();
+
+function reload() {
+  const settingsParse = localStorage.getItem('settings');
+  settings = JSON.parse(settingsParse);
+  changeChecboxChecked();
+}
+
+reload();
+
 // ----------------------reload change checked----------------------------------
 
 function changeChecboxChecked() {
   maxWordCardAll.forEach((el) => {
-    for (key in settings) {
+    for (let key in settings) {
       if (el.id === key) {
         el.value = settings[key];
       }
@@ -85,7 +97,7 @@ function changeChecboxChecked() {
   });
 
   checkboxAll.forEach((el) => {
-    for (key in settings) {
+    for (let key in settings) {
       if (el.id === key && settings[key] === true) {
         el.checked = true;
       } else if (el.id === key && settings[key] === false) {
@@ -111,10 +123,6 @@ function changeChecboxChecked() {
 
 // ---------------------------------------------------------------------------
 
-informations.forEach((el, ind) => {
-  el.addEventListener('click', () => openChangeBlock(ind));
-});
-
 function openChangeBlock(ind) {
   buttonArrow.forEach((el) => el.classList.remove('active'));
   change.forEach((el) => el.classList.remove('active'));
@@ -133,6 +141,10 @@ function openChangeBlock(ind) {
     checkRepeatedClick = -1;
   }
 }
+
+informations.forEach((el, ind) => {
+  el.addEventListener('click', () => openChangeBlock(ind));
+});
 
 // ---------------------change info-------------------------
 
@@ -203,7 +215,7 @@ function changeTheme() {
 
 // ----------------------work with button block_change_setting------------------------
 
-function clickButtonBlockChangeSetting(ind) {
+function clickButtonBlockChangeSetting(ind, event) {
   if (event.target.className === 'button_change save_password') {
     openChangeBlock(ind);
     changePassword();
@@ -239,7 +251,7 @@ function clickButtonBlockChangeSetting(ind) {
 }
 
 change.forEach((el, ind) => {
-  el.addEventListener('click', () => clickButtonBlockChangeSetting(ind));
+  el.addEventListener('click', () => clickButtonBlockChangeSetting(ind, event));
 });
 
 // ---------------------see password-------------------------
