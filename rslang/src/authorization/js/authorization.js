@@ -184,9 +184,8 @@ export const getAuthIdFromLocalStorage = () => {
 };
 
 const getFormElements = (type) => {
-  const isRegistration = document.querySelector('.nav_item.register').classList.contains('active');
   const emailInputElement = getInputEmailElement();
-  const nameInputElement = isRegistration ? getInputNameElement() : null;
+  const nameInputElement = type === 'register' ? getInputNameElement() : null;
   const passInputElement = getInputPasswordElement('main');
   const rSWeatPassInputElement = type === 'register' ? getInputPasswordElement('rSWeat') : null;
   const isRegistrated = getAuthIdFromLocalStorage();
