@@ -1,41 +1,33 @@
 import Chart from 'chart.js';
+import {
+  elementNumberWords, speedCanvas, series, cards, rightAnswer, MIN_NUMBER, NEXT_NUMBER,
+  NUMBER_DATES, NUMBER_STEP_SIZE, NUMBER_ONE_PERCENT,
+} from './constans';
 
-const elementNumberWords = document.querySelector('.number-words');
-const speedCanvas = document.getElementById('speedChart');
-const series = document.querySelector('.series');
-const cards = document.querySelector('.cards');
-const rightAnswer = document.querySelector('.right-answer');
-
-const MIN_NUMBER = 0;
-const NEXT_NUMBER = 1;
-const NUMBER_DATES = 5;
-const NUMBER_STEP_SIZE = 360;
-const NUMBER_ONE_PERCENT = 36;
-
-let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
+let statisticData = JSON.parse(localStorage.getItem('statistic'));
 
 let days = [];
 let words = [];
 let numberWords = 0;
 
 function createStatisticsText() {
-  if (!saveStatistic) {
-    saveStatistic = {};
+  if (!statisticData) {
+    statisticData = {};
   } else {
-    const proportionRightAnswer = saveStatistic.rightAnswer / saveStatistic.cards;
-    series.innerText = `Общее количество серий прохождения карточек: ${saveStatistic.seria}`;
-    cards.innerText = `Общее количество пройденных карточек: ${saveStatistic.cards}`;
+    const proportionRightAnswer = statisticData.rightAnswer / statisticData.cards;
+    series.innerText = `Общее количество серий прохождения карточек: ${statisticData.seria}`;
+    cards.innerText = `Общее количество пройденных карточек: ${statisticData.cards}`;
     rightAnswer.innerText = `Процент правильных ответов: ${proportionRightAnswer * 100}%`;
-    delete saveStatistic.seria;
-    delete saveStatistic.cards;
-    delete saveStatistic.rightAnswer;
+    delete statisticData.seria;
+    delete statisticData.cards;
+    delete statisticData.rightAnswer;
   }
 }
 createStatisticsText();
-saveStatistic['начало использования приложения'] = 0;
+statisticData['начало использования приложения'] = 0;
 
 function createDataWords() {
-  const statistics = Object.entries(saveStatistic);
+  const statistics = Object.entries(statisticData);
   statistics.sort((first, second) => first[NEXT_NUMBER] - second[NEXT_NUMBER]);
   days = statistics.map((element) => element[MIN_NUMBER]);
   words = statistics.map((element) => element[NEXT_NUMBER]);
