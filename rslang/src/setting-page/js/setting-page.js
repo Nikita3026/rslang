@@ -1,7 +1,7 @@
 const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
-// const buttonChangeCansel = document.querySelector('.button_change.cansel');
+// const buttonChangeCancel = document.querySelector('.button_change.cancel');
 const userEmail = document.querySelector('.email');
 // const userName = document.querySelector('.user_name');
 const inputPassword = document.querySelector('.input_password');
@@ -84,7 +84,7 @@ if (!localStorage.getItem('settings')) {
 
 // ----------------------reload change checked----------------------------------
 
-function changeChecboxChecked() {
+function applySettings() {
   maxWordCardAll.forEach((el) => {
     for (const key in settings) {
       if (el.id === key) {
@@ -121,7 +121,7 @@ function changeChecboxChecked() {
 function reload() {
   const settingsParse = localStorage.getItem('settings');
   settings = JSON.parse(settingsParse);
-  changeChecboxChecked();
+  applySettings();
 }
 
 reload();
@@ -133,7 +133,7 @@ function openChangeBlock(ind) {
   change.forEach((el) => el.classList.remove('active'));
 
   if (checkRepeatedClick !== ind) {
-    changeChecboxChecked();
+    applySettings();
 
     buttonArrow[ind].classList.add('active');
     change[ind].classList.add('active');
@@ -164,19 +164,19 @@ function changeInfoCard() {
   settings.transcription = checkboxTranscription.checked;
   settings.image = checkboxImage.checked;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeMaxCards() {
   settings.maxCards = numberCards.value;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeMaxNewWords() {
   settings.maxNewWords = numberWords.value;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeButtonCards() {
@@ -184,7 +184,7 @@ function changeButtonCards() {
   settings.difficultWords = checkboxDifficultGroup.checked;
   settings.delete = checkboxDeleteWord.checked;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeButtonPage() {
@@ -193,7 +193,7 @@ function changeButtonPage() {
   settings.alright = checkboxAlright.checked;
   settings.easy = checkboxEasy.checked;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeLearningWords() {
@@ -201,19 +201,19 @@ function changeLearningWords() {
   settings.onlyDifficultWords = onlyDifficultWords.checked;
   settings.noRepeatWord = noRepeatWord.checked;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changePassword() {
   settings.userPassword = inputPassword.value;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeDeleteUser() {
   settings.deleteUser = true;
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 function changeTheme() {
@@ -223,7 +223,7 @@ function changeTheme() {
     settings.theme = 'dark';
   }
   setLocalstorage();
-  changeChecboxChecked();
+  applySettings();
 }
 
 // ----------------------work with button block_change_setting------------------------
@@ -232,7 +232,7 @@ function clickButtonBlockChangeSetting(ind, event) {
   if (event.target.className === 'button_change save_password') {
     openChangeBlock(ind);
     changePassword();
-  } else if (event.target.className === 'button_change cansel') {
+  } else if (event.target.className === 'button_change cancel') {
     openChangeBlock(ind);
   } else if (event.target.className === 'button_change delete') {
     openChangeBlock(ind);
