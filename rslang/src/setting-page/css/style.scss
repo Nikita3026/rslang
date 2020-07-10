@@ -279,9 +279,15 @@ h4 {
 	justify-content: space-between;
 }
 
-.button_change.cansel,
+.button_change.cancel,
 .button_change.delete {
+	width: 150px;
+	min-width: 120px;
 	margin: 0px;
+}
+
+.button_change.cancel{
+	margin-right: 5px;
 }
 
 .button_change.delete {
@@ -443,8 +449,9 @@ input[type=checkbox]:checked:after {
 
 @media (max-width: 600px) {
 
-	.button_change.cansel,
+	.button_change.cancel,
 	.button_change.delete {
+		width: 45%;
 		min-width: 45%;
 	}
 
