@@ -1,0 +1,29 @@
+.sign-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 35px 10px 10px 10px;
+  transition: .5s;
+  background-image: url('../assets/img/bg.png');
+  background-size: cover;
+  z-index: 5;
+}
+
+.wrapper-email,
+.wrapper-password {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.sign-in-form,
+.sign-up-form {
+  width: 300px;
+}

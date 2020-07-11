@@ -1,2 +1,23 @@
-// change fonts
+// abstracts
+@import "./abstract/constants";
+@import "./abstract/mixins";
+@import "./abstract/placeholders";
+@import "./abstract/keyframes";
+
+// layouts
+@import "./layouts/btn";
+@import "./layouts/header";
+
+// components
+@import "./components/start-page";
+@import "./components/sign-page";
+@import "./components/main-page";
+@import "./components/game-round";
+@import "./components/results-page";
+@import "./components//statistics-page";
+
+// bases
+@import "./base/base";
+
+// font
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
