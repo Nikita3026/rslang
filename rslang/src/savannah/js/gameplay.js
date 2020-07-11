@@ -3,6 +3,7 @@ import setNewWords from './setWords';
 import buildStatistic from './build-statistic';
 import checkMute from './check-mute';
 import 'bootstrap';
+import { _ } from 'core-js';
 
 const increaseLevel = () => {
     const setCurrentLevelToLocalStorage = (isItNecessaryToReset, maxValue) => {
@@ -116,13 +117,15 @@ const correctAnswer = async() => {
     constants.MAIN_WORD.classList.remove('main-word-animation');
     constants.WATER_IMAGE.classList.add('water-animation');
     constants.WATER_IMAGE.hidden = false;
+    let strikSound;
     const tempStatisticObject = JSON.parse(localStorage.shortTermStatisticSavannah);
+    const numberOfWordsPlayed = tempStatisticObject.guessedWords.length +
+        tempStatisticObject.unspokenWords.length;
     tempStatisticObject.guessedWords.push(JSON.parse(localStorage.currentMainWordOfSavannahGame));
     localStorage.setItem('shortTermStatisticSavannah', JSON.stringify(tempStatisticObject));
     if (!checkMute()) {
         constants.RIGHT_ANSWER_SOUND.play();
     }
-    let strikSound;
     if (tempStatisticObject.guessedWords.length % 3 === 0) {
         strikSound = setTimeout(() => {
             const computedStyleOfGlass = getComputedStyle(constants.GLASS);
@@ -131,19 +134,14 @@ const correctAnswer = async() => {
             constants.GLASS.style.height = `${+(computedStyleOfGlass.height.slice(0, -2)) + 4}px`;
         }, 500);
     }
-    const numberOfWordsPlayed = tempStatisticObject.guessedWords.length +
-        tempStatisticObject.unspokenWords.length;
-    if (numberOfWordsPlayed >= 30) {
-        clearTimeout(strikSound);
-        await setStatistic();
-    }
+    if (numberOfWordsPlayed === 30) clearTimeout(strikSound);
 };
 
 const runListenters = () => {
     constants.MAIN_WORD.addEventListener('animationend', () => {
         wrongAnswer();
     });
-    constants.ANSWER_OPTIONS.addEventListener('click', ({ target }) => {
+    constants.ANSWER_OPTIONS.addEventListener('click', async({ target }) => {
         let realTarget;
         if (target.classList.contains('number-of-answer')) {
             realTarget = target.nextSibling;
@@ -185,6 +183,15 @@ const runListenters = () => {
                 default:
                     wrongAnswerActions();
                     break;
+            }
+            const tempStatisticObject = JSON.parse(localStorage.shortTermStatisticSavannah);
+            const numberOfWordsPlayed = tempStatisticObject.guessedWords.length +
+                tempStatisticObject.unspokenWords.length;
+            if (numberOfWordsPlayed >= 30) {
+                if (!checkMute()) {
+                    constants.END_GAME_SOUND.play();
+                }
+                await setStatistic();
             }
         }
     });
@@ -228,15 +235,20 @@ const runListenters = () => {
 };
 
 const setLocalStorageValues = () => {
-    const tempDictionary = JSON.parse(localStorage.dictionary);
+    let tempDictionary;
+    if (localStorage.dictionary === undefined) {
+        tempDictionary = [];
+    } else {
+        tempDictionary = JSON.parse(localStorage.dictionary);
+    }
     localStorage.setItem('learningWordsForSavannahGame', JSON.stringify(tempDictionary));
     localStorage.setItem('shortTermStatisticSavannah', JSON.stringify({
         guessedWords: [],
         unspokenWords: [],
     }));
     if (localStorage.savannahPage === undefined) {
-        localStorage.savannahPage = 0;
-        localStorage.savannahLevel = 0;
+        localStorage.savannahPage = 1;
+        localStorage.savannahLevel = 1;
         localStorage.savannahNumberOfWord = 0;
     }
 };

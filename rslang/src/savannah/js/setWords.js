@@ -39,7 +39,6 @@ const setNewWords = async() => {
     const maxPositionValue = constants.POSSIBLE_ANSWERS.length - 1;
     const positionForRightAnswer = Math.round(Math.random() * maxPositionValue);
     const rightAnswerPlace = constants.POSSIBLE_ANSWERS[positionForRightAnswer];
-
     if (tempArrayOfLearningWords.length === 0) {
         mainWord = await getWord(localStorage.savannahPage, localStorage.savannahLevel);
         mainWord = mainWord[+localStorage.savannahNumberOfWord];
