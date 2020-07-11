@@ -1,0 +1,87 @@
+@import "~bootstrap/scss/bootstrap";
+@import '../../assets/scss/style.scss';
+
+@mixin valid {
+    box-shadow: 0px 0px 4px green;
+}
+
+@mixin inValid {
+    box-shadow: 0px 0px 4px red;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    &.login_from__container {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        .login_form__header {
+            text-align: center;
+        }
+        .login_form__form_container {
+            display: grid;
+            grid-template-rows: 40px 1fr;
+            grid-template-columns: minmax(320px, 600px);
+            justify-content: center;
+            .pass_comment,
+            .rpass_comment {
+                display: block;
+                font-size: 80%;
+                color: red;
+            }
+        }
+    }
+}
+
+form {
+    &.form-group {
+        padding: 1em;
+    }
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: 1fr;
+    grid-gap: 0.5em;
+    &.login_form {
+        .inValid {
+            @include inValid
+        }
+        .valid {
+            @include valid
+        }
+    }
+}
+
+nav {
+    &.tab_navigation__container {
+        display: grid;
+        .tab_navigation {
+            display: grid;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            grid-template-columns: repeat(2, 1fr);
+            li {
+                text-align: center;
+                background-color: #eee;
+                &.active {
+                    background-color: transparent;
+                }
+                a {
+                    cursor: pointer;
+                    color: #333;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
