@@ -70,12 +70,12 @@ function getUserData() {
 
 getUserData();
 
-const setLocalstorage = () => {
+function setSettingsLocalstorage() {
   localStorage.setItem('settings', JSON.stringify(settings));
-};
+}
 
 if (!localStorage.getItem('settings')) {
-  setLocalstorage();
+  setSettingsLocalstorage();
 }
 
 // ----------------------reload change checked----------------------------------
@@ -160,19 +160,19 @@ function changeInfoCard() {
   settings.showTextExample = checkboxUse.checked;
   settings.showTranscription = checkboxTranscription.checked;
   settings.showImage = checkboxImage.checked;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
 function changeMaxCards() {
   settings.maxCards = numberCards.value;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
 function changeMaxNewWords() {
   settings.maxNewWords = numberWords.value;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
@@ -180,7 +180,7 @@ function changeButtonCards() {
   settings.showAnswer = checkboxAnswer.checked;
   settings.isDifficultWords = checkboxDifficultGroup.checked;
   settings.isDelete = checkboxDeleteWord.checked;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
@@ -189,7 +189,7 @@ function changeButtonPage() {
   settings.isHard = checkboxHard.checked;
   settings.isAlright = checkboxAlright.checked;
   settings.isEasy = checkboxEasy.checked;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
@@ -197,19 +197,19 @@ function changeLearningWords() {
   settings.showRepeatWords = repeatWords.checked;
   settings.showOnlyDifficultWords = onlyDifficultWords.checked;
   settings.showNoRepeatWord = noRepeatWord.checked;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
 function changePassword() {
   settings.userPassword = inputPassword.value;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
 function changeDeleteUser() {
   settings.canDeleteUser = true;
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
@@ -219,7 +219,7 @@ function changeTheme() {
   } else {
     settings.theme = 'dark';
   }
-  setLocalstorage();
+  setSettingsLocalstorage();
   applySettings();
 }
 
@@ -306,4 +306,4 @@ buttonSettingAll.forEach((el, ind) => {
   el.addEventListener('click', () => clickButtonSetting(el, ind));
 });
 
-export default setLocalstorage;
+export { setSettingsLocalstorage };
