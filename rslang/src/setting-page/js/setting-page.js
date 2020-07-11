@@ -1,16 +1,11 @@
 const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
-// const buttonChangeCancel = document.querySelector('.button_change.cancel');
 const userEmail = document.querySelector('.email');
-// const userName = document.querySelector('.user_name');
+const userName = document.querySelector('.user_name');
 const inputPassword = document.querySelector('.input_password');
-// const eye = document.querySelector('.eye');
 const changeSeeHover = document.querySelector('.change.see_hover');
 const textareaMistake = document.querySelector('.textarea_mistake');
-// const sectionSetting = document.querySelector('.section_setting');
-// const blockSetting = document.querySelector('.block_setting');
-// const blockSettingPadding = document.querySelector('.block_setting_padding');
 const buttonSettingAll = document.querySelectorAll('.button_setting');
 const settingAll = document.querySelectorAll('.container_settings');
 const checkboxAll = document.querySelectorAll('.checkbox_word');
@@ -38,7 +33,7 @@ const temeDark = document.querySelector('#theme_dark');
 let checkRepeatedClick;
 
 let settings = {
-  userFullName: 'Иван Иванович Иванов',
+  userFullName: 'Пользователь',
   userEmail: '',
   userPassword: '',
   deleteUser: false,
@@ -62,8 +57,6 @@ let settings = {
   noRepeatWord: false,
 };
 
-getUserData();
-
 function getUserData() {
   const settingsParse = localStorage.getItem('SWAuthData');
   const userData = JSON.parse(settingsParse);
@@ -72,9 +65,12 @@ function getUserData() {
   // settings.userFullName = `${userData.userName}`;
   userEmail.innerText = `${userData.email}`;
   // userName.innerText = `${userData.userName}`;
+  userName.innerText = `${settings.userFullName}`;
 }
 
-export const setLocalstorage = () => {
+getUserData();
+
+const setLocalstorage = () => {
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
@@ -229,42 +225,58 @@ function changeTheme() {
 // ----------------------work with button block_change_setting------------------------
 
 function clickButtonBlockChangeSetting(ind, event) {
-  if (event.target.className === 'button_change save_password') {
-    openChangeBlock(ind);
-    changePassword();
-  } else if (event.target.className === 'button_change cancel') {
-    openChangeBlock(ind);
-  } else if (event.target.className === 'button_change delete') {
-    openChangeBlock(ind);
-    changeDeleteUser();
-  } else if (event.target.className === 'button_change send') {
-    openChangeBlock(ind);
-  } else if (event.target.className === 'button_change save_number_words') {
-    openChangeBlock(ind);
-    changeMaxNewWords();
-  } else if (event.target.className === 'button_change save_number_cards') {
-    openChangeBlock(ind);
-    changeMaxCards();
-  } else if (event.target.className === 'button_change save_info_card') {
-    openChangeBlock(ind);
-    changeInfoCard();
-  } else if (event.target.className === 'button_change save_learning_words') {
-    openChangeBlock(ind);
-    changeLearningWords();
-  } else if (event.target.className === 'button_change save_button_cards') {
-    openChangeBlock(ind);
-    changeButtonCards();
-  } else if (event.target.className === 'button_change save_button_page') {
-    openChangeBlock(ind);
-    changeButtonPage();
-  } else if (event.target.className === 'button_change save_theme') {
-    openChangeBlock(ind);
-    changeTheme();
+  const buttonClick = `${event.target.className}`;
+
+  switch (buttonClick) {
+    case 'button_change save_password':
+      openChangeBlock(ind);
+      changePassword();
+      break;
+    case 'button_change cancel':
+      openChangeBlock(ind);
+      break;
+    case 'button_change delete':
+      openChangeBlock(ind);
+      changeDeleteUser();
+      break;
+    case 'button_change send':
+      openChangeBlock(ind);
+      break;
+    case 'button_change save_number_words':
+      openChangeBlock(ind);
+      changeMaxNewWords();
+      break;
+    case 'button_change save_number_cards':
+      openChangeBlock(ind);
+      changeMaxCards();
+      break;
+    case 'button_change save_info_card':
+      openChangeBlock(ind);
+      changeInfoCard();
+      break;
+    case 'button_change save_learning_words':
+      openChangeBlock(ind);
+      changeLearningWords();
+      break;
+    case 'button_change save_button_cards':
+      openChangeBlock(ind);
+      changeButtonCards();
+      break;
+    case 'button_change save_button_page':
+      openChangeBlock(ind);
+      changeButtonPage();
+      break;
+    case 'button_change save_theme':
+      openChangeBlock(ind);
+      changeTheme();
+      break;
+    default:
+      break;
   }
 }
 
 change.forEach((el, ind) => {
-  el.addEventListener('click', () => clickButtonBlockChangeSetting(ind, event));
+  el.addEventListener('click', (event) => clickButtonBlockChangeSetting(ind, event));
 });
 
 // ---------------------see password-------------------------
@@ -277,20 +289,20 @@ function seePassword(event) {
   }
 }
 
-changeSeeHover.addEventListener('mouseover', () => seePassword(event));
+changeSeeHover.addEventListener('mouseover', (event) => seePassword(event));
 
 // ------------------click button setting----------------------
 
-function clickButtonSetting(el, ind) {
+function clickButtonSetting(elem, ind) {
   buttonSettingAll.forEach((el) => el.classList.remove('active'));
   settingAll.forEach((el) => el.classList.remove('active'));
 
-  el.classList.add('active');
+  elem.classList.add('active');
   settingAll[ind].classList.add('active');
 }
 
 buttonSettingAll.forEach((el, ind) => {
-  if (el.classList.value !== 'button_setting exit') {
-    el.addEventListener('click', () => clickButtonSetting(el, ind));
-  }
+  el.addEventListener('click', () => clickButtonSetting(el, ind));
 });
+
+export default setLocalstorage;
