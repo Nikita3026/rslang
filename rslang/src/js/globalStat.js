@@ -14,23 +14,37 @@ export const getStatistics = async () => {
 
 export const createStatData = async (amount, appToSet, dateToSet) => {
   let newStat = null;
+  let index = 1;
   await apiService.getStatistics()
     .then((response) => {
-      if (!response) return;
       console.log(response);
       const newLearnedWords = response.data.learnedWords + amount;
-      const index = Object.keys(response.data.optional).length + 1;
+      index = Object.keys(response.data.optional).length + 1;
       newStat = {
         learnedWords: newLearnedWords,
         optional: {
           ...response.data.optional,
           [index]: {
-            words: 15,
+            words: amount,
             app: appToSet,
             date: dateToSet,
           },
         },
       };
+    })
+    .catch((error) => {
+      if (error.response.status === 404) {
+        newStat = {
+          learnedWords: amount,
+          optional: {
+            [index]: {
+              words: amount,
+              app: appToSet,
+              date: dateToSet,
+            },
+          },
+        };
+      } else throw new Error(error.response.data);
     });
   await apiService.upsetStatistics(newStat)
     .then((response) => {

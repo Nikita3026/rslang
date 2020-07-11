@@ -27,9 +27,11 @@ export const handleButtonClick = (event) => {
     hideTranslation();
     renderMicrophoneLineToDom();
     startSpeachListen();
+    target.disabled = true;
   }
 
   if (target.classList.contains('btn_restart')) {
+    document.querySelector('button.btn_speach').disabled = false;
     restart();
   }
 

@@ -54,7 +54,7 @@ export const handleAuthorize = async (event) => {
           name: userName,
           email: userEmail,
           password: userPassword,
-          id: response.data.id,
+          userId: response.data.id,
         };
         localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
         logIn(userEmail, userPassword);

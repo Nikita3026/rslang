@@ -142,16 +142,18 @@ $White_Light: #f3f3f3;
             border: 1px solid #e2e2e2;
             p {
                 margin: 0;
-                padding-left: 2.5em;
+                padding-left: 0;
                 line-height: 1.5em;
                 font-size: 18px;
                 &.translation {
                     display: none;
                 }
             }
-            svg {
+            span.icon-audio {
                 position: absolute;
                 width: 50px;
+                height: 50px;
+                display: inline-block;
                 left: 0;
                 top: 50%;
                 transform: translate(0px, -50%);

@@ -32,18 +32,11 @@ const getFailedContainer = () => {
 
 const cloneDataNode = () => {
   clonedData = document.querySelector('.words__container > .wrapper').cloneNode(true);
-  // return clonedNode;
 };
 
-const getSuccessNodes = () => {
-  const nodesSuccess = Array.from(clonedData.children).filter((it) => it.classList.contains('checked'));
-  return nodesSuccess;
-};
+const getSuccessNodes = () => Array.from(clonedData.children).filter((it) => it.classList.contains('checked'));
 
-const getFiledNodes = () => {
-  const nodesFiled = Array.from(clonedData.children).filter((it) => !it.classList.contains('checked'));
-  return nodesFiled;
-};
+const getFiledNodes = () => Array.from(clonedData.children).filter((it) => !it.classList.contains('checked'));
 
 const renderSuccessNodesToDom = () => {
   const nodesSuccess = getSuccessNodes();
@@ -61,6 +54,7 @@ const renderSuccessNodesToDom = () => {
   nodesSuccess.forEach((it) => {
     successContainer.insertAdjacentElement('beforeend', it);
   });
+  createStatData(countNumber, 'speakIt', new Date());
 };
 
 const renderFailedNodesToDom = () => {
@@ -74,7 +68,6 @@ const renderFailedNodesToDom = () => {
   const countNumber = nodesFiled.length;
   count.insertAdjacentText('beforeend', countNumber.toString());
   failedContainer.insertAdjacentElement('beforeend', headerText);
-  // let failedContainer = document.querySelector('.failed_items');
 
   nodesFiled.forEach((it) => {
     failedContainer.insertAdjacentElement('beforeend', it);
@@ -108,12 +101,13 @@ const handleClickStatButtons = (event) => {
 
 const renderStatButtonsToDom = () => {
   if (document.querySelector('.stat__container .buttons__container')) return;
-  const buttonNewGame = createButton('New Game', 'btn_new_game, btn-success');
+  const buttonNewGame = createButton('Играть дальше', 'btn_new_game, btn-success');
   const statButtonsContainer = document.createElement('div');
   statButtonsContainer.classList.add('buttons__container');
   STATSCONTAINER.insertAdjacentElement('beforeend', statButtonsContainer);
   statButtonsContainer.insertAdjacentElement('beforeend', buttonNewGame);
   statButtonsContainer.addEventListener('click', handleClickStatButtons);
+  document.querySelector('button.btn_speach').disabled = false;
 };
 
 export const renderStatToDom = () => {
@@ -122,7 +116,6 @@ export const renderStatToDom = () => {
   renderSuccessNodesToDom();
   renderFailedNodesToDom();
   renderStatButtonsToDom();
-  createStatData(getSuccessNodes().length, 'speakIt', new Date());
 };
 
 export default {};

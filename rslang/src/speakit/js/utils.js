@@ -137,19 +137,16 @@ const setWordChecked = (id) => {
 const getDificaltyByLevel = (level) => {
   switch (Number(level)) {
     case 0:
-      return 'weak';
     case 1:
-      return 'weak';
+      return '3';
     case 2:
-      return 'weak';
     case 3:
-      return 'hard';
+      return '2';
     case 4:
-      return 'hard';
     case 5:
-      return 'hard';
+      return '1';
 
-    default: return 'weak';
+    default: return '3';
   }
 };
 
@@ -175,7 +172,7 @@ export const checkResult = async (value) => {
     const word = { difficulty: difficultyWord, optional: {} };
     await apiService.createUserWord(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/words/${userWordId}`, word)
       .then((response) => {
-        throw new Error(response);
+        console.log(response);
       });
   }
 };

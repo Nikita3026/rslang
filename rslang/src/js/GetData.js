@@ -5,7 +5,7 @@ import Modal from './Modal/Modal';
 
 const axios = require('axios').default;
 
-const AUTHDATA = JSON.parse(localStorage.getItem('SWAuthData'));
+const authData = JSON.parse(localStorage.getItem('SWAuthData'));
 export class ApiService {
   loginUser(body) {
     return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', body)
@@ -50,7 +50,7 @@ export class ApiService {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${AUTHDATA.refreshToken}`,
+          Authorization: `Bearer ${authData.refreshToken}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -77,12 +77,12 @@ export class ApiService {
   getUser() {
     const options = {
       headers: {
-        Authorization: `Bearer ${AUTHDATA.token}`,
+        Authorization: `Bearer ${authData.token}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     };
-    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.id}`, options)
+    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${authData.id}`, options)
       .catch((error) => {
         throw new Error(error.response.data);
       });
@@ -92,7 +92,7 @@ export class ApiService {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${AUTHDATA.token}`,
+          Authorization: `Bearer ${authData.token}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -110,7 +110,7 @@ export class ApiService {
     const options = {
       headers: {
         common: {
-          Authorization: `Bearer ${AUTHDATA.token}`,
+          Authorization: `Bearer ${authData.token}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
           WithCredentials: true,
@@ -118,7 +118,7 @@ export class ApiService {
         },
       },
     };
-    return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, body, options)
+    return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/statistics`, body, options)
       .catch((error) => {
         throw new Error(error.response.data);
       });
@@ -127,15 +127,12 @@ export class ApiService {
   getStatistics() {
     const options = {
       headers: {
-        Authorization: `Bearer ${AUTHDATA.token}`,
+        Authorization: `Bearer ${authData.token}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     };
-    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${AUTHDATA.userId}/statistics`, options)
-      .catch((error) => {
-        throw new Error(error.response.data);
-      });
+    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/statistics`, options);
   }
 }
 

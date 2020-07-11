@@ -9,12 +9,9 @@ class WordsList {
     this.wordsContainer = document.querySelector('.words__container > .wrapper');
     this.imageContainer = document.querySelector('.image__container > .wrapper');
     this.word = null;
-    // this.getActiveDataList = this.getActiveDataList.bind(this);
   }
 
   init() {
-    // this.renderTranslateToDom();
-    // this.renderSpeakListenToDom();
     this.renderWordsListToDom();
     this.renderImageToDom();
     this.eventListner();
@@ -45,7 +42,6 @@ class WordsList {
 
   getWordsFromData() {
     const wordsArr = [];
-    // let dataList = this.getActiveDataList();
     this.data.forEach((item) => {
       const wordItem = this.renderWord(item);
       wordsArr.push(wordItem);
