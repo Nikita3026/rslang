@@ -12,18 +12,18 @@ const checkboxAll = document.querySelectorAll('.checkbox_word');
 const maxWordCardAll = document.querySelectorAll('.max_word_card');
 const numberWords = document.querySelector('#maxNewWords');
 const numberCards = document.querySelector('#maxCards');
-const checkboxTranslation = document.querySelector('#wordTranslate');
-const checkboxMeaning = document.querySelector('#textMeaning');
-const checkboxUse = document.querySelector('#textExample');
-const checkboxTranscription = document.querySelector('#transcription');
-const checkboxImage = document.querySelector('#image');
+const checkboxTranslation = document.querySelector('#showWordTranslate');
+const checkboxMeaning = document.querySelector('#showTextMeaning');
+const checkboxUse = document.querySelector('#showTextExample');
+const checkboxTranscription = document.querySelector('#showTranscription');
+const checkboxImage = document.querySelector('#showImage');
 const checkboxAnswer = document.querySelector('#showAnswer');
-const checkboxDifficultGroup = document.querySelector('#difficultWords');
-const checkboxDeleteWord = document.querySelector('#delete');
-const checkboxAgain = document.querySelector('#again');
-const checkboxHard = document.querySelector('#hard');
-const checkboxAlright = document.querySelector('#alright');
-const checkboxEasy = document.querySelector('#easy');
+const checkboxDifficultGroup = document.querySelector('#isDifficultWords');
+const checkboxDeleteWord = document.querySelector('#isDelete');
+const checkboxAgain = document.querySelector('#isAgain');
+const checkboxHard = document.querySelector('#isHard');
+const checkboxAlright = document.querySelector('#isAlright');
+const checkboxEasy = document.querySelector('#isEasy');
 const repeatWords = document.querySelector('#repeat_word');
 const onlyDifficultWords = document.querySelector('#onlyDifficultWords');
 const noRepeatWord = document.querySelector('#no_repeat_word');
@@ -36,25 +36,25 @@ let settings = {
   userFullName: 'Пользователь',
   userEmail: '',
   userPassword: '',
-  deleteUser: false,
+  canDeleteUser: false,
   theme: 'light',
   maxNewWords: 10,
   maxCards: 10,
-  wordTranslate: true,
-  textMeaning: true,
-  textExample: true,
-  transcription: true,
-  image: true,
+  showWordTranslate: true,
+  showTextMeaning: true,
+  showTextExample: true,
+  showTranscription: true,
+  showImage: true,
   showAnswer: true,
-  difficultWords: true,
-  delete: true,
-  again: true,
-  hard: true,
-  alright: true,
-  easy: true,
-  repeatWords: true,
-  onlyDifficultWords: false,
-  noRepeatWord: false,
+  isDifficultWords: true,
+  isDelete: true,
+  isAgain: true,
+  isHard: true,
+  isAlright: true,
+  isEasy: true,
+  showRepeatWords: true,
+  showOnlyDifficultWords: false,
+  showNoRepeatWord: false,
 };
 
 function getUserData() {
@@ -91,6 +91,7 @@ function applySettings() {
 
   checkboxAll.forEach((el) => {
     for (const key in settings) {
+      // console.log(key, (el.id))
       if (el.id === key && settings[key] === true) {
         el.checked = true;
       } else if (el.id === key && settings[key] === false) {
@@ -105,11 +106,11 @@ function applySettings() {
     themeLight.checked = 'on';
   }
 
-  if (settings.repeatWords === true) {
+  if (settings.showRepeatWords === true) {
     repeatWords.checked = 'on';
-  } else if (settings.onlyDifficultWords === true) {
+  } else if (settings.showOnlyDifficultWords === true) {
     onlyDifficultWords.checked = 'on';
-  } else if (settings.noRepeatWord === true) {
+  } else if (settings.showNoRepeatWord === true) {
     noRepeatWord.checked = 'on';
   }
 }
@@ -154,11 +155,11 @@ informations.forEach((el, ind) => {
 // ---------------------change info-------------------------
 
 function changeInfoCard() {
-  settings.wordTranslate = checkboxTranslation.checked;
-  settings.textMeaning = checkboxMeaning.checked;
-  settings.textExample = checkboxUse.checked;
-  settings.transcription = checkboxTranscription.checked;
-  settings.image = checkboxImage.checked;
+  settings.showWordTranslate = checkboxTranslation.checked;
+  settings.showTextMeaning = checkboxMeaning.checked;
+  settings.showTextExample = checkboxUse.checked;
+  settings.showTranscription = checkboxTranscription.checked;
+  settings.showImage = checkboxImage.checked;
   setLocalstorage();
   applySettings();
 }
@@ -177,25 +178,25 @@ function changeMaxNewWords() {
 
 function changeButtonCards() {
   settings.showAnswer = checkboxAnswer.checked;
-  settings.difficultWords = checkboxDifficultGroup.checked;
-  settings.delete = checkboxDeleteWord.checked;
+  settings.isDifficultWords = checkboxDifficultGroup.checked;
+  settings.isDelete = checkboxDeleteWord.checked;
   setLocalstorage();
   applySettings();
 }
 
 function changeButtonPage() {
-  settings.again = checkboxAgain.checked;
-  settings.hard = checkboxHard.checked;
-  settings.alright = checkboxAlright.checked;
-  settings.easy = checkboxEasy.checked;
+  settings.isAgain = checkboxAgain.checked;
+  settings.isHard = checkboxHard.checked;
+  settings.isAlright = checkboxAlright.checked;
+  settings.isEasy = checkboxEasy.checked;
   setLocalstorage();
   applySettings();
 }
 
 function changeLearningWords() {
-  settings.repeatWords = repeatWords.checked;
-  settings.onlyDifficultWords = onlyDifficultWords.checked;
-  settings.noRepeatWord = noRepeatWord.checked;
+  settings.showRepeatWords = repeatWords.checked;
+  settings.showOnlyDifficultWords = onlyDifficultWords.checked;
+  settings.showNoRepeatWord = noRepeatWord.checked;
   setLocalstorage();
   applySettings();
 }
@@ -207,7 +208,7 @@ function changePassword() {
 }
 
 function changeDeleteUser() {
-  settings.deleteUser = true;
+  settings.canDeleteUser = true;
   setLocalstorage();
   applySettings();
 }
