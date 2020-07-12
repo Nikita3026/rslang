@@ -40,7 +40,7 @@ export class ApiService {
       });
   }
 
-  deleteUser(id) {
+  deleteUser() {
     const options = {
       headers: {
         Authorization: `Bearer ${authData.token}`,
@@ -48,11 +48,34 @@ export class ApiService {
         Accept: 'application/json',
       },
     };
-    return axios.delete(`${baselink}/users/${id}`, options)
+    return axios.delete(`${baselink}/users/${authData.userId}`, options)
       .catch((error) => {
         if (error.response.status === 401) {
           renderAlert('Пользователь с таким email не найден.');
-          document.querySelector('form.form-group > button').disabled = true;
+        }
+        throw new Error(error.response.data);
+      });
+  }
+
+  updateUser(newPass) {
+    const options = {
+      headers: {
+        common: {
+          Authorization: `Bearer ${authData.token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          WithCredentials: true,
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+    };
+    return axios.put(`${baselink}/users/${authData.userId}`, {
+      email: authData.email,
+      password: newPass,
+    }, options)
+      .catch((error) => {
+        if (error.response.status === 401) {
+          renderAlert('Token не верный.');
         }
         throw new Error(error.response.data);
       });

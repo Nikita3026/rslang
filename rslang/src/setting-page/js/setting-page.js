@@ -33,8 +33,6 @@ const noRepeatWord = document.querySelector('#no_repeat_word');
 const themeLight = document.querySelector('#theme_light');
 const temeDark = document.querySelector('#theme_dark');
 
-const userIdData = JSON.parse(localStorage.getItem('SWAuthData')).userId;
-
 let checkRepeatedClick;
 
 let settings = {
@@ -212,13 +210,17 @@ function changePassword() {
   settings.userPassword = inputPassword.value;
   setSettingsLocalstorage();
   applySettings();
+  apiService.updateUser(inputPassword.value)
+    .then((response) => {
+      console.log(response);
+    });
 }
 
 function changeDeleteUser() {
   settings.canDeleteUser = true;
   setSettingsLocalstorage();
   applySettings();
-  apiService.deleteUser(userIdData)
+  apiService.deleteUser()
     .then((response) => {
       if (response.status === 204) {
         removeToken();
