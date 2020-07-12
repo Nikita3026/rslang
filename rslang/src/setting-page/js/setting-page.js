@@ -36,7 +36,7 @@ const temeDark = document.querySelector('#theme_dark');
 let checkRepeatedClick;
 
 let settings = {
-  userFullName: 'Пользователь',
+  userFullName: JSON.parse(localStorage.getItem('SWAuthData')).name || '',
   userEmail: '',
   userPassword: '',
   canDeleteUser: false,
