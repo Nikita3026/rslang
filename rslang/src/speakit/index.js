@@ -16,8 +16,8 @@ window.onload = async () => {
     }
     // await setBodyDataToDom('speakit.html');
     renderSideBar();
-    const { renderApp } = await import('./js/speakit');
-    renderApp();
+    const { renderStartPage } = await import('./js/startPage');
+    renderStartPage();
   } else {
     routeTo('authorization.html');
   }
