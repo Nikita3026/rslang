@@ -25,7 +25,7 @@ export class ApiService {
     return axios.post('https://afternoon-falls-25894.herokuapp.com/users', body)
       .catch((error) => {
         if (error.response.status === 417) {
-          const buttons = [{ buttonLink: '/authorization', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
+          const buttons = [{ buttonLink: 'authorization.html', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
           const modal = new Modal('Ошибка', 'Пользователь с таким email уже существует.', 'auth', buttons);
           modal.init();
           document.querySelector('form.form-group > button').disabled = true;
@@ -60,7 +60,7 @@ export class ApiService {
     return axios.get(link, options)
       .catch((error) => {
         if (error.response.status === 401) {
-          routeTo('/authorization');
+          routeTo('authorization.html');
         }
         console.log(error.response.data);
       });

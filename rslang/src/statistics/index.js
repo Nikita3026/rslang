@@ -5,20 +5,20 @@ import 'bootstrap/scss/bootstrap.scss';
 import './css/style.scss';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
-  setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
+  // setBodyDataToDom,
+  checkTokenIsValid, routeTo, updateToken,
 } from '../js/helpers';
 import '../assets/scss/style.scss';
-
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData')) {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    await setBodyDataToDom('statistics.html');
+    // await setBodyDataToDom('statistics.html');
     renderSideBar();
     await import('./js/statistics');
   } else {
-    routeTo('/authorization');
+    routeTo('authorization.html');
   }
 };
