@@ -3,13 +3,13 @@ import 'regenerator-runtime/runtime';
 import '../css/sprint.scss';
 import 'bootstrap';
 
-import GetData from '../../js/GetData';
+import apiService from '../../js/GetData';
 
 const startGameButton = document.querySelector('.start-game_button');
 const startAgainButton = document.querySelector('.start-again_button');
 const startingWindow = document.querySelector('.starting-window');
 const gameWindow = document.querySelector('.game-window');
-const statisticWindow = document.querySelector('.statisict-window');
+const statisticWindow = document.querySelector('.statisic-window');
 const timer = document.querySelector('.timer');
 const levels = document.querySelectorAll('.level');
 const pagination = document.querySelector('.difficulty');
@@ -21,7 +21,7 @@ const btnFalse = document.querySelector('.btn_false');
 const points = document.querySelector('.points');
 const totalPoints = document.querySelector('.total-points');
 const keysButton = document.querySelector('.keys');
-const statisict = document.querySelector('.statistic');
+const statisic = document.querySelector('.statistic');
 let mistakesNumber = 0;
 let rightNumber = 0;
 let mistakesList = '';
@@ -29,6 +29,7 @@ let correctList = '';
 let pointsPerAnswer = 10;
 let rigthInRow = 0;
 let timeinterval;
+let statisticListElement;
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -36,9 +37,9 @@ function getRandomInt(max) {
 
 const getWords = async (group, page) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
-  const request = new GetData(url, 'get');
+  const request = apiService.getWords(url);
   let wordsArr = null;
-  await request.sendRequest()
+  await request
     .then((response) => {
       wordsArr = response.data;
     })
@@ -48,8 +49,8 @@ const getWords = async (group, page) => {
 
 function fillStatistic(total) {
   document.querySelector('.statistic-header').innerHTML = `<p>Вы набрали: ${total} очков</p>`;
-  statisict.innerHTML = '';
-  statisict.insertAdjacentHTML('afterbegin', `
+  statisic.innerHTML = '';
+  statisic.insertAdjacentHTML('afterbegin', `
   <p class="stat-mistakes">Ошибок: ${mistakesNumber}</p>
   ${mistakesList}
   <hr>
@@ -93,29 +94,26 @@ async function generateWords() {
   const trueFalseIndicator = getRandomInt(3);
   const randomTrueWord = getRandomInt(19);
   const randomFalseWord = getRandomInt(19);
+  wordRu.innerHTML = words[randomTrueWord].wordTranslate;
   if (trueFalseIndicator >= 1) {
-    wordRu.innerHTML = words[randomTrueWord].wordTranslate;
     wordEn.innerHTML = words[randomTrueWord].word;
     btnTrue.classList.add('right');
     btnFalse.classList.remove('right');
   } else {
-    wordRu.innerHTML = words[randomTrueWord].wordTranslate;
     wordEn.innerHTML = words[randomFalseWord].word;
     btnFalse.classList.add('right');
     btnTrue.classList.remove('right');
   }
-  const statisticListElement = `<p><b>${words[randomTrueWord].word}</b> –– ${words[randomTrueWord].wordTranslate}</p>`;
-  return statisticListElement;
+  statisticListElement = `<p><b>${words[randomTrueWord].word}</b> –– ${words[randomTrueWord].wordTranslate}</p>`;
+
 }
 
 async function updateMistakesList() {
-  const listElement = await generateWords();
-  mistakesList += `${listElement}`;
+  mistakesList += `${statisticListElement}`;
 }
 
 async function updateCorrectList() {
-  const listElement = await generateWords();
-  correctList += `${listElement}`;
+  correctList += `${statisticListElement}`;
 }
 
 function changeLevel(event) {
@@ -188,7 +186,7 @@ function updateTimer() {
 }
 
 async function startGame() {
-  statisict.innerHTML = '';
+  statisic.innerHTML = '';
   hideStartingWindow();
   hidestatisticWindow();
   showGameWindow();
@@ -228,12 +226,16 @@ document.addEventListener('keydown', (event) => {
       setWrongAnswer();
     }
   }
-  console.log('жмяк');
 });
 document.addEventListener('keyup', () => {
   keysButton.children.forEach((it) => it.classList.remove('active'));
 });
 buttons.addEventListener('click', answerHanlers);
-startGameButton.addEventListener('click', startGame);
 startAgainButton.addEventListener('click', startGame);
 pagination.addEventListener('click', changeLevel);
+
+export const renderApp = () => {
+  startGameButton.addEventListener('click', startGame);
+}
+
+export default {};
