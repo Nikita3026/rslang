@@ -4,7 +4,7 @@ import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
   // setBodyDataToDom,
-  checkTokenIsValid, routeTo 
+  checkTokenIsValid, routeToAuth 
 } from '../js/helpers';
 
 import './css/style.scss';
@@ -16,6 +16,6 @@ window.onload = async () => {
     const { setSettingsLocalstorage } = await import('./js/setting-page');
     setSettingsLocalstorage();
   } else {
-    routeTo('authorization.html');
+    routeToAuth();
   }
 };

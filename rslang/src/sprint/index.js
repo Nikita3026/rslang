@@ -4,7 +4,7 @@ import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
   // setBodyDataToDom,
-  checkTokenIsValid, routeTo, updateToken,
+  checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 
 import './css/style.scss';
@@ -19,6 +19,6 @@ window.onload = async () => {
     const { renderApp } = await import('./js/sprint');
     renderApp();
   } else {
-    routeTo('authorization.html');
+    routeToAuth();
   }
 };

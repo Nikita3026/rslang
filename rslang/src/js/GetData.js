@@ -1,14 +1,15 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable class-methods-use-this */
-import { renderAlert, routeTo } from './helpers';
+import { renderAlert, routeToAuth } from './helpers';
 import Modal from './Modal/Modal';
 
 const axios = require('axios').default;
 
 const authData = JSON.parse(localStorage.getItem('SWAuthData'));
+const baselink = 'https://afternoon-falls-25894.herokuapp.com';
 export class ApiService {
   loginUser(body) {
-    return axios.post('https://afternoon-falls-25894.herokuapp.com/signin', body)
+    return axios.post(`${baselink}/signin`, body)
       .catch((error) => {
         if (error.response.status === 404) {
           renderAlert('Пользователь с таким email не существует');
@@ -23,7 +24,7 @@ export class ApiService {
   }
 
   createUser(body) {
-    return axios.post('https://afternoon-falls-25894.herokuapp.com/users', body)
+    return axios.post(`${baselink}/users`, body)
       .catch((error) => {
         if (error.response.status === 417) {
           const buttons = [{ buttonLink: 'authorization.html', buttonText: 'Попробовать еще раз', buttonClass: 'btn-warning' }];
@@ -39,9 +40,20 @@ export class ApiService {
       });
   }
 
-  parseHtmlToDOM(link) {
-    return axios.get(link)
+  deleteUser(id) {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${authData.token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    };
+    return axios.delete(`${baselink}/users/${id}`, options)
       .catch((error) => {
+        if (error.response.status === 401) {
+          renderAlert('Пользователь с таким email не найден.');
+          document.querySelector('form.form-group > button').disabled = true;
+        }
         throw new Error(error.response.data);
       });
   }
@@ -61,7 +73,7 @@ export class ApiService {
     return axios.get(link, options)
       .catch((error) => {
         if (error.response.status === 401) {
-          routeTo('authorization.html');
+          routeToAuth();
         }
         throw new Error(error.response.data);
       });
@@ -82,7 +94,7 @@ export class ApiService {
         Accept: 'application/json',
       },
     };
-    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${authData.id}`, options)
+    return axios.get(`${baselink}/users/${authData.id}`, options)
       .catch((error) => {
         throw new Error(error.response.data);
       });
@@ -118,7 +130,7 @@ export class ApiService {
         },
       },
     };
-    return axios.put(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/statistics`, body, options)
+    return axios.put(`${baselink}/users/${authData.userId}/statistics`, body, options)
       .catch((error) => {
         throw new Error(error.response.data);
       });
@@ -132,7 +144,7 @@ export class ApiService {
         Accept: 'application/json',
       },
     };
-    return axios.get(`https://afternoon-falls-25894.herokuapp.com/users/${authData.userId}/statistics`, options);
+    return axios.get(`${baselink}/users/${authData.userId}/statistics`, options);
   }
 }
 

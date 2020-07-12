@@ -6,7 +6,7 @@ import './css/style.scss';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
   // setBodyDataToDom,
-  checkTokenIsValid, routeTo, updateToken,
+  checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 import '../assets/scss/style.scss';
 
@@ -19,6 +19,6 @@ window.onload = async () => {
     renderSideBar();
     await import('./js/statistics');
   } else {
-    routeTo('authorization.html');
+    routeToAuth();
   }
 };

@@ -1,3 +1,6 @@
+import apiService from '../../js/GetData';
+import { removeToken, routeToAuth } from '../../js/helpers';
+
 const informations = document.querySelectorAll('.informations');
 const buttonArrow = document.querySelectorAll('.button_arrow');
 const change = document.querySelectorAll('.change');
@@ -29,6 +32,8 @@ const onlyDifficultWords = document.querySelector('#onlyDifficultWords');
 const noRepeatWord = document.querySelector('#no_repeat_word');
 const themeLight = document.querySelector('#theme_light');
 const temeDark = document.querySelector('#theme_dark');
+
+const userIdData = JSON.parse(localStorage.getItem('SWAuthData')).userId;
 
 let checkRepeatedClick;
 
@@ -213,6 +218,13 @@ function changeDeleteUser() {
   settings.canDeleteUser = true;
   setSettingsLocalstorage();
   applySettings();
+  apiService.deleteUser(userIdData)
+    .then((response) => {
+      if (response.status === 204) {
+        removeToken();
+        routeToAuth();
+      }
+    });
 }
 
 function changeTheme() {
