@@ -2,6 +2,7 @@
 @import './settingPage.scss';
 @import './iconLoading.scss';
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 main {
     position: relative;
@@ -38,6 +39,12 @@ body {
             grid-template-columns: 40px 1fr;
             grid-template-rows: 40px 1fr;
         }
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .icon {
