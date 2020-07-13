@@ -1,42 +1,19 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
-section.login_from__container {
+.login_from__container .wrapper {
   display: grid;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  grid-template-columns: repeat(2, minmax(300px, 400px));
+  grid-template-areas: "form text";
+  grid-template-rows: 500px;
 }
 
-section.login_from__container .login_form__header {
+.login_from__container .wrapper .login_form__header {
+  grid-area: text;
+  align-self: center;
+  justify-content: center;
   text-align: center;
 }
 
-section.login_from__container .login_form__form_container {
-  display: grid;
-  grid-template-rows: 40px 1fr;
-}
-
-form {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  grid-template-columns: 1fr;
-  grid-gap: 0.5em;
-}
-
-form.login_form .inValid {
-  box-shadow: 0px 0px 4px red;
-}
-
-form.login_form .valid {
-  box-shadow: 0px 0px 4px green;
+.login_from__container .wrapper .login_form__form_container {
+  grid-area: form;
 }
 
 nav.tab_navigation__container {
@@ -49,10 +26,19 @@ nav.tab_navigation__container .tab_navigation {
   padding: 0;
   list-style: none;
   grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
+}
+
+nav.tab_navigation__container .tab_navigation li {
+  text-align: center;
+  background-color: #eee;
+}
+
+nav.tab_navigation__container .tab_navigation li.active {
+  background-color: transparent;
 }
 
 nav.tab_navigation__container .tab_navigation li a {
   cursor: pointer;
+  color: #333;
+  font-weight: bold;
 }
