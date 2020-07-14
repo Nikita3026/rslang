@@ -13,7 +13,6 @@ export default function getWordsForSentences(allWords) {
   const wordsForSentences = [];
   const wordMeaning = getMissingWord(allWords[MIN_NUMBER].textMeaning, 'i');
   const wordExample = getMissingWord(allWords[MIN_NUMBER].textExample, 'b');
-  wordsForSentences.push(wordMeaning);
-  wordsForSentences.push(wordExample);
+  wordsForSentences.push(wordMeaning, wordExample);
   return wordsForSentences;
 }

@@ -32,9 +32,9 @@
 .answer-input {
     position: absolute;
     width: 100%;
-    left: -1px;
+    left: 0;
     border: none;
-    background-color: transparent;
+    background-color: #cfdcee;
     font-size: 18px;
     outline: none;
 }
@@ -64,27 +64,8 @@
     background-color: #cfdcee
 }
 
-.answer-text span {
-    visibility: hidden;
-}
-  
-  .previous {
-    background-color: #f1f1f1;
-    color: black;
-  }
-  
-  .next {
-    background-color: #538b8d;
-    color: white;
-  }
-  
-  .round {
-    border-radius: 50%;
-  }
-
 .right-answer{
-    visibility: visible !important;
-    color: green !important;
+    color: green;
 }
 
 .visiable{
@@ -93,8 +74,7 @@
 
 
 .red{
-    color: red !important;
-    visibility: visible !important;
+    color: red;
 }
 
 .unvisiable{
@@ -103,7 +83,6 @@
 
 .orange{
     color: orange;
-    visibility: visible !important;
 }
 
 .opacity{
@@ -162,4 +141,8 @@ button {
 
 .context span {
     width: 100%;
+}
+
+.transparent {
+    background-color: transparent;
 }

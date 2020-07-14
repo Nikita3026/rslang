@@ -2,12 +2,16 @@ import {
   MIN_NUMBER, textElementAnswer, context, translatedWords, URL_MATERIALS, NEXT_NUMBER,
 } from './constants';
 import { settings } from './settings';
-import { addClassOfElements } from './checkAnswer';
+import { addClassOfElements, removeClassOfElements } from './checkAnswer';
 
 const sentences = document.querySelectorAll('.context span');
 const additionalContent = document.querySelectorAll('.additional-content');
 export const buttons = document.querySelectorAll('.card-button');
 const img = document.querySelector('.img-card');
+const changeTranslate = document.querySelector('.change-translate');
+
+const PART_TEXT_OF_UNKNOWN_WORD = /<\/b>|<\/i>/;
+const HIDDEN_UNKNOWN_WORD = '[...]';
 const TEXT_HIDE_TRANSLATION = 'Скрыть перевод';
 const TEXT_SHOW_TRANSLATION = 'Показать перевод';
 
@@ -16,14 +20,12 @@ const namesButtons = ['showAnswer', 'delete', 'difficultWords'];
 const typesSentences = ['textMeaning', 'textMeaningTranslate', 'textExample', 'textExampleTranslate'];
 const settingsTranslate = ['textMeaning', 'textMeaning', 'textExample', 'textExample'];
 
-const changeTranslate = document.querySelector('.change-translate');
-
 export function changeTextButton(button, typeSetting, textOn, textOff) {
-  const curentButton = button;
+  const currentButton = button;
   if (settings[typeSetting]) {
-    curentButton.innerText = textOff;
+    currentButton.innerText = textOff;
   } else {
-    curentButton.innerText = textOn;
+    currentButton.innerText = textOn;
   }
 }
 
@@ -55,8 +57,8 @@ function writeSentence(text, element) {
   const words = text.split(' ');
   const changedWords = words.map((word) => {
     let currentWord = word;
-    if (word.search(/<\/b>|<\/i>/) > MIN_NUMBER) {
-      currentWord = '[...]';
+    if (word.search(PART_TEXT_OF_UNKNOWN_WORD) > MIN_NUMBER) {
+      currentWord = HIDDEN_UNKNOWN_WORD;
     }
     return currentWord;
   });
@@ -72,11 +74,13 @@ function showImage(dataCard) {
 }
 
 export function showButtons(gettingNamesButtons, gettingButtons) {
+  const showingButtons = [];
   gettingNamesButtons.forEach((element, index) => {
     if (settings[element]) {
-      gettingButtons[index].classList.remove('hide');
+      showingButtons.push(gettingButtons[index]);
     }
   });
+  removeClassOfElements(showingButtons, ['hide']);
 }
 
 export function createCard(dataCard, unknownWord) {
@@ -84,7 +88,11 @@ export function createCard(dataCard, unknownWord) {
   showImage(dataCard);
   settingsTranslate.forEach((element, index) => {
     if (settings[element]) {
-      writeSentence(dataCard[MIN_NUMBER][typesSentences[index]], sentences[index]);
+      const dataWord = dataCard[MIN_NUMBER];
+      const sentenceType = typesSentences[index];
+      const sentence = dataWord[sentenceType];
+      const placeForSentence = sentences[index];
+      writeSentence(sentence, placeForSentence);
     }
   });
   showButtons(namesButtons, buttons);

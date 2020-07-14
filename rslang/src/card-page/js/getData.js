@@ -37,6 +37,11 @@ function getData(url) {
     });
 }
 
+function saveSaveUrlData() {
+  localStorage.setItem('page', JSON.stringify(page));
+  localStorage.setItem('group', JSON.stringify(group));
+}
+
 function createUrl() {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
   page += NEXT_NUMBER;
@@ -44,8 +49,6 @@ function createUrl() {
     page = MIN_NUMBER;
     group += NEXT_NUMBER;
   }
-  localStorage.setItem('page', JSON.stringify(page));
-  localStorage.setItem('group', JSON.stringify(group));
   return url;
 }
 
@@ -56,6 +59,7 @@ export default async function getDataCard(newWords) {
     const gettingData = await getData(url);
     data = data.concat(gettingData);
     localStorage.setItem('words', JSON.stringify(data));
+    saveSaveUrlData();
   }
   return data;
 }

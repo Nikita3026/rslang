@@ -6,15 +6,24 @@ export function addClassOfElements(array, className) {
   });
 }
 
-export function removeClassOfElements(array, className) {
-  array.forEach((elem) => {
-    elem.classList.remove(className);
+export function removeClassOfElements(arrayElements, arrayClassNames) {
+  arrayClassNames.forEach((className) => {
+    arrayElements.forEach((elem) => {
+      elem.classList.remove(className);
+    });
   });
 }
 
 function changeColorLetter(arrayElementsText, text) {
-  const wrongLetters = arrayElementsText.filter((item, index) => item.textContent !== text[index]);
-  const rightLetters = arrayElementsText.filter((item, index) => item.textContent === text[index]);
+  const wrongLetters = [];
+  const rightLetters = [];
+  arrayElementsText.forEach((word, index) => {
+    if (word.textContent !== text[index]) {
+      wrongLetters.push(word);
+    } else {
+      rightLetters.push(word);
+    }
+  });
   if (wrongLetters.length === arrayElementsText.length) {
     addClassOfElements(wrongLetters, 'red');
   } else {
@@ -26,9 +35,7 @@ function changeColorLetter(arrayElementsText, text) {
 function changeOpacityLetters(arrayElementsText) {
   setTimeout(() => {
     addClassOfElements(arrayElementsText, 'opacity');
-    removeClassOfElements(arrayElementsText, 'red');
-    removeClassOfElements(arrayElementsText, 'orange');
-    removeClassOfElements(arrayElementsText, 'right-answer');
+    removeClassOfElements(arrayElementsText, ['red', 'orange', 'right-answer']);
   }, NUMBER_MILLISECONDS);
 }
 
@@ -36,28 +43,35 @@ function showWrongLetters() {
   const letters = document.querySelectorAll('.letter');
   const arrayElementsText = [...letters];
   const text = input.value;
-  input.value = '';
   input.classList.add('transparent');
-  addClassOfElements(arrayElementsText, 'visible');
   changeColorLetter(arrayElementsText, text);
   changeOpacityLetters(arrayElementsText);
 }
 
+function hideLetters() {
+  const letters = document.querySelectorAll('.letter');
+  const arrayElementsText = [...letters];
+  removeClassOfElements(arrayElementsText, ['opacity']);
+}
+
 export function checkAnswer(unknownWord) {
-  let result;
-  if (input.value === unknownWord) {
-    result = true;
-  } else {
+  const isCorrect = input.value === unknownWord;
+  input.classList.add('transparent');
+  if (!isCorrect) {
     showWrongLetters();
   }
-  return result;
+  hideLetters();
+  input.value = '';
+  return isCorrect;
 }
 
 input.addEventListener('click', () => {
-  const letters = document.querySelectorAll('.letter');
-  const arrayElementsText = [...letters];
+  hideLetters();
   input.classList.remove('transparent');
-  input.value = '';
-  removeClassOfElements(arrayElementsText, 'visible');
-  removeClassOfElements(arrayElementsText, 'opacity');
+});
+
+input.addEventListener('input', (event) => {
+  if (event.target.classList.contains('transparent')) {
+    input.click();
+  }
 });

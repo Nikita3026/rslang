@@ -12,29 +12,22 @@ const NUMBER_REPLAYS = 4;
 const allSaveData = [saveNewWords, saveRepeatWords, saveDifficultWords, saveDeletedWords];
 
 export function getAllDataWords() {
-  const allData = allSaveData.map((currentData) => {
-    let data = [];
-    if (currentData) {
-      data = currentData;
-    }
-    return data;
-  });
+  const allData = allSaveData.map((currentData) => currentData || []);
   return allData;
 }
 
 export function removeWord(words, key, unknownWord) {
-  const allUnknownWord = words.map((item) => item.word.toLowerCase());
-  const index = allUnknownWord.indexOf(unknownWord);
-  if (index >= MIN_NUMBER) {
+  const wordIndex = words.map((item) => item.word.toLowerCase()).indexOf(unknownWord);
+  if (wordIndex >= MIN_NUMBER) {
     changeNumberNewWords(key);
-    words.splice(index, NEXT_NUMBER);
+    words.splice(wordIndex, NEXT_NUMBER);
     localStorage.setItem(key, JSON.stringify(words));
   }
 }
 
 function getInterval(coefficient) {
-  const day = new Date().getDate() + (NEXT_NUMBER * coefficient);
-  const date = new Date().setDate(day);
+  const currentDay = new Date().getDate();
+  const date = new Date().setDate(currentDay + (NEXT_NUMBER * coefficient));
   const currentDate = new Date(date).toISOString().slice(MIN_NUMBER, LAST_NUMBER_FOR_DATE);
   return currentDate;
 }
@@ -117,8 +110,8 @@ function getWordsForToday(repeatWords) {
 }
 
 export async function createDataWords(oldNewWords, oldAllWords, repeatWords) {
-  let newWords = oldNewWords;
-  let allWords = oldAllWords;
+  let newWords = oldNewWords.slice();
+  let allWords = oldAllWords.slice();
   newWords = await getDataCard(newWords);
   allWords = newWords.slice(MIN_NUMBER, settings.maxNewWords);
   if (settings.repeatWords) {

@@ -1,5 +1,5 @@
 import { removeClassOfElements } from './checkAnswer';
-import { translatedWords, input, NEXT_NUMBER } from './constants';
+import { translatedWords, NEXT_NUMBER } from './constants';
 import { settings } from './settings';
 import getWordsForSentences from './changeSettencesForAnswer';
 
@@ -16,9 +16,8 @@ function showMissingWords(wordsForSentences) {
 
 export function changeCardForAnswer(allWords) {
   const wordsForSentences = getWordsForSentences(allWords);
-  input.classList.add('right-answer');
   if (settings.wordTranslate) {
-    removeClassOfElements(translatedWords, 'hide');
+    removeClassOfElements(translatedWords, ['hide']);
   }
   showMissingWords(wordsForSentences);
 }

@@ -42,7 +42,6 @@ function checkNumberCard() {
   if (cards < settings.maxCards && allWords.length) {
     changeCard();
     input.click();
-    input.classList.remove('right-answer');
     app.classList.remove('no-clickable');
   } else {
     checkError(repeatWords, cards);
@@ -86,7 +85,6 @@ nextBtn.addEventListener('click', () => {
     rightAnswer();
   } else {
     repeat = true;
-    input.click();
   }
 });
 

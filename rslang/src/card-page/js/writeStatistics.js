@@ -14,15 +14,16 @@ const valuesRightAnswer = [];
 const MAX_PERCENT = 100;
 
 let maxRightAnswer = 0;
-let saveStatistic = JSON.parse(localStorage.getItem('statistic'));
+let currentStatistic = JSON.parse(localStorage.getItem('statistic'));
 let numberNewWords = 0;
 let rightAnswer = 0;
 
-if (!saveStatistic) {
-  saveStatistic = {};
-  saveStatistic.seria = 0;
-  saveStatistic.cards = 0;
-  saveStatistic.rightAnswer = 0;
+if (!currentStatistic) {
+  currentStatistic = {
+    seria: 0,
+    cards: 0,
+    rightAnswer: 0,
+  };
 }
 
 export function changeRightAnswer(repeat) {
@@ -50,14 +51,14 @@ function resetValues() {
   rightAnswer = MIN_NUMBER;
 }
 
-function savingStatistic(learningWords, cards) {
+function saveStatistic(learningWords, cards) {
   const date = new Date().toISOString().slice(MIN_NUMBER, LAST_NUMBER_FOR_DATE);
-  saveStatistic.seria += NEXT_NUMBER;
-  saveStatistic.cards += cards;
-  saveStatistic.rightAnswer += rightAnswer;
-  saveStatistic[date] = learningWords.length;
-  localStorage.setItem('statistic', JSON.stringify(saveStatistic));
-  numberSeria.innerText = saveStatistic.seria;
+  currentStatistic.seria += NEXT_NUMBER;
+  currentStatistic.cards += cards;
+  currentStatistic.rightAnswer += rightAnswer;
+  currentStatistic[date] = learningWords.length;
+  localStorage.setItem('statistic', JSON.stringify(currentStatistic));
+  numberSeria.innerText = currentStatistic.seria;
 }
 
 function writeStatistic(learningWords, cards) {
@@ -68,7 +69,7 @@ function writeStatistic(learningWords, cards) {
   valuesStatistic.forEach((number, index) => {
     numbersStatisticElements[index].innerText = number;
   });
-  savingStatistic(learningWords, cards);
+  saveStatistic(learningWords, cards);
   resetValues();
   app.classList.add('hide');
   statistic.classList.remove('hide');
