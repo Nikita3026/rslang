@@ -33,7 +33,6 @@ let wordAudio;
 let wordTranscription;
 let wordTranslation;
 let wordPicture;
-let activeWord;
 let trueWordNumber;
 let wordsArrFalse = [];
 
@@ -65,6 +64,18 @@ const getWords = async (group, page) => {
 
   return wordsArr;
 };
+
+function fillStatistic() {
+  document.querySelector('.statistic-header').innerHTML = '<p>Результат игры</p>';
+  statisict.innerHTML = '';
+  statisict.insertAdjacentHTML('afterbegin', `
+  <p class="stat stat-mistakes">Ошибок: ${mistakesNumber}</p>
+  ${mistakesList}
+  <hr>
+  <p class="stat stat-correct">Верно: ${correctNumber}</p>
+  ${correctList}
+  `);
+}
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -98,13 +109,13 @@ function exitGame() {
 }
 
 async function getAllData() {
-  const activeLevel = document.querySelector('.active').firstChild;
-  const group = Number(activeLevel.innerHTML) - 1;
+  const activeLevel = document.querySelector('.active');
+  const group = activeLevel.dataset.level;
   const page = getRandomInt(29);
   const randomTrueWord = getRandomInt(19);
   trueWordNumber = randomTrueWord;
   const wordsArr = await getWords(group, page);
-  console.log(wordsArr);
+
   const path = wordsArr[randomTrueWord].audio.slice(5, wordsArr[randomTrueWord].audio.length);
   const audioUrl = `https://raw.githubusercontent.com/dmitruk89/rslang-data/master/data${path}`;
   wordAudio = new Audio(audioUrl);
@@ -124,6 +135,7 @@ async function getFalseWords() {
     const group = getRandomInt(5);
     const page = getRandomInt(29);
     const randomFalseWord = getRandomInt(19);
+    // eslint-disable-next-line no-await-in-loop
     const wordsArr = await getWords(group, page);
     if (randomFalseWord !== trueWordNumber) {
       wordsArrFalse.push(wordsArr[randomFalseWord].wordTranslate);
@@ -153,11 +165,6 @@ async function fillWords() {
   words[randomPlace].classList.add('right');
 }
 
-async function updateWord() {
-  await getAllData();
-  fillWords();
-}
-
 function showPicture() {
   picture.classList.remove('hidden');
   picture.style.backgroundImage = `url(https://raw.githubusercontent.com/dmitruk89/rslang-data/master/data/${wordPicture})`;
@@ -181,7 +188,7 @@ function toggleSkipNextButton() {
 }
 
 function moveProgress() {
-  progressPercent += 20;
+  progressPercent += 10;
   progressBar.style.width = `${progressPercent}%`;
   if (progressPercent === 100) {
     hideGameWindow();
@@ -202,19 +209,9 @@ function showCheck() {
   wordNumber.classList.add('checked');
 }
 
-function hideCheck() {
-  const wordNumber = document.querySelector('.checked');
-  wordNumber.classList.remove('checked');
-}
-
 function showWrong(event) {
   const wordNumber = event.target.previousElementSibling;
   wordNumber.classList.add('wrong');
-}
-
-function hideWrong() {
-  const wordNumber = document.querySelector('.wrong');
-  wordNumber.classList.remove('wrong');
 }
 
 function highlightRight() {
@@ -222,19 +219,8 @@ function highlightRight() {
   wordRight.classList.add('highlighted');
 }
 
-function removeHighlightRight() {
-  const wordRight = document.querySelector('.highlighted');
-  wordRight.classList.remove('highlighted');
-}
-
 function overlineWrong(event) {
-  const wordWrong = event.target;
-  wordWrong.classList.add('crossed');
-}
-
-function removeoverlineWrong() {
-  const wordRight = document.querySelector('.crossed');
-  wordRight.classList.remove('crossed');
+  event.target.classList.add('crossed');
 }
 
 function clearMarks() {
@@ -252,25 +238,47 @@ function clearMarks() {
 }
 
 function setRightAnswer() {
-  console.log('right');
+  // eslint-disable-next-line no-use-before-define
+  wordsList.removeEventListener('click', answerHandlers);
   rightSound.play();
   showCheck();
   highlightRight();
   showPicture();
   showWord();
   toggleSkipNextButton();
-  moveProgress();
   updateCorrectList();
   correctNumber += 1;
+  moveProgress();
 }
 
 function setWrongAnswer() {
-  console.log('no');
+  // eslint-disable-next-line no-use-before-define
+  wordsList.removeEventListener('click', answerHandlers);
   wrongSound.play();
+  showCheck();
+  highlightRight();
+  showPicture();
+  showWord();
   toggleSkipNextButton();
-  moveProgress();
   updateMistakesList();
   mistakesNumber += 1;
+  moveProgress();
+}
+
+function answerHandlers(event) {
+  if (event.target.classList.contains('right')) {
+    setRightAnswer();
+  } else {
+    setWrongAnswer();
+    showWrong(event);
+    overlineWrong(event);
+  }
+}
+
+async function updateWord() {
+  await getAllData();
+  fillWords();
+  wordsList.addEventListener('click', answerHandlers);
 }
 
 async function startGame() {
@@ -284,18 +292,7 @@ async function startGame() {
   updateWord();
 }
 
-function answerHandlers(event) {
-  if (event.target.classList.contains('right')) {
-    setRightAnswer();
-  } else {
-    setWrongAnswer();
-    showWrong(event);
-    overlineWrong(event);
-  }
-}
-
 function goNext() {
-  console.log('next');
   clearMarks();
   toggleSkipNextButton();
   updateWord();
@@ -304,17 +301,8 @@ function goNext() {
 }
 
 function skipWord() {
-  console.log('skip');
   updateWord();
 }
-
-// function skipOrNext(event) {
-//   if (event.code === 'Enter' && nextButton.classList.contains('hidden')) {
-//     skipWord();
-//   } else {
-//     goNext();
-//   }
-// }
 
 function changeLevel(event) {
   if (event.target.closest('.level')) {
@@ -328,18 +316,6 @@ function changeLevel(event) {
   hideWord();
 }
 
-function fillStatistic(total) {
-  document.querySelector('.statistic-header').innerHTML = '<p>Результат игры</p>';
-  statisict.innerHTML = '';
-  statisict.insertAdjacentHTML('afterbegin', `
-  <p class="stat-mistakes">Ошибок: ${mistakesNumber}</p>
-  ${mistakesList}
-  <hr>
-  <p class="stat-correct">Верно: ${correctNumber}</p>
-  ${correctList}
-  `);
-}
-
 startGameButton.addEventListener('click', startGame);
 exitGameButton.addEventListener('click', exitGame);
 pagination.addEventListener('click', changeLevel);
@@ -348,7 +324,6 @@ speacker.addEventListener('click', spellWord);
 skipButton.addEventListener('click', skipWord);
 nextButton.addEventListener('click', goNext);
 wordsList.addEventListener('click', answerHandlers);
-// document.addEventListener('keydown', skipOrNext);
 
 document.addEventListener('keydown', (event) => {
   if ((event.code === 'Digit1' && words[0].classList.contains('right'))
@@ -363,6 +338,26 @@ document.addEventListener('keydown', (event) => {
   || (event.code === 'Digit4' && !words[3].classList.contains('right'))
   || (event.code === 'Digit5' && !words[4].classList.contains('right'))) {
     setWrongAnswer();
+  }
+  if (event.code === 'Digit1' && !words[0].classList.contains('right')) {
+    words[0].classList.add('crossed');
+    words[0].previousElementSibling.classList.add('wrong');
+  }
+  if (event.code === 'Digit2' && !words[1].classList.contains('right')) {
+    words[1].classList.add('crossed');
+    words[1].previousElementSibling.classList.add('wrong');
+  }
+  if (event.code === 'Digit3' && !words[2].classList.contains('right')) {
+    words[2].classList.add('crossed');
+    words[2].previousElementSibling.classList.add('wrong');
+  }
+  if (event.code === 'Digit4' && !words[3].classList.contains('right')) {
+    words[3].classList.add('crossed');
+    words[3].previousElementSibling.classList.add('wrong');
+  }
+  if (event.code === 'Digit5' && !words[4].classList.contains('right')) {
+    words[4].classList.add('crossed');
+    words[4].previousElementSibling.classList.add('wrong');
   }
   if (event.code === 'Enter' && nextButton.classList.contains('hidden')) {
     skipWord();
