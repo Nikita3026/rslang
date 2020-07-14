@@ -67,11 +67,13 @@ export function checkAnswer(unknownWord) {
 
 input.addEventListener('click', () => {
   hideLetters();
+  input.value = '';
   input.classList.remove('transparent');
 });
 
 input.addEventListener('input', (event) => {
   if (event.target.classList.contains('transparent')) {
-    input.click();
+    hideLetters();
+    input.classList.remove('transparent');
   }
 });

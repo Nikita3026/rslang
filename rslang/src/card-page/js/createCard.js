@@ -15,10 +15,12 @@ const HIDDEN_UNKNOWN_WORD = '[...]';
 const TEXT_HIDE_TRANSLATION = 'Скрыть перевод';
 const TEXT_SHOW_TRANSLATION = 'Показать перевод';
 
+const settingsAdditionalForWord = ['showTranscription', 'showWordTranslate'];
 const additionalForWord = ['transcription', 'wordTranslate'];
-const namesButtons = ['showAnswer', 'delete', 'difficultWords'];
+const namesButtons = ['showAnswer', 'isDelete', 'isDifficultWords'];
 const typesSentences = ['textMeaning', 'textMeaningTranslate', 'textExample', 'textExampleTranslate'];
-const settingsTranslate = ['textMeaning', 'textMeaning', 'textExample', 'textExample'];
+const settingsTranslate = ['showTextMeaning', 'showTextMeaning', 'showTextExample',
+  'showTextExample'];
 
 export function changeTextButton(button, typeSetting, textOn, textOff) {
   const currentButton = button;
@@ -30,12 +32,12 @@ export function changeTextButton(button, typeSetting, textOn, textOff) {
 }
 
 function checkTranslations() {
-  changeTextButton(changeTranslate, 'wordTranslate', TEXT_SHOW_TRANSLATION, TEXT_HIDE_TRANSLATION);
+  changeTextButton(changeTranslate, 'showWordTranslate', TEXT_SHOW_TRANSLATION, TEXT_HIDE_TRANSLATION);
 }
 checkTranslations();
 
 changeTranslate.addEventListener('click', () => {
-  settings.wordTranslate = !settings.wordTranslate;
+  settings.showWordTranslate = !settings.showWordTranslate;
   checkTranslations();
 });
 
@@ -46,9 +48,10 @@ function createTextElementForAnswer(dataCard, unknownWord) {
     letter.classList.add('letter');
     textElementAnswer.append(letter);
   }
-  additionalForWord.forEach((element, index) => {
+  settingsAdditionalForWord.forEach((element, index) => {
     if (settings[element]) {
-      additionalContent[index].innerText = dataCard[MIN_NUMBER][additionalForWord[index]];
+      const dataWord = dataCard[MIN_NUMBER];
+      additionalContent[index].innerText = dataWord[additionalForWord[index]];
     }
   });
 }
@@ -68,7 +71,7 @@ function writeSentence(text, element) {
 }
 
 function showImage(dataCard) {
-  if (settings.image) {
+  if (settings.showImage) {
     img.src = `${URL_MATERIALS}${dataCard[MIN_NUMBER].image}`;
   }
 }

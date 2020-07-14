@@ -5,7 +5,7 @@ import {
 } from './constants';
 import { changeTextButton, showButtons } from './createCard';
 
-const namesButtonsMetodic = ['again', 'hard', 'alright', 'easy'];
+const namesButtonsMetodic = ['isAgain', 'isHard', 'isAlright', 'isEasy'];
 const audios = ['audio', 'audioMeaning', 'audioExample'];
 const changeSound = document.querySelector('.change-sound');
 const TEXT_PLAY_SOUND = 'Включить звук';
@@ -41,10 +41,10 @@ export default function playAudio(allWords, repeat) {
 }
 
 function checkAudio() {
-  if (settings.textExample) {
+  if (settings.showTextExample) {
     settings.audioExample = true;
   }
-  if (settings.textMeaning) {
+  if (settings.showTextMeaning) {
     settings.audioMeaning = true;
   }
   changeTextButton(changeSound, 'audio', TEXT_PLAY_SOUND, TEXT_OFF_SOUND);

@@ -1,13 +1,11 @@
-import axios from 'axios';
 import { settings } from './settings';
 import { NEXT_NUMBER } from './constants';
+import apiService from '../../js/GetData';
 
 const MAX_NUMBER_PAGES = 19;
 const MIN_NUMBER = 0;
 const savePage = JSON.parse(localStorage.getItem('page'));
 const saveGroup = JSON.parse(localStorage.getItem('group'));
-const errorMessage = document.querySelector('.error');
-const settingsButton = document.querySelector('.settings');
 
 let page = 0;
 let group = 0;
@@ -16,25 +14,6 @@ if (savePage) {
 }
 if (saveGroup) {
   group = saveGroup;
-}
-
-let textErrorMessage = `Нет карточек для изучения, пожалуйста попробуйте перейти
-   в настройки и изменить количество карточек или новых слов для изучения`;
-textErrorMessage = textErrorMessage.replace(/\n| {2}/g, '');
-errorMessage.innerText = textErrorMessage;
-
-function getData(url) {
-  return axios.get(url)
-    .then((response) => {
-      settingsButton.classList.remove('hide');
-      errorMessage.innerText = textErrorMessage;
-      return response.data;
-    })
-    .catch((error) => {
-      settingsButton.classList.add('hide');
-      errorMessage.innerText = error;
-      return [];
-    });
 }
 
 function saveSaveUrlData() {
@@ -56,8 +35,8 @@ export default async function getDataCard(newWords) {
   let data = newWords;
   if (newWords.length < settings.maxNewWords) {
     const url = createUrl();
-    const gettingData = await getData(url);
-    data = data.concat(gettingData);
+    const gettingData = await apiService.getWords(url);
+    data = data.concat(gettingData.data);
     localStorage.setItem('words', JSON.stringify(data));
     saveSaveUrlData();
   }

@@ -49,11 +49,11 @@ function checkNumberCard() {
 }
 
 async function checkWhichDataWords() {
-  if (settings.onlyDifficultWords) {
+  if (settings.showOnlyDifficultWords) {
     allWords = difficultWords;
-    settings.difficultWords = false;
+    settings.isDifficultWords = false;
   } else {
-    [newWords, allWords] = await createDataWords(newWords, allWords, repeatWords);
+    [newWords, allWords] = await createDataWords(newWords, allWords, repeatWords, cards);
   }
 }
 

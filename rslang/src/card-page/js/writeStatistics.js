@@ -1,11 +1,9 @@
 import {
   MIN_NUMBER, NEXT_NUMBER, notification, statistic, app, LAST_NUMBER_FOR_DATE,
 } from './constants';
-import { settings } from './settings';
 
 const numbersStatistic = document.querySelector('.numbers-statistics');
 const buttonStatistic = document.querySelector('.button-statistic');
-const errorMessage = document.querySelector('.error-message');
 const numberSeria = document.querySelector('.number-seria');
 
 const numbersStatisticElements = [...numbersStatistic.children]
@@ -63,7 +61,7 @@ function saveStatistic(learningWords, cards) {
 
 function writeStatistic(learningWords, cards) {
   const numberMaxRights = Math.max.apply(null, valuesRightAnswer);
-  const proportionRightAnswer = rightAnswer / settings.maxCards;
+  const proportionRightAnswer = rightAnswer / cards;
   const percentRightAnswer = `${proportionRightAnswer * MAX_PERCENT}%`;
   const valuesStatistic = [cards, percentRightAnswer, numberNewWords, numberMaxRights];
   valuesStatistic.forEach((number, index) => {
@@ -78,9 +76,6 @@ function writeStatistic(learningWords, cards) {
 export function checkError(learningWords, cards) {
   if (cards) {
     writeStatistic(learningWords, cards);
-  } else {
-    app.classList.add('hide');
-    errorMessage.classList.remove('hide');
   }
 }
 

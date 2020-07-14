@@ -16,7 +16,7 @@ function showMissingWords(wordsForSentences) {
 
 export function changeCardForAnswer(allWords) {
   const wordsForSentences = getWordsForSentences(allWords);
-  if (settings.wordTranslate) {
+  if (settings.showWordTranslate) {
     removeClassOfElements(translatedWords, ['hide']);
   }
   showMissingWords(wordsForSentences);

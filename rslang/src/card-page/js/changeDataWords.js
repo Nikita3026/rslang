@@ -109,12 +109,12 @@ function getWordsForToday(repeatWords) {
   return wordsForToday;
 }
 
-export async function createDataWords(oldNewWords, oldAllWords, repeatWords) {
-  let newWords = oldNewWords.slice();
+export async function createDataWords(gettingNewWords, oldAllWords, repeatWords, cards) {
+  let newWords = gettingNewWords.slice();
   let allWords = oldAllWords.slice();
   newWords = await getDataCard(newWords);
-  allWords = newWords.slice(MIN_NUMBER, settings.maxNewWords);
-  if (settings.repeatWords) {
+  allWords = newWords.slice(MIN_NUMBER, settings.maxNewWords - cards);
+  if (settings.showRepeatWords) {
     const words = getWordsForToday(repeatWords);
     allWords = words.concat(allWords);
   }
