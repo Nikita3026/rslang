@@ -62,9 +62,7 @@ function getUserData() {
   const userData = JSON.parse(settingsParse);
 
   settings.userEmail = `${userData.email}`;
-  // settings.userFullName = `${userData.userName}`;
   userEmail.innerText = `${userData.email}`;
-  // userName.innerText = `${userData.userName}`;
   userName.innerText = `${settings.userFullName}`;
 }
 
@@ -91,7 +89,6 @@ function applySettings() {
 
   checkboxAll.forEach((el) => {
     for (const key in settings) {
-      // console.log(key, (el.id))
       if (el.id === key && settings[key] === true) {
         el.checked = true;
       } else if (el.id === key && settings[key] === false) {
@@ -164,6 +161,11 @@ function changeInfoCard() {
   applySettings();
 }
 
+function sendReportError() {
+  const reportValue = textareaMistake.value;
+  localStorage.setItem('reportError', JSON.stringify(reportValue));
+}
+
 function changeMaxCards() {
   settings.maxCards = numberCards.value;
   setSettingsLocalstorage();
@@ -227,52 +229,47 @@ function changeTheme() {
 
 function clickButtonBlockChangeSetting(ind, event) {
   const buttonClick = `${event.target.className}`;
+  let isClickButtonChange = true;
 
   switch (buttonClick) {
     case 'button_change save_password':
-      openChangeBlock(ind);
       changePassword();
       break;
     case 'button_change cancel':
-      openChangeBlock(ind);
-      break;
-    case 'button_change delete':
-      openChangeBlock(ind);
-      changeDeleteUser();
       break;
     case 'button_change send':
-      openChangeBlock(ind);
+      sendReportError();
+      break;
+    case 'button_change delete':
+      changeDeleteUser();
       break;
     case 'button_change save_number_words':
-      openChangeBlock(ind);
       changeMaxNewWords();
       break;
     case 'button_change save_number_cards':
-      openChangeBlock(ind);
       changeMaxCards();
       break;
     case 'button_change save_info_card':
-      openChangeBlock(ind);
       changeInfoCard();
       break;
     case 'button_change save_learning_words':
-      openChangeBlock(ind);
       changeLearningWords();
       break;
     case 'button_change save_button_cards':
-      openChangeBlock(ind);
       changeButtonCards();
       break;
     case 'button_change save_button_page':
-      openChangeBlock(ind);
       changeButtonPage();
       break;
     case 'button_change save_theme':
-      openChangeBlock(ind);
       changeTheme();
       break;
     default:
+      isClickButtonChange = false;
       break;
+  }
+  if (isClickButtonChange) {
+    openChangeBlock(ind);
   }
 }
 
