@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import '../css/audiocall.scss';
 import 'bootstrap';
 
-import GetData from '../../js/GetData';
+import apiService from '../../js/GetData';
 
 const startGameButton = document.querySelector('.start-game_button');
 const exitGameButton = document.querySelector('.btn-exit');
@@ -54,9 +54,9 @@ gongSound.src = '../../assets/audio/gong.mp3';
 
 const getWords = async (group, page) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
-  const request = new GetData(url, 'get');
+  const request = apiService.getWords(url);
   let wordsArr = null;
-  await request.sendRequest()
+  await request
     .then((response) => {
       wordsArr = response.data;
     })
