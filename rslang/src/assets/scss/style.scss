@@ -1,11 +1,20 @@
 @import './values.scss';
+@import './settingPage.scss';
 @import './iconLoading.scss';
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 main {
+    position: relative;
     &.main__container {
         grid-area: main;
         padding: 1.5em;
+        overflow: auto;
+        max-height: calc(100vh - 60px);
         position: relative;
+        @media screen and (max-width: 600px) {
+            max-height: calc(100vh - 40px);
+        }
     }
 }
 
@@ -15,6 +24,7 @@ nav#sidebar {
 
 header {
     grid-area: header;
+    z-index: 1;
 }
 
 body {
@@ -22,11 +32,19 @@ body {
     grid-template-columns: 65px 1fr;
     grid-template-rows: 60px 1fr;
     min-height: 100vh;
-    grid-template-areas: 'header header' 'sidebar main';
-    @media screen and (max-width: 600px) {
-        grid-template-columns: 40px 1fr;
-        grid-template-rows: 40px 1fr;
-    }
+    grid-template-areas:
+        'header header'
+        'sidebar main';
+        @media screen and (max-width: 600px) {
+            grid-template-columns: 40px 1fr;
+            grid-template-rows: 40px 1fr;
+        }
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .icon {
