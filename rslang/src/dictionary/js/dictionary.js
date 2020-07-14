@@ -26,10 +26,12 @@ const renderHtml = {
 
 };
 
+const getLocalStorageItem = (item) => JSON.parse(localStorage.getItem(item) || '[]');
+
 const words = {
-  dictionary: JSON.parse(localStorage.getItem('dictionary') || '[]'),
-  deleted: JSON.parse(localStorage.getItem('deleted') || '[]'),
-  difficult: JSON.parse(localStorage.getItem('difficult') || '[]'),
+  dictionary: getLocalStorageItem('dictionary'),
+  deleted: getLocalStorageItem('deleted'),
+  difficult: getLocalStorageItem('difficult'),
 };
 
 function save(name) {
