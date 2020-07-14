@@ -3,9 +3,6 @@ export default [
     title: 'Главная', link: '/', child: [], icon: 'home',
   },
   {
-    title: 'О команде', link: 'about.html', child: [], icon: 'info',
-  },
-  {
     title: 'Мини-игры',
     link: '#pageSubmenu',
     child: [
@@ -27,6 +24,9 @@ export default [
     title: 'Настройки', link: 'setting-page.html', child: [], icon: 'adjust',
   },
   {
-    title: 'Выход', link: 'authorization.html', child: [], icon: 'logout',
+    title: 'О команде', link: '/about.html', child: [], icon: 'info',
+  },
+  {
+    title: 'Выход', link: '/authorization', child: [], icon: 'logout',
   },
 ];
