@@ -126,7 +126,7 @@ a[data-toggle="collapse"] {
 }
 
 .navbar.active span {
-  background-image: url(/assets/images/icon/leftAr.svg);
+  background-image: url("/assets/images/icon/leftAr.svg");
 }
 
 .navbar button,
@@ -146,5 +146,5 @@ a[data-toggle="collapse"] {
   background-size: contain;
   background-position: 50%;
   background-repeat: no-repeat;
-  background-image: url(/assets/images/icon/rightAr.svg);
+  background-image: url("/assets/images/icon/rightAr.svg");
 }

@@ -112,7 +112,7 @@ a[data-toggle="collapse"] {
     &.active {
         left: 180px;
         span {
-            background-image: url(/assets/images/icon/leftAr.svg);
+            background-image: url('/assets/images/icon/leftAr.svg');
         }
     }
     button,
@@ -131,6 +131,6 @@ a[data-toggle="collapse"] {
         background-size: contain;
         background-position: 50%;
         background-repeat: no-repeat;
-        background-image: url(/assets/images/icon/rightAr.svg);
+        background-image: url('/assets/images/icon/rightAr.svg');
     }
 }
