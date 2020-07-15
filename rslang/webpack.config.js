@@ -18,6 +18,7 @@ module.exports = {
         dictionary: './src/dictionary/index.js',
         setting: './src/setting-page/index.js',
         authorization: './src/authorization/index.js',
+        cardpage: './src/card-page/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -146,6 +147,11 @@ module.exports = {
             filename: 'savannah.html',
             template: './src/savannah/savannah.html',
             chunks: ['savannah']
+        }),
+        new HtmlWebPackPlugin({
+          filename: 'cardpage.html',
+          template: './src/card-page/cardpage.html',
+          chunks: ['cardpage'],
         }),
         new CleanWebpackPlugin(),
     ],
