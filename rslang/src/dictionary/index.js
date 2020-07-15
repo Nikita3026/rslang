@@ -4,7 +4,6 @@ import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import './css/style.scss';
 import {
-  // setBodyDataToDom,
   checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 
@@ -13,7 +12,6 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    // await setBodyDataToDom('dictionary.html');
     renderSideBar();
     await import('./js/dictionary');
   } else {

@@ -14,7 +14,6 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    // await setBodyDataToDom('audiocall.html');
     renderSideBar();
     await import('./js/audiocall');
    

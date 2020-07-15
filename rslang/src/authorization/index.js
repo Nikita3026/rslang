@@ -6,6 +6,5 @@ import { authorization } from './js/authorization';
 // import { setBodyDataToDom } from '../js/helpers';
 
 window.onload = async () => {
-  // await setBodyDataToDom('authorization.html');
   authorization();
 };
