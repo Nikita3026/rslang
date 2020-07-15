@@ -1,4 +1,4 @@
-export const settings = {
+export const initSettings = {
   showTextMeaning: true,
   showTextExample: true,
   showImage: true,
@@ -11,7 +11,7 @@ export const settings = {
   isDelete: true,
   isDifficultWords: true,
   maxCards: 10,
-  maxNewWords: 2,
+  maxNewWords: 10,
   isAgain: true,
   isHard: true,
   isAlright: true,
@@ -19,3 +19,5 @@ export const settings = {
   showRepeatWords: true,
   showOnlyDifficultWords: false,
 };
+
+export const settings = JSON.parse(localStorage.getItem('settings')) || initSettings;
