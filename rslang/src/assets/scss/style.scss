@@ -4,7 +4,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-main {
+body > main {
     position: relative;
     &.main__container {
         grid-area: main;
@@ -25,6 +25,7 @@ nav#sidebar {
 header {
     grid-area: header;
     z-index: 1;
+    top: 0;
 }
 
 body {
@@ -72,7 +73,7 @@ h1 {
     top: 15px;
     padding: 20px;
     margin-right: 15px;
-    animation: 0.5s alertMove;    
+    animation: 0.5s alertMove;
     z-index: 100;
     &.hide {
         animation: 0.5s alertHide;
@@ -86,9 +87,9 @@ h1 {
     to {
         right: 0;
     }
-  }
+}
 
-  @keyframes alertHide {
+@keyframes alertHide {
     from {
         top: auto;
         opacity: 1;
@@ -97,7 +98,8 @@ h1 {
         top: -100%;
         opacity: 0;
     }
-  }
+}
+
 .tooltip__container {
     position: fixed;
     background: #272d37;
@@ -110,7 +112,6 @@ h1 {
     z-index: 100;
     &:before {
         content: '';
-        
     }
     span {
         &.tooltip-pointer {

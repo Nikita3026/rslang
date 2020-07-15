@@ -11,7 +11,7 @@ window.onload = () => {
       updateToken();
     }
     renderSideBar();
-    routeTo('/cardpage');
+    routeTo('cardpage.html');
   } else {
     routeToAuth();
   }

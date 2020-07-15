@@ -2,12 +2,11 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
+import './css/style.scss';
 import {
   // setBodyDataToDom,
   checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
-
-import './css/style.scss';
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData')) {
@@ -16,8 +15,7 @@ window.onload = async () => {
     }
     // await setBodyDataToDom('dictionary.html');
     renderSideBar();
-    const { renderApp } = await import('./js/dictionary');
-    renderApp();
+    await import('./js/dictionary');
   } else {
     routeToAuth();
   }
