@@ -3,7 +3,8 @@ import 'regenerator-runtime/runtime';
 import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
-  setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
+  // setBodyDataToDom,
+  checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 
 import './css/style.scss';
@@ -13,11 +14,11 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    await setBodyDataToDom('about.html');
+    // await setBodyDataToDom('about.html');
     renderSideBar();
     const { renderApp } = await import('./js/about');
     renderApp();
   } else {
-    routeTo('/authorization');
+    routeToAuth();
   }
 };

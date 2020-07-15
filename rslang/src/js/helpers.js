@@ -11,6 +11,10 @@ export const routeTo = (path) => {
   window.location.href = path;
 };
 
+export const routeToAuth = () => {
+  window.location.href = 'authorization.html';
+};
+
 export const renderHeadDataToDom = (head) => {
   const headElement = document.querySelector('head');
   Array.from(head.children).forEach((it) => {
@@ -27,21 +31,10 @@ export const renderBodyDataToDom = (body) => {
   });
 };
 
-export const setBodyDataToDom = async (path) => {
-  const parseHtml = await apiService.parseHtmlToDOM(path)
-    .then((response) => response.data)
-    .then((html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      renderHeadDataToDom(doc.head);
-      renderBodyDataToDom(doc.body);
-    });
-  return parseHtml;
-};
-
 export const removeToken = () => {
   const localStorageData = JSON.parse(localStorage.getItem('SWAuthData'));
   delete localStorageData.token;
+  delete localStorageData.refreshToken;
   delete localStorageData.time;
   const newLocalStorageData = JSON.stringify(localStorageData);
   return localStorage.setItem('SWAuthData', newLocalStorageData);

@@ -31,7 +31,7 @@ export const logIn = async (emailValue, passwordValue) => {
         time: new Date(),
       };
       localStorage.setItem('SWAuthData', JSON.stringify(loginAuthData));
-      routeTo('/');
+      routeTo('cardpage.html');
     });
 
   return authLogin;

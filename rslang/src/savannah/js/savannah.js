@@ -58,12 +58,12 @@ const runListeners = () => {
 
     constants.QUIT_BTNS.forEach((item) => {
         item.addEventListener('click', () => {
-            routeTo('../');
+            routeTo('cardpage.html');
         });
     });
 
     constants.PROCEED_BTN.addEventListener('click', () => {
-        routeTo('/savannah');
+        routeTo('savannah.html');
     });
 };
 

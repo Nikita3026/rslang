@@ -4,7 +4,7 @@ import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import './css/style.scss';
 import {
-  setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
+  checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 
 window.onload = async () => {
@@ -12,10 +12,9 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    await setBodyDataToDom('dictionary.html');
     renderSideBar();
     await import('./js/dictionary');
   } else {
-    routeTo('/authorization');
+    routeToAuth();
   }
 };

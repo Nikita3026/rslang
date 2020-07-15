@@ -37,6 +37,7 @@ body {
     top: 60px;
     overflow: hidden;
     box-shadow: -5px 0px 10px #505050;
+    left: 0;
     @media screen and (max-width: 600px) {
         width: 40px;
         top: 40px;
@@ -111,7 +112,7 @@ a[data-toggle="collapse"] {
     &.active {
         left: 180px;
         span {
-            background-image: url(/assets/images/icon/leftAr.svg);
+            background-image: url('/assets/images/icon/leftAr.svg');
         }
     }
     button,
@@ -130,6 +131,6 @@ a[data-toggle="collapse"] {
         background-size: contain;
         background-position: 50%;
         background-repeat: no-repeat;
-        background-image: url(/assets/images/icon/rightAr.svg);
+        background-image: url('/assets/images/icon/rightAr.svg');
     }
 }
