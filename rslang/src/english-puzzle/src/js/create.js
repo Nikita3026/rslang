@@ -11,7 +11,8 @@ function createSignPage(mode) {
   existRemove('.sign-page');
   existRemove('.start-page');
   existRemove('.main-page');
-  if (mode === 'UP') {
+  switch (mode) {
+    case  'UP': {
     const signPage = createElement('div', {
       classList: ['sign-page'],
       innerHTML: '<h1 class="sign-page__title">Sign up</h1>',
@@ -66,8 +67,9 @@ function createSignPage(mode) {
 
     signPage.append(signUpForm);
     document.querySelector('body').append(signPage);
+    break;
   }
-  if (mode === 'IN') {
+    case 'IN': {
     const signPage = createElement('div', {
       classList: ['sign-page'],
       innerHTML: '<h1 class="sign-page__title">Sign in</h1>',
@@ -119,7 +121,9 @@ function createSignPage(mode) {
 
     signPage.append(signUpForm);
     document.querySelector('body').append(signPage);
+    break;
   }
+}
 }
 
 function createMainPage() {
