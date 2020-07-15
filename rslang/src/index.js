@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import { renderSideBar } from './js/SideBar/SideBar';
 import 'bootstrap';
 import './assets/scss/style.scss';
-import { routeTo, checkTokenIsValid, updateToken } from './js/helpers';
+import { routeTo, routeToAuth, checkTokenIsValid, updateToken } from './js/helpers';
 
 window.onload = () => {
   if (localStorage.getItem('SWAuthData')) {
@@ -11,8 +11,8 @@ window.onload = () => {
       updateToken();
     }
     renderSideBar();
-    routeTo('/cardpage');
+    routeTo('cardpage.html');
   } else {
-    routeTo('/authorization');
+    routeToAuth();
   }
 };

@@ -3,7 +3,8 @@ import 'regenerator-runtime/runtime';
 import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
 import {
-  setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
+  // setBodyDataToDom,
+  checkTokenIsValid, routeToAuth, updateToken,
 } from '../js/helpers';
 
 import './css/style.scss';
@@ -13,11 +14,10 @@ window.onload = async () => {
     if (!checkTokenIsValid()) {
       updateToken();
     }
-    await setBodyDataToDom('audiocall.html');
     renderSideBar();
     await import('./js/audiocall');
    
   } else {
-    routeTo('/authorization');
+    routeToAuth();
   }
 };

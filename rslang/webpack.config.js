@@ -122,7 +122,7 @@ module.exports = {
             filename: 'dictionary.html',
             template: './src/dictionary/dictionary.html',
             chunks: ['dictionary'],
-        }),
+        }),        
         new HtmlWebPackPlugin({
             filename: 'english-puzzle.html',
             template: './src/english-puzzle/english-puzzle.html',

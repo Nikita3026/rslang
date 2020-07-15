@@ -4,7 +4,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-main {
+body > main {
     position: relative;
     &.main__container {
         grid-area: main;
@@ -25,6 +25,7 @@ nav#sidebar {
 header {
     grid-area: header;
     z-index: 1;
+    top: 0;
 }
 
 body {
@@ -39,7 +40,7 @@ body {
             grid-template-columns: 40px 1fr;
             grid-template-rows: 40px 1fr;
         }
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 h1 {

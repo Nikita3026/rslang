@@ -38,19 +38,20 @@ let wordsArrFalse = [];
 
 const rightSound = new Audio();
 rightSound.preload = 'auto';
-rightSound.src = '../../assets/audio/rightAnswer.wav';
+
+rightSound.src = '/assets/audio/rightAnswer.wav';
 
 const wrongSound = new Audio();
 wrongSound.preload = 'auto';
-wrongSound.src = '../../assets/audio/wrongAnswer.wav';
+wrongSound.src = '/assets/audio/wrongAnswer.wav';
 
 const endGameSound = new Audio();
 endGameSound.preload = 'auto';
-endGameSound.src = '../../assets/audio/endGame.mp3';
+endGameSound.src = '/assets/audio/endGame.mp3';
 
 const gongSound = new Audio();
 gongSound.preload = 'auto';
-gongSound.src = '../../assets/audio/gong.mp3';
+gongSound.src = '/assets/audio/gong.mp3';
 
 const getWords = async (group, page) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
