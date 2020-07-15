@@ -11,6 +11,7 @@ module.exports = {
         speakit: './src/speakit/index.js',
         sprint: './src/sprint/index.js',
         about: './src/about/index.js',
+        englishpuzzle: './src/english-puzzle/index.js',
         savannah: './src/savannah/index.js',
         audiocall: './src/audiocall/index.js',
         statistics: './src/statistics/index.js',
@@ -121,6 +122,11 @@ module.exports = {
             filename: 'dictionary.html',
             template: './src/dictionary/dictionary.html',
             chunks: ['dictionary'],
+        }),        
+        new HtmlWebPackPlugin({
+            filename: 'english-puzzle.html',
+            template: './src/english-puzzle/english-puzzle.html',
+            chunks: ['englishpuzzle'],
         }),
         new HtmlWebPackPlugin({
             filename: 'savannah.html',

@@ -7,6 +7,7 @@ export default [
     link: '#pageSubmenu',
     child: [
       { title: 'SpeakIt', link: 'speakit.html' },
+      { title: 'English puzzle', link: 'english-puzzle.html' },
       { title: 'Спринт', link: 'sprint.html' },
       { title: 'Саванна', link: 'savannah.html' },
       { title: 'Аудиовызов', link: 'audiocall.html' },
