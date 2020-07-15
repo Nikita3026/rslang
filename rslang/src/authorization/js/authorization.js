@@ -54,7 +54,7 @@ export const handleAuthorize = async (event) => {
           name: userName,
           email: userEmail,
           password: userPassword,
-          id: response.data.id,
+          userId: response.data.id,
         };
         localStorage.setItem('SWAuthData', JSON.stringify(regAuthData));
         logIn(userEmail, userPassword);
@@ -191,8 +191,8 @@ const getFormElements = (type) => {
   const isRegistrated = getAuthIdFromLocalStorage();
   const submitInputElement = getSubmitBtnElement(!isRegistrated ? 'Войти' : 'Регистрация');
   const commentPassword = document.createElement('label');
-  commentPassword.innerText = `Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, 
-  одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}`;
+  commentPassword.innerText = 'Пароль должен содержать не менее 8 символов, как минимум одну прописную букву,'
+  + 'одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}';
   commentPassword.classList.add('pass_comment');
   commentPassword.style.display = 'none';
   const commentRPassword = document.createElement('label');
@@ -232,10 +232,8 @@ const runListener = () => {
     }
     return Array.from(TABNAVIGATION.children).forEach((ch) => {
       ch.classList.remove('active');
-      ch.classList.remove('border-bottom-0');
       if (ch.dataset.type === type) {
         ch.classList.add('active');
-        ch.classList.add('border-bottom-0');
         renderAuthForm(type);
       }
     });
@@ -269,8 +267,8 @@ const getNavigateTabs = () => {
   ulTabNavigation.classList.add('nav', 'tab_navigation');
   ['login', 'register'].map((it) => {
     const liElement = document.createElement('li');
-    liElement.classList.add('nav_item', it, 'rounded-top', 'border');
-    if (it === 'login') liElement.classList.add('active', 'border-bottom-0');
+    liElement.classList.add('nav_item', it);
+    if (it === 'login') liElement.classList.add('active');
     liElement.setAttribute('data-type', it);
     const link = document.createElement('a');
     link.classList.add('nav-link');
@@ -291,7 +289,7 @@ const getFromContainer = () => {
 
 const getFormElementContainer = () => {
   const fromElement = document.createElement('form');
-  fromElement.classList.add('form-group', 'login_form', 'from_login', 'border', 'border-top-0');
+  fromElement.classList.add('form-group', 'login_form', 'from_login');
   return fromElement;
 };
 
