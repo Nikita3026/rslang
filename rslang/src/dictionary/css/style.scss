@@ -24,17 +24,17 @@ body{
     position: relative;
     overflow: hidden;
     z-index: 1;
-	padding: 10px 23px;
+    padding: 10px 23px;
     font-weight: 600;
     line-height: 30px;
     color: white;
     font-size: 15px;    
     text-transform: uppercase;
-	background: #f5b08f;
-	border-width: 0;
+    background: #f5b08f;
+    border-width: 0;
     box-shadow: 5px 5px 0 #532831;
-	outline: none;
-	cursor: pointer;
+    outline: none;
+    cursor: pointer;
     transition: 1.5s;
 }
 
@@ -102,11 +102,11 @@ button {
 
 
 button:active {
-	transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 button:focus {
-	outline: none;
+    outline: none;
 }
 
 .remove  {
