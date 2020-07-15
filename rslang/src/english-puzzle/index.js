@@ -1,12 +1,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import 'bootstrap';
 import { renderSideBar } from '../js/SideBar/SideBar';
+import '../assets/scss/style.scss';
+import './scss/style.scss';
 import {
   setBodyDataToDom, checkTokenIsValid, routeTo, updateToken,
 } from '../js/helpers';
-
-import './css/style.scss';
 
 window.onload = async () => {
   if (localStorage.getItem('SWAuthData')) {
@@ -15,8 +14,9 @@ window.onload = async () => {
     }
     await setBodyDataToDom('english-puzzle.html');
     renderSideBar();
-    const { renderApp } = await import('./js/english-puzzle');
-    renderApp();
+    const { createStartPage } = await import('./js/create');
+    await import('./js/dragHandler');
+    createStartPage();
   } else {
     routeTo('/authorization');
   }
