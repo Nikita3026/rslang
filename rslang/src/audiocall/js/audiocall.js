@@ -290,6 +290,9 @@ async function startGame() {
   hideStatisticWindow();
   showGameWindow();
   updateWord();
+  if (skipButton.classList.contains('hidden')) {
+    toggleSkipNextButton();
+  }
 }
 
 function goNext() {
@@ -311,9 +314,7 @@ function changeLevel(event) {
       event.target.closest('.level').classList.add('active');
     });
   }
-  updateWord();
-  hidePicture();
-  hideWord();
+  startGame();
 }
 
 startGameButton.addEventListener('click', startGame);
@@ -326,39 +327,43 @@ nextButton.addEventListener('click', goNext);
 wordsList.addEventListener('click', answerHandlers);
 
 document.addEventListener('keydown', (event) => {
-  if ((event.code === 'Digit1' && words[0].classList.contains('right'))
-  || (event.code === 'Digit2' && words[1].classList.contains('right'))
-  || (event.code === 'Digit3' && words[2].classList.contains('right'))
-  || (event.code === 'Digit4' && words[3].classList.contains('right'))
-  || (event.code === 'Digit5' && words[4].classList.contains('right'))) {
-    setRightAnswer();
-  } else if ((event.code === 'Digit1' && !words[0].classList.contains('right'))
-  || (event.code === 'Digit2' && !words[1].classList.contains('right'))
-  || (event.code === 'Digit3' && !words[2].classList.contains('right'))
-  || (event.code === 'Digit4' && !words[3].classList.contains('right'))
-  || (event.code === 'Digit5' && !words[4].classList.contains('right'))) {
-    setWrongAnswer();
+  if (picture.classList.contains('hidden')) {
+    if ((event.code === 'Digit1' && words[0].classList.contains('right'))
+    || (event.code === 'Digit2' && words[1].classList.contains('right'))
+    || (event.code === 'Digit3' && words[2].classList.contains('right'))
+    || (event.code === 'Digit4' && words[3].classList.contains('right'))
+    || (event.code === 'Digit5' && words[4].classList.contains('right'))) {
+      setRightAnswer();
+    } else if ((event.code === 'Digit1' && !words[0].classList.contains('right'))
+    || (event.code === 'Digit2' && !words[1].classList.contains('right'))
+    || (event.code === 'Digit3' && !words[2].classList.contains('right'))
+    || (event.code === 'Digit4' && !words[3].classList.contains('right'))
+    || (event.code === 'Digit5' && !words[4].classList.contains('right'))
+    ) {
+      setWrongAnswer();
+      if (event.code === 'Digit1') {
+        words[0].classList.add('crossed');
+        words[0].previousElementSibling.classList.add('wrong');
+      }
+      if (event.code === 'Digit2') {
+        words[1].classList.add('crossed');
+        words[1].previousElementSibling.classList.add('wrong');
+      }
+      if (event.code === 'Digit3') {
+        words[2].classList.add('crossed');
+        words[2].previousElementSibling.classList.add('wrong');
+      }
+      if (event.code === 'Digit4') {
+        words[3].classList.add('crossed');
+        words[3].previousElementSibling.classList.add('wrong');
+      }
+      if (event.code === 'Digit5') {
+        words[4].classList.add('crossed');
+        words[4].previousElementSibling.classList.add('wrong');
+      }
+    }
   }
-  if (event.code === 'Digit1' && !words[0].classList.contains('right')) {
-    words[0].classList.add('crossed');
-    words[0].previousElementSibling.classList.add('wrong');
-  }
-  if (event.code === 'Digit2' && !words[1].classList.contains('right')) {
-    words[1].classList.add('crossed');
-    words[1].previousElementSibling.classList.add('wrong');
-  }
-  if (event.code === 'Digit3' && !words[2].classList.contains('right')) {
-    words[2].classList.add('crossed');
-    words[2].previousElementSibling.classList.add('wrong');
-  }
-  if (event.code === 'Digit4' && !words[3].classList.contains('right')) {
-    words[3].classList.add('crossed');
-    words[3].previousElementSibling.classList.add('wrong');
-  }
-  if (event.code === 'Digit5' && !words[4].classList.contains('right')) {
-    words[4].classList.add('crossed');
-    words[4].previousElementSibling.classList.add('wrong');
-  }
+  
   if (event.code === 'Enter' && nextButton.classList.contains('hidden')) {
     skipWord();
   } else if (event.code === 'Enter' && skipButton.classList.contains('hidden')) {
