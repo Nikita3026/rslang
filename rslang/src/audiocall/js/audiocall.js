@@ -38,6 +38,7 @@ let wordsArrFalse = [];
 
 const rightSound = new Audio();
 rightSound.preload = 'auto';
+
 rightSound.src = '/assets/audio/rightAnswer.wav';
 
 const wrongSound = new Audio();
