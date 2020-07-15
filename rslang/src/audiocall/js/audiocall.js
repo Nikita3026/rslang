@@ -1,5 +1,3 @@
-export const renderApp = () => {
-  console.log('renderApp');
-};
+export const renderApp = () => {};
 
 export default {};
