@@ -19,6 +19,7 @@ module.exports = {
         setting: './src/setting-page/index.js',
         authorization: './src/authorization/index.js',
         cardpage: './src/card-page/index.js',
+        promo: './src/promo-page/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -152,6 +153,11 @@ module.exports = {
           filename: 'cardpage.html',
           template: './src/card-page/cardpage.html',
           chunks: ['cardpage'],
+        }),
+        new HtmlWebPackPlugin({
+            filename: 'promo.html',
+            template: './src/promo-page/promo.html',
+            chunks: ['promo'],
         }),
         new CleanWebpackPlugin(),
     ],

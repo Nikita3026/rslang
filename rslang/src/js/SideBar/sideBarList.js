@@ -27,6 +27,9 @@ export default [
     title: 'О команде', link: '/about', child: [], icon: 'info',
   },
   {
+    title: 'Промо страница', link: '/promo', child: [], icon: 'promo',
+  },
+  {
     title: 'Выход', link: '/authorization', child: [], icon: 'logout',
   },
 ];
