@@ -42,7 +42,6 @@ function createImage(data) {
   if (settings.image) {
     htmlCode += `<img src='${URL_MATERIALS}${data.image}'>`;
   }
-  htmlCode += '</div>';
   return htmlCode;
 }
 
@@ -62,6 +61,7 @@ function createProgressLearning(data) {
   htmlCode += `<span>Повторялось последний раз: ${data.oldInterval}</span>`;
   htmlCode += `<span>Повторится снова: ${data.interval}</span>`;
   htmlCode += `<span>Уровень изучения слова: ${levelsLearning[data.coefficient]}</span>`;
+  htmlCode += '</div>';
   return htmlCode;
 }
 
@@ -76,7 +76,8 @@ export function createHtmlForWord(data) {
   return htmlCode;
 }
 
-export function playAudio(index, words) {
+export function playAudio(dom, words) {
+  const index = words.map((el) => el.word).indexOf(dom.dataset.name);
   const audio = new Audio();
   audio.src = `${URL_MATERIALS}${words[index].audio}`;
   audio.autoplay = true;

@@ -43,9 +43,10 @@ body{
 }
 .container {
     position: relative;
-    max-width: 560px;
+    max-width: 600px;
     width: 100%;
-  }
+}
+
 .word {
     display: flex;
     flex-direction: column;
@@ -82,6 +83,7 @@ p{
     background: whitesmoke;
     font: normal 13pt/15pt sans-serif;
     justify-content: space-between;
+    width: 90%;
 }
 
 .word > span {
@@ -126,4 +128,10 @@ button:focus {
     vertical-align: text-bottom;
 }
 
+img {
+    width: 50%;
+}
 
+button {
+    margin-top: 5px;
+}

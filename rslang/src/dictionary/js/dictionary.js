@@ -14,7 +14,7 @@ const renderHtml = {
     return htmlCode;
   },
   restore(name) {
-    return `<div class='word-other' data-name='${name.word}'><span>${name.word}</span>
+    return `<div class='word-other word' data-name='${name.word}'><span>${name.word}</span>
     <button class='restore'>Восстановить</button></div>`;
   },
   deleted(name) {
@@ -62,13 +62,7 @@ navs.forEach((el) => {
   });
 });
 
-document.addEventListener('click', (event) => {
-  if (event.target.closest('.remove') || event.target.closest('.difficult')) {
-    let name;
-    if (event.target.closest('.remove')) name = 'deleted';
-    else if (event.target.closest('.difficult')) name = 'difficult';
-
-    const dom = event.target.closest('.word');
+function changeDictionary (name, event,dom) {
     const index = words.dictionary.map((el) => el.word).indexOf(dom.dataset.name);
 
     dom.remove();
@@ -78,10 +72,9 @@ document.addEventListener('click', (event) => {
     words.dictionary.splice(index, 1);
     save(name);
     save('dictionary');
-  }
+}
 
-  if (event.target.closest('.restore')) {
-    const dom = event.target.closest('.word');
+function changeRestore (event,dom) {
     const { name } = event.target.closest('.container').dataset;
     const index = words[name].map((el) => el.word).indexOf(dom.dataset.name);
 
@@ -92,11 +85,21 @@ document.addEventListener('click', (event) => {
     words[name].splice(index, 1);
     save('dictionary');
     save(name);
-  }
+}
 
-  if (event.target.closest('.audio')) {
-    const dom = event.target.closest('.word');
-    const index = words.dictionary.map((el) => el.word).indexOf(dom.dataset.name);
-    playAudio(index, words.dictionary);
+document.addEventListener('click', (event) => {
+  const dom = event.target.closest('.word');
+  switch (event.target.className){
+    case  'remove': changeDictionary('deleted',event,dom);
+    break;
+    case  'difficult': changeDictionary('difficult', event,dom);
+    break;
+    case  'restore': changeRestore(event,dom);
+    break;
+    case  'audio': playAudio(dom, words.dictionary);
+    break;
+    default: return false;
   }
 });
+
+
