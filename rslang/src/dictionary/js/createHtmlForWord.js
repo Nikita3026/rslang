@@ -1,37 +1,27 @@
-export const settings = {
-  textMeaning: true,
-  textExample: true,
-  image: true,
-  audioMeaning: false,
-  audioExample: false,
-  wordTranslate: true,
-  audio: true,
-  transcription: true,
-  showAnswer: true,
-  delete: true,
-  difficultWords: true,
-  maxCards: 10,
-  maxNewWords: 10,
-  again: true,
-  hard: true,
-  alright: true,
-  easy: true,
-  repeatWords: true,
-  onlyDifficultWords: false,
+const initSettings = {
+  showTextMeaning: true,
+  showTextExample: true,
+  showImage: true,
+  showTranscription: true,
+  isDelete: true,
+  isDifficultWords: true,
 };
 
+const settings = JSON.parse(localStorage.getItem('settings')) || initSettings;
+const NO_LEARNING_WORD = '<span>Слово еще не изучалось</span>';
 const URL_MATERIALS = 'https://raw.githubusercontent.com/Nikita3026/rslang-data/master/';
-const namesSettings = ['textMeaning', 'textExample', 'transcription'];
+const additionalForWord = ['textMeaning', 'textExample', 'transcription'];
+const namesSettings = ['showTextMeaning', 'showTextExample', 'showTranscription'];
 const levelsLearning = ['у вас прекрасная память',
   'это слово так и вертится у вас на языке', 'вы в процессе запоминания слова',
   'это слово нужно подучить'];
 
 function createButtons() {
   let htmlCode = '';
-  if (settings.delete) {
+  if (settings.isDelete) {
     htmlCode += "<button class='remove'>Удалить</button>";
   }
-  if (settings.difficultWords) {
+  if (settings.isDifficultWords) {
     htmlCode += "<button class='difficult'>Сложные</button>";
   }
   return htmlCode;
@@ -39,7 +29,7 @@ function createButtons() {
 
 function createImage(data) {
   let htmlCode = '';
-  if (settings.image) {
+  if (settings.showImage) {
     htmlCode += `<img src='${URL_MATERIALS}${data.image}'>`;
   }
   return htmlCode;
@@ -47,9 +37,9 @@ function createImage(data) {
 
 function checkSettingsForHTMLCode(data) {
   let code = '';
-  namesSettings.forEach((name) => {
+  namesSettings.forEach((name, index) => {
     if (settings[name]) {
-      code += `<p>${data[name]}</p>`;
+      code += `<p>${data[additionalForWord[index]]}</p>`;
     }
   });
   code += '</div>';
@@ -57,10 +47,15 @@ function checkSettingsForHTMLCode(data) {
 }
 
 function createProgressLearning(data) {
-  let htmlCode = `<span>Количество повторений: ${data.replays}</span>`;
-  htmlCode += `<span>Повторялось последний раз: ${data.oldInterval}</span>`;
-  htmlCode += `<span>Повторится снова: ${data.interval}</span>`;
-  htmlCode += `<span>Уровень изучения слова: ${levelsLearning[data.coefficient]}</span>`;
+  let htmlCode = '';
+  if (data.replays) {
+    htmlCode = `<span>Количество повторений: ${data.replays}</span>`;
+    htmlCode += `<span>Повторялось последний раз: ${data.oldInterval}</span>`;
+    htmlCode += `<span>Повторится снова: ${data.interval}</span>`;
+    htmlCode += `<span>Уровень изучения слова: ${levelsLearning[data.coefficient]}</span>`;
+  } else {
+    htmlCode += NO_LEARNING_WORD;
+  }
   htmlCode += '</div>';
   return htmlCode;
 }

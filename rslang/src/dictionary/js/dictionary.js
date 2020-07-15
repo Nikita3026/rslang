@@ -62,44 +62,42 @@ navs.forEach((el) => {
   });
 });
 
-function changeDictionary (name, event,dom) {
-    const index = words.dictionary.map((el) => el.word).indexOf(dom.dataset.name);
+function changeDictionary(name, dom) {
+  const index = words.dictionary.map((el) => el.word).indexOf(dom.dataset.name);
 
-    dom.remove();
-    containers[name].insertAdjacentHTML('beforeend', renderHtml[name](words.dictionary[index]));
+  dom.remove();
+  containers[name].insertAdjacentHTML('beforeend', renderHtml[name](words.dictionary[index]));
 
-    words[name].push(words.dictionary[index]);
-    words.dictionary.splice(index, 1);
-    save(name);
-    save('dictionary');
+  words[name].push(words.dictionary[index]);
+  words.dictionary.splice(index, 1);
+  save(name);
+  save('dictionary');
 }
 
-function changeRestore (event,dom) {
-    const { name } = event.target.closest('.container').dataset;
-    const index = words[name].map((el) => el.word).indexOf(dom.dataset.name);
+function changeRestore(event, dom) {
+  const { name } = event.target.closest('.container').dataset;
+  const index = words[name].map((el) => el.word).indexOf(dom.dataset.name);
 
-    dom.remove();
-    containers.dictionary.insertAdjacentHTML('beforeend', renderHtml.dictionary(words[name][index]));
+  dom.remove();
+  containers.dictionary.insertAdjacentHTML('beforeend', renderHtml.dictionary(words[name][index]));
 
-    words.dictionary.push(words[name][index]);
-    words[name].splice(index, 1);
-    save('dictionary');
-    save(name);
+  words.dictionary.push(words[name][index]);
+  words[name].splice(index, 1);
+  save('dictionary');
+  save(name);
 }
 
 document.addEventListener('click', (event) => {
-  const dom = event.target.closest('.word');
-  switch (event.target.className){
-    case  'remove': changeDictionary('deleted',event,dom);
-    break;
-    case  'difficult': changeDictionary('difficult', event,dom);
-    break;
-    case  'restore': changeRestore(event,dom);
-    break;
-    case  'audio': playAudio(dom, words.dictionary);
-    break;
-    default: return false;
+  let dom = event.target.closest('.word');
+  switch (event.target.className) {
+    case 'remove': changeDictionary('deleted', dom);
+      break;
+    case 'difficult': changeDictionary('difficult', dom);
+      break;
+    case 'restore': changeRestore(event, dom);
+      break;
+    case 'audio': playAudio(dom, words.dictionary);
+      break;
+    default: dom = '';
   }
 });
-
-
