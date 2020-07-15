@@ -16,8 +16,8 @@ window.onload = async () => {
     }
     // await setBodyDataToDom('audiocall.html');
     renderSideBar();
-    const { renderApp } = await import('./js/audiocall');
-    renderApp();
+    await import('./js/audiocall');
+   
   } else {
     routeToAuth();
   }
